@@ -1,0 +1,94 @@
+
+@use 'variables' as v;
+
+// GLOBAL STYLING
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: v.$bg-primary;
+  color: v.$color-off-white;
+  font-family: v.$font-body;
+}
+
+// TYPOGRAFI - MOBILE FIRST
+h1 {
+  font-family: v.$font-heading;
+  font-weight: v.$font-regular;
+  font-size: 38px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: v.$color-off-white;
+}
+
+h2 {
+  font-family: v.$font-heading;
+  font-weight: v.$font-regular;
+  font-size: 22px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: v.$color-off-white;
+}
+
+h3 {
+  font-family: v.$font-body;
+  font-weight: v.$font-medium;
+  font-size: 18px;
+  text-transform: none;
+}
+
+h4 {
+  font-family: v.$font-body;
+  font-weight: v.$font-medium;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+p {
+  font-family: v.$font-body;
+  font-weight: v.$font-regular;
+  font-size: 16px;
+  line-height: normal;
+}
+
+// HIGHLIGHT AF ENKELTE ORD
+.text-accent {
+  color: v.$color-lime;
+}
+
+// SKIFTENDE SEKTIONSBAGGRUNDE
+.page-section {
+  background-color: v.$bg-primary;
+
+  &:nth-of-type(even) {
+    background-color: v.$bg-secondary;
+  }
+}
+
+// FOOTER
+.site-footer {
+  background-color: v.$color-lime;
+  color: v.$color-off-black;
+
+  h1, h2, h3, h4, p, a {
+    color: inherit;
+  }
+}
+
+// TABLET - FRA 800PX
+@media (min-width: v.$breakpoint-tablet) {
+  h1 { font-size: 48px; }
+  h2 { font-size: 26px; }
+  h3 { font-size: 20px; }
+  h4 { font-size: 17px; }
+}
+
+// DESKTOP - FRA 1280PX
+@media (min-width: v.$breakpoint-desktop) {
+  h1 { font-size: 96px; }
+  h2 { font-size: 30px; }
+  h3 { font-size: 24px; }
+  h4 { font-size: 18px; }
+}

@@ -1,0 +1,22 @@
+// FARVER
+$color-off-black: #1B1E1D;
+$color-off-white: #F2F2F2;
+$color-lime: #C8ED6C;
+$color-dark-gray: #575757;
+
+// TYPOGRAFI
+$font-heading: 'Alfa Slab One', serif;
+$font-body: 'Roboto', sans-serif;
+
+$font-regular: 400;
+$font-medium: 500;
+
+// RESPONSIVE BREAKPOINTS
+$breakpoint-tablet: 800px;
+$breakpoint-desktop: 1280px;
+
+// BAGGRUNDE
+@use 'sass:color';
+
+$bg-primary: $color-off-black;
+$bg-secondary: color.adjust($color-off-black, $lightness: 5%);
