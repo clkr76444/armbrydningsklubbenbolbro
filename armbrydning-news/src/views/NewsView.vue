@@ -1,5 +1,7 @@
 <script setup>
-import { ref } from 'vue'
+// ref bruges til at gøre variabler reaktive, 
+// onMounted bruges til at køre kode, når komponenten er monteret i DOM'en
+import { ref, onMounted } from 'vue' 
 
 const news = ref([ /* sørger for at opdatere nyhederne dynamisk */ 
   {
@@ -13,6 +15,18 @@ const news = ref([ /* sørger for at opdatere nyhederne dynamisk */
     description: 'Kom og prøv kræfter med sporten!'
   }
 ])
+
+// Henter nyheder fra Firebase-databasen via URL
+const url = 'https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase.app/news.json'
+
+
+onMounted(async () => {
+  const response = await fetch(url)
+  const data = await response.json()
+
+  console.log('Nyheder fra Firebase:', data)
+})
+
 </script>
 
 <template>
