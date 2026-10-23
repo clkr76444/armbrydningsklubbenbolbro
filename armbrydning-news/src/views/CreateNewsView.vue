@@ -8,7 +8,7 @@ const title = ref("");
 const description = ref("");
 // opretter en variabel til fejlbeskeder
 const errorMessage = ref("");
-// varibel til at åbne og lukke popup-success-dialogen
+// varibel til at åbne og lukke popup-feedback-dialogen
 const feedbackDialog = ref(null);
 // opretter en variabel til at holde styr på, om nyhedens gemmeprocess er afsluttet (false fordi vi ikke er igang med at gemme endnu)
 const isSaving = ref(false);
@@ -103,7 +103,11 @@ function closefeedbackDialog() {
     </form>
 
     <!-- Popup der vises, når nyheden er oprettet -->
-    <dialog ref="feedbackDialog" class="success-dialog">
+    <dialog
+      ref="feedbackDialog"
+      class="feedback-dialog"
+      :class="{ 'feedback-dialog--error': errorMessage }"
+    >
       <button
         type="button"
         class="dialog-close"
@@ -188,7 +192,7 @@ function closefeedbackDialog() {
   }
 }
 
-.success-dialog {
+.feedback-dialog {
   width: min(90vw, 450px);
   max-height: calc(100dvh - 2rem);
   box-sizing: border-box;
@@ -205,8 +209,16 @@ function closefeedbackDialog() {
   text-align: center;
 }
 
+.feedback-dialog--error {
+  border-color: v.$color-red;
+
+  h2 {
+    color: v.$color-red;
+  }
+}
+
 @media (max-width: 480px) {
-  .success-dialog {
+  .feedback-dialog {
     padding: 2.5rem 1rem 1.5rem;
   }
 }
@@ -219,7 +231,7 @@ p {
   margin-bottom: 2rem;
 }
 
-.success-dialog::backdrop {
+.feedback-dialog::backdrop {
   background-color: rgba(v.$color-off-black, 0.85);
 }
 

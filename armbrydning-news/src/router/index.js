@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import NewsView from "../views/NewsView.vue";
 import CreateNewsView from "../views/CreateNewsView.vue";
+import EditNewsView from "../views/EditNewsView.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -14,6 +15,11 @@ const router = createRouter({
       path: "/opret",
       name: "create-news",
       component: CreateNewsView,
+    },
+    {
+      path: "/rediger/:id",
+      name: "edit-news",
+      component: EditNewsView,
     },
   ],
 });
