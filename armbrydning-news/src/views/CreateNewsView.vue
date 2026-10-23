@@ -9,7 +9,7 @@ const description = ref("");
 // opretter en variabel til fejlbeskeder
 const errorMessage = ref("");
 // varibel til at åbne og lukke popup-success-dialogen
-const successDialog = ref(null);
+const feedbackDialog = ref(null);
 // opretter en variabel til at holde styr på, om nyhedens gemmeprocess er afsluttet (false fordi vi ikke er igang med at gemme endnu)
 const isSaving = ref(false);
 
@@ -52,18 +52,19 @@ async function createNews() {
     title.value = "";
     description.value = "";
 
-    successDialog.value.showModal();
+    feedbackDialog.value.showModal();
   } catch (error) {
     console.error("Fejl ved oprettelse af nyhed", error);
     errorMessage.value = "Nyheden kunne ikke gemmes. Prøv igen.";
+    feedbackDialog.value.showModal();
   } finally {
     isSaving.value = false;
   }
 }
 
-// lukker succes-dialogen
-function closeSuccessDialog() {
-  successDialog.value.close();
+// lukker feedback-dialogen
+function closefeedbackDialog() {
+  feedbackDialog.value.close();
 }
 </script>
 
@@ -71,51 +72,56 @@ function closeSuccessDialog() {
   <main class="create-news-page">
     <h1>Opret nyhed</h1>
     <form @submit.prevent="createNews">
-      <!-- v-model binder input-feltet til title-variablen, så ændringer i input synkroniseres med variablen -->
-      <label for="news-title">Nyhedens titel</label>
-      <input
-        id="news-title"
-        type="text"
-        v-model="title"
-        placeholder="Indtast nyhedens titel"
-        required
-      />
+      <fieldset>
+        <legend id="title-label">Nyhedens titel</legend>
+        <!-- v-model binder input-feltet til title-variablen, så ændringer i input synkroniseres med variablen -->
+        <input
+          id="news-title"
+          type="text"
+          v-model="title"
+          placeholder="Indtast nyhedens titel"
+          required
+          aria-labelledby="title-label"
+        />
+      </fieldset>
+      <fieldset>
+        <legend id="description-label">Nyhedens tekst</legend>
+        <!-- v-model binder textarea-feltet til description-variablen, så ændringer i input synkroniseres med variablen -->
+        <textarea
+          id="news-description"
+          v-model="description"
+          placeholder="Indtast nyhedens beskrivelse"
+          required
+          aria-labelledby="description-label"
+        ></textarea>
+      </fieldset>
 
-      <!-- v-model binder textarea-feltet til description-variablen, så ændringer i input synkroniseres med variablen -->
-      <label for="news-description">Nyhedens beskrivelse</label>
-      <textarea
-        id="news-description"
-        v-model="description"
-        placeholder="Indtast nyhedens beskrivelse"
-        required
-      ></textarea>
-
-      <button type="submit" :disabled="isSaving">
+      <button type="submit" class="btn-primary" :disabled="isSaving">
         {{ isSaving ? "Gemmer..." : "Opret nyhed" }}
         <!-- viser "Gemmer..." mens nyheden gemmes, ellers "Opret nyhed" - bruger ternary operator, som er en kort måde at bruge if/else på -->
       </button>
     </form>
 
-    <!-- Viser en fejlbesked, hvis nyheden ikke kunne gemmes -->
-    <p v-if="errorMessage" class="error-message" role="alert">
-      {{ errorMessage }}
-    </p>
-
     <!-- Popup der vises, når nyheden er oprettet -->
-    <dialog ref="successDialog" class="success-dialog">
+    <dialog ref="feedbackDialog" class="success-dialog">
       <button
         type="button"
         class="dialog-close"
         aria-label="Luk beskeden"
-        @click="closeSuccessDialog"
+        @click="closefeedbackDialog"
       >
         ×
       </button>
 
-      <h2>Nyheden er oprettet!</h2>
-      <p>Din nyhed er blevet gemt.</p>
+      <h2 v-if="errorMessage">Der opstod en fejl!</h2>
+      <h2 v-else>Nyheden er oprettet!</h2>
 
-      <button type="button" class="dialog-confirm" @click="closeSuccessDialog">
+      <p v-if="errorMessage" role="alert">
+        {{ errorMessage }}
+      </p>
+      <p v-else>Din nyhed er blevet gemt.</p>
+
+      <button type="button" class="btn-primary" @click="closefeedbackDialog">
         OK
       </button>
     </dialog>
@@ -124,6 +130,63 @@ function closeSuccessDialog() {
 
 <style scoped lang="scss">
 @use "../assets/styles/variables" as v;
+
+.create-news-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+
+  h1 {
+    margin-bottom: 2rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 600px;
+
+    fieldset {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      min-width: 0;
+      margin: 0;
+      padding: 0.5rem 1rem 1rem;
+      border: 1px solid transparent;
+      border-radius: 8px;
+
+      &:focus-within {
+        border-color: v.$color-lime;
+      }
+
+      legend {
+        font-weight: v.$font-medium;
+        color: v.$color-lime;
+        margin-bottom: 0.5rem;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        background-color: v.$color-off-white;
+        color: v.$color-off-black;
+        border: 1px solid v.$color-off-black;
+        border-radius: 8px;
+        font: inherit;
+        box-sizing: border-box;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 180px;
+      }
+    }
+  }
+}
 
 .success-dialog {
   width: min(90vw, 450px);
