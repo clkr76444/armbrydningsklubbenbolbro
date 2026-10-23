@@ -121,3 +121,68 @@ function closeSuccessDialog() {
     </dialog>
   </main>
 </template>
+
+<style scoped lang="scss">
+@use "../assets/styles/variables" as v;
+
+.success-dialog {
+  width: min(90vw, 450px);
+  max-height: calc(100dvh - 2rem);
+  box-sizing: border-box;
+
+  margin: auto;
+  padding: 3rem 2rem 2rem;
+  position: relative;
+  overflow-y: auto;
+
+  background-color: v.$color-off-black;
+  color: v.$color-off-white;
+  border: 1px solid v.$color-lime;
+  border-radius: 8px;
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .success-dialog {
+    padding: 2.5rem 1rem 1.5rem;
+  }
+}
+
+h2 {
+  margin-bottom: 1rem;
+}
+
+p {
+  margin-bottom: 2rem;
+}
+
+.success-dialog::backdrop {
+  background-color: rgba(v.$color-off-black, 0.85);
+}
+
+.dialog-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  padding: 0.25rem;
+
+  background: transparent;
+  border: none;
+  color: v.$color-off-white;
+  font-size: 1.75rem;
+  cursor: pointer;
+}
+
+.dialog-confirm {
+  padding: 0.75rem 2rem;
+  background-color: v.$color-lime;
+  border: none;
+  border-radius: 8px;
+  color: v.$color-off-black;
+  cursor: pointer;
+}
+
+.dialog-confirm:hover {
+  filter: brightness(0.9);
+}
+</style>
