@@ -12,6 +12,9 @@ const newsId = route.params.id;
 const title = ref("");
 const description = ref("");
 
+// Holder styr på om nyheden ikke findes
+const newsNotFound = ref(false);
+
 // Holder styr på om ændringerne er ved at blive gemt
 const isSaving = ref(false);
 
@@ -30,6 +33,13 @@ onMounted(async () => {
   const data = await response.json();
 
   console.log("Nyhed fra Firebase:", data);
+
+  // Stopper funktionen, da nyheden ikke findes
+  if (data === null) {
+    console.log("Nyheden findes ikke i Firebase");
+    newsNotFound.value = true; // true betyder at firebase har svaret, men nyhedens id findes ikke
+    return;
+  }
 
   title.value = data.title;
   description.value = data.description;
@@ -89,7 +99,10 @@ function closefeedbackDialog() {
 <template>
   <main class="news-editor-page">
     <h1>Rediger nyhed</h1>
-    <form class="news-form" @submit.prevent="updateNews">
+
+    <p v-if="newsNotFound">Nyheden findes ikke. Den kan være slettet.</p>
+
+    <form v-else class="news-form" @submit.prevent="updateNews">
       <fieldset>
         <legend id="title-label">Nyhedens titel</legend>
 

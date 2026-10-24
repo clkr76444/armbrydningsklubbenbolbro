@@ -58,7 +58,7 @@ async function deleteNews() {
   isDeleting.value = true;
 
   try {
-    throw new Error("TEST: Simuleret fejl ved sletning"); //SLET MIG OM LIDT
+    //throw new Error("TEST: Simuleret fejl ved sletning"); //SLET MIG OM LIDT
     // sender DELETE request til Firebase for at slette nyheden
     const response = await fetch(url, {
       method: "DELETE",
@@ -137,7 +137,7 @@ async function deleteNews() {
 
         <!-- hvis der opstår en fejl ved sletning, vis fejlbeskeden -->
         <p v-if="deleteError" class="delete-error" role="alert">
-          {{ deleteError }}
+          <strong>FEJL!</strong> {{ deleteError }}
         </p>
 
         <button type="submit" class="btn-primary">Annuller handling</button>

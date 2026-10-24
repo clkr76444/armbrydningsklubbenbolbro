@@ -251,6 +251,14 @@ p {
   }
 }
 
+// FEJL BESKED VED SLETNING
+.delete-error {
+  strong {
+    color: v.$color-red;
+    font-weight: v.$font-bold;
+  }
+}
+
 // MØRKT OVERLAY
 .feedback-dialog::backdrop {
   background-color: rgba(v.$color-off-black, 0.85);
