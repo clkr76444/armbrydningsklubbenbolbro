@@ -93,6 +93,33 @@ p {
   }
 }
 
+// SLET KNAP
+.btn-delete {
+  padding: 0.75rem 2rem;
+  background-color: v.$color-red;
+  color: v.$color-off-white;
+  border: none;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: v.$font-medium;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+
+  &:hover:not(:disabled) {
+    filter: brightness(0.8);
+  }
+
+  &:focus-visible {
+    outline: 2px solid v.$color-red;
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
 
  // FÆLLES STYLING TIL NYHEDSSYSTEM--------------------------
 // DATO PÅ NYHEDER
