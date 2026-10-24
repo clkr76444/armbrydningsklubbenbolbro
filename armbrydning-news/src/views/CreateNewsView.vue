@@ -69,9 +69,9 @@ function closefeedbackDialog() {
 </script>
 
 <template>
-  <main class="create-news-page">
+  <main class="news-editor-page">
     <h1>Opret nyhed</h1>
-    <form @submit.prevent="createNews">
+    <form class="news-form" @submit.prevent="createNews">
       <fieldset>
         <legend id="title-label">Nyhedens titel</legend>
         <!-- v-model binder input-feltet til title-variablen, så ændringer i input synkroniseres med variablen -->
@@ -143,52 +143,6 @@ function closefeedbackDialog() {
 
   h1 {
     margin-bottom: 2rem;
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    width: 100%;
-    max-width: 600px;
-
-    fieldset {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      min-width: 0;
-      margin: 0;
-      padding: 0.5rem 1rem 1rem;
-      border: 1px solid transparent;
-      border-radius: 8px;
-
-      &:focus-within {
-        border-color: v.$color-lime;
-      }
-
-      legend {
-        font-weight: v.$font-medium;
-        color: v.$color-lime;
-        margin-bottom: 0.5rem;
-      }
-
-      input,
-      textarea {
-        width: 100%;
-        padding: 0.75rem 1rem;
-        background-color: v.$color-off-white;
-        color: v.$color-off-black;
-        border: 1px solid v.$color-off-black;
-        border-radius: 8px;
-        font: inherit;
-        box-sizing: border-box;
-      }
-
-      textarea {
-        resize: vertical;
-        min-height: 180px;
-      }
-    }
   }
 }
 

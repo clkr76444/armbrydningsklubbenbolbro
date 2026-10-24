@@ -66,9 +66,15 @@ async function updateNews() {
     }
 
     console.log("Nyheden blev opdateret!");
+
+    // Viser feedback-dialogen når nyheden er opdateret
+    feedbackDialog.value.showModal();
   } catch (error) {
     console.error("Fejl ved opdatering af nyhed:", error);
     errorMessage.value = "Nyheden kunne ikke opdateres. Prøv igen.";
+
+    // Viser feedback-dialogen når der opstod en fejl
+    feedbackDialog.value.showModal();
   } finally {
     // Afslutter gemmeprocessen, uanset resultatet
     isSaving.value = false;
@@ -81,9 +87,9 @@ function closefeedbackDialog() {
 </script>
 
 <template>
-  <main class="edit-news-page">
+  <main class="news-editor-page">
     <h1>Rediger nyhed</h1>
-    <form @submit.prevent="updateNews">
+    <form class="news-form" @submit.prevent="updateNews">
       <fieldset>
         <legend id="title-label">Nyhedens titel</legend>
 
@@ -111,6 +117,7 @@ function closefeedbackDialog() {
         {{ isSaving ? "Gemmer..." : "Gem ændringer" }}
       </button>
     </form>
+
     <!-- Popup der vises, når nyheden er opdateret -->
     <dialog
       ref="feedbackDialog"
