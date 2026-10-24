@@ -147,6 +147,36 @@ p {
   }
 }
 
+
+ // KNAPPER PÅ NYHEDSKORT
+.news-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+
+  .btn-primary,
+  .btn-delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    text-decoration: none;
+  }
+
+  @media (min-width: v.$breakpoint-tablet) {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+
+    .btn-primary,
+    .btn-delete {
+      width: 160px;
+    }
+  }
+}
+
+
 // FÆLLES LAYOUT TIL OPRETTELSE OG REDIGERING AF NYHEDER-------------------
 .news-editor-page {
   display: flex;
@@ -159,6 +189,58 @@ p {
     text-align: center;
   }
 }
+
+
+ // BREADCRUMBS ------------------------------------------------
+.breadcrumb-nav {
+  width: 100%;
+  max-width: 600px;
+  padding-inline: 1rem;
+  box-sizing: border-box;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  margin: 0 0 1.5rem;
+  padding: 0;
+
+  list-style: none;
+  font-size: 0.875rem;
+
+  li {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  li + li::before {
+    content: "/";
+    margin-right: 0.5rem;
+    opacity: 0.6;
+  }
+
+ a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: rgba(v.$color-off-white, 0.55);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+
+    &:hover {
+     color: v.$color-lime;
+   }
+  }
+
+  li:last-child {
+    color: rgba(v.$color-off-white, 0.75);
+  }
+}
+
 
 // FÆLLES STYLING TIL NYHEDSFORMULARER--------------------------
 .news-form {
@@ -240,6 +322,25 @@ p {
   p {
     margin-bottom: 2rem;
   }
+}
+
+// KNAPPER I SLETTE-DIALOG
+.delete-dialog-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  button {
+    width: 100%;
+  }
+
+  @media (min-width: v.$breakpoint-tablet) {
+  flex-direction: row;
+
+  button {
+    flex: 1;
+  }
+}
 }
 
 // FEEDBACK POPUP - FEJL

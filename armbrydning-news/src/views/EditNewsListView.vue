@@ -95,23 +95,25 @@ async function deleteNews() {
         <p class="news-date">{{ formatDate(item.date) }}</p>
         <p>{{ item.description }}</p>
 
-        <!--router-link navigerer til en anden side-->
-        <RouterLink
-          :to="{ name: 'edit-news', params: { id: item.id } }"
-          class="btn-primary"
-        >
-          Rediger
-        </RouterLink>
+        <!--router-link navigerer til en anden side via Rediger-knappen-->
+        <div class="news-card-actions">
+          <RouterLink
+            :to="{ name: 'edit-news', params: { id: item.id } }"
+            class="btn-primary"
+          >
+            Rediger
+          </RouterLink>
 
-        <!--button til at udfører handling, her slet nyhed.-->
-        <button
-          type="button"
-          class="btn-delete"
-          @click="openDeleteDialog(item)"
-        >
-          <!--click fortæller at vores funktion "openDeleteDialog" skal køres når knappen klikkes, item er den valgte nyhed fra v-for loppet -->
-          Slet
-        </button>
+          <!--button til at udfører handling, her slet nyhed.-->
+          <button
+            type="button"
+            class="btn-delete"
+            @click="openDeleteDialog(item)"
+          >
+            <!--click fortæller at vores funktion "openDeleteDialog" skal køres når knappen klikkes, item er den valgte nyhed fra v-for loppet -->
+            Slet
+          </button>
+        </div>
       </article>
     </section>
 
@@ -140,16 +142,18 @@ async function deleteNews() {
           <strong>FEJL!</strong> {{ deleteError }}
         </p>
 
-        <button type="submit" class="btn-primary">Annuller handling</button>
-
-        <button
-          type="button"
-          class="btn-delete"
-          :disabled="isDeleting"
-          @click="deleteNews"
-        >
-          {{ isDeleting ? "Sletter..." : "Ja, slet" }}
-        </button>
+        <!--Knapper i div-container-->
+        <div class="delete-dialog-actions">
+          <button
+            type="button"
+            class="btn-delete"
+            :disabled="isDeleting"
+            @click="deleteNews"
+          >
+            {{ isDeleting ? "Sletter..." : "Ja, slet" }}
+          </button>
+          <button type="submit" class="btn-primary">Annuller handling</button>
+        </div>
       </form>
     </dialog>
   </main>

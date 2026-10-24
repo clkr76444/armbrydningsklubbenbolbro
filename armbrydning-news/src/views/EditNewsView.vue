@@ -8,12 +8,18 @@ const route = useRoute();
 // Finder nyhedens ID fra URL'en
 const newsId = route.params.id;
 
-//Gemmer den eksisterende nyheds titel og beskrivelse
+//Gemmer den eksisterende nyheds titel og beskrivelse fra Firebase
 const title = ref("");
 const description = ref("");
 
 // Holder styr på om nyheden ikke findes
 const newsNotFound = ref(false);
+
+// Holder styr på om siden er ved at indlæse nyheden fra Firebase
+const isLoading = ref(true);
+
+// Gemmer en fejlbesked, hvis indlæsningen mislykkes
+const loadError = ref("");
 
 // Holder styr på om ændringerne er ved at blive gemt
 const isSaving = ref(false);
@@ -25,24 +31,40 @@ const errorMessage = ref("");
 const feedbackDialog = ref(null);
 
 //Henter den eksisterende nyhed fra Firebase via nyhedens ID
+
 onMounted(async () => {
   const url = `https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase.app/news/${newsId}.json`;
 
-  // Henter nyheden fra Firebase
-  const response = await fetch(url);
-  const data = await response.json();
+  try {
+    // Henter den valgte nyhed fra Firebase
+    const response = await fetch(url, {
+      method: "GET",
+    });
 
-  console.log("Nyhed fra Firebase:", data);
+    // Kontrollerer om Firebase har svaret korrekt
+    if (!response.ok) {
+      throw new Error("Databasefejl ved hentning af nyhed");
+    }
 
-  // Stopper funktionen, da nyheden ikke findes
-  if (data === null) {
-    console.log("Nyheden findes ikke i Firebase");
-    newsNotFound.value = true; // true betyder at firebase har svaret, men nyhedens id findes ikke
-    return;
+    // Konverterer svaret til JSON
+    const data = await response.json();
+
+    // Stopper funktionen, hvis nyheden ikke findes
+    if (data === null) {
+      console.log("Nyheden findes ikke i Firebase");
+      newsNotFound.value = true;
+      return;
+    }
+
+    // Indsætter nyhedens data i formularen
+    title.value = data.title;
+    description.value = data.description;
+  } catch (error) {
+    console.error("Fejl ved hentning af nyhed:", error);
+    loadError.value = "Nyheden kunne ikke hentes. Prøv igen senere.";
+  } finally {
+    isLoading.value = false;
   }
-
-  title.value = data.title;
-  description.value = data.description;
 });
 
 async function updateNews() {
@@ -98,9 +120,26 @@ function closefeedbackDialog() {
 
 <template>
   <main class="news-editor-page">
+    <nav class="breadcrumb-nav" aria-label="Brødkrummesti">
+      <ol class="breadcrumbs">
+        <li>
+          <RouterLink to="/rediger">Oversigt over nyheder</RouterLink>
+        </li>
+        <li aria-current="page">Rediger nyhed</li>
+      </ol>
+    </nav>
+
     <h1>Rediger nyhed</h1>
 
-    <p v-if="newsNotFound">Nyheden findes ikke. Den kan være slettet.</p>
+    <p v-if="isLoading">Henter nyheden...</p>
+
+    <p v-else-if="loadError" role="alert">
+      {{ loadError }}
+    </p>
+
+    <p v-else-if="newsNotFound">
+      Nyheden blev ikke fundet. Den kan være blevet slettet.
+    </p>
 
     <form v-else class="news-form" @submit.prevent="updateNews">
       <fieldset>

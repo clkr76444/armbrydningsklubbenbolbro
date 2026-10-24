@@ -3,6 +3,7 @@ import NewsView from "../views/NewsView.vue";
 import CreateNewsView from "../views/CreateNewsView.vue";
 import EditNewsListView from "../views/EditNewsListView.vue";
 import EditNewsView from "../views/EditNewsView.vue";
+import NotFoundView from "../views/NotFoundView.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: "/rediger/:id",
       name: "edit-news",
       component: EditNewsView,
+    },
+    {
+      path: "/:pathMatch(.*)*", // Matcher alle adresser, som ikke passer til nogen af de andre routes
+      name: "not-found",
+      component: NotFoundView,
     },
   ],
 });
