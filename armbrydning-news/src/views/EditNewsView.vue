@@ -30,11 +30,11 @@ const errorMessage = ref("");
 // giver adgang til popup-feedback-dialogen i vores template
 const feedbackDialog = ref(null);
 
+// URL til den specifikke nyhed i Firebase
+const url = `https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase.app/news/${newsId}.json`;
+
 //Henter den eksisterende nyhed fra Firebase via nyhedens ID
-
 onMounted(async () => {
-  const url = `https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase.app/news/${newsId}.json`;
-
   try {
     // Henter den valgte nyhed fra Firebase
     const response = await fetch(url, {
@@ -123,7 +123,7 @@ function closefeedbackDialog() {
     <nav class="breadcrumb-nav" aria-label="Brødkrummesti">
       <ol class="breadcrumbs">
         <li>
-          <RouterLink to="/rediger">Oversigt over nyheder</RouterLink>
+          <RouterLink to="/">Oversigt over nyheder</RouterLink>
         </li>
         <li aria-current="page">Rediger nyhed</li>
       </ol>

@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from "vue";
 
-// VARIABLER -----------------------------------------------------------
 // opretter en variabel til nyhedens titel
 const title = ref("");
 // opretter en variabel til nyhedens beskrivelse
@@ -12,6 +11,9 @@ const errorMessage = ref("");
 const feedbackDialog = ref(null);
 // opretter en variabel til at holde styr på, om nyhedens gemmeprocess er afsluttet (false fordi vi ikke er igang med at gemme endnu)
 const isSaving = ref(false);
+
+const url =
+  "https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase.app/news.json";
 
 // FUNKTIONER -----------------------------------------------------------
 // funktionen opretter et nyt objekt "newNews" med de to key-value-par: titel og beskrivelse
@@ -34,16 +36,13 @@ async function createNews() {
   errorMessage.value = "";
 
   try {
-    const response = await fetch(
-      "https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase.app/news.json",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newNews),
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+      body: JSON.stringify(newNews),
+    });
 
     if (!response.ok) {
       throw new Error("Database fejl ved oprettelse af nyhed");
