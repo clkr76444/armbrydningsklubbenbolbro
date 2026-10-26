@@ -5,6 +5,9 @@ import { formatDate } from "../utils/formatDate.js";
 // Gemmer listen over nyheder
 const news = ref([]);
 
+// Gemmer fejlbesked, hvis nyhederne ikke kan hentes.
+const loadError = ref("");
+
 //holder styr på hvilken nyhed brugeren vil slette. null fordi ingen nyhed er valgt i starten.
 const selectedNews = ref(null);
 
@@ -22,21 +25,33 @@ onMounted(async () => {
   const url =
     "https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase.app/news.json";
 
-  const response = await fetch(url);
-  const data = await response.json();
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+    });
 
-  const entries = Object.entries(data ?? {});
+    if (!response.ok) {
+      throw new Error("Database fejl ved hentning af nyheder");
+    }
 
-  const newsArray = entries.map(([id, item]) => ({
-    id: id,
-    title: item.title,
-    description: item.description,
-    date: item.date,
-  }));
+    const data = await response.json();
 
-  news.value = newsArray;
+    const entries = Object.entries(data ?? {});
 
-  console.log("Nyheder til redigering:", news.value);
+    const newsArray = entries.map(([id, item]) => ({
+      id: id,
+      title: item.title,
+      description: item.description,
+      date: item.date,
+    }));
+
+    news.value = newsArray;
+
+    console.log("Nyheder til redigering:", news.value);
+  } catch (error) {
+    console.error("Fejl ved hentning af nyheder:", error);
+    loadError.value = "Nyhederne kunne ikke hentes. Prøv igen senere.";
+  }
 });
 
 // Åbner slet-dialogen for den valgte nyhed.
@@ -88,6 +103,10 @@ async function deleteNews() {
   <main class="edit-news-list-page">
     <h1>Rediger nyheder</h1>
     <p>Vælg en nyhed, du vil redigere.</p>
+
+    <p v-if="loadError" role="alert">
+      {{ loadError }}
+    </p>
 
     <section class="news-list">
       <article v-for="item in news" :key="item.id" class="news-card">

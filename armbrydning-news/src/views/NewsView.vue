@@ -7,44 +7,59 @@ import { formatDate } from "../utils/formatDate.js";
 // Opretter en reaktiv variabel med et tomt array.
 const news = ref([]);
 
+const loadError = ref("");
+
 // URL til Firebase Realtime Database.
 const url =
   "https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase.app/news.json";
 
 // Kører, når komponenten er monteret.
 onMounted(async () => {
-  // Henter nyheder fra Firebase.
-  const response = await fetch(url);
-  const data = await response.json();
+  try {
+    // Henter nyheder fra Firebase.
+    const response = await fetch(url, {
+      method: "GET",
+    });
 
-  console.log("Nyheder fra Firebase:", data);
+    if (!response.ok) {
+      throw new Error("Database fejl ved hentning af nyheder");
+    }
 
-  // Omdanner Firebase-objektet til et array med [key, value]-par.
-  // Hvis data er null, bruges et tomt objekt i stedet.
-  const entries = Object.entries(data ?? {});
+    const data = await response.json();
 
-  console.log("Firebase som array:", entries);
+    console.log("Nyheder fra Firebase:", data);
 
-  // Gennemgår hvert par og opretter et nyt nyhedsobjekt.
-  // id er nyhedens nøgle, og item indeholder nyhedens oplysninger.
-  const newsArray = entries.map(([id, item]) => {
-    return {
-      id: id,
-      title: item.title,
-      description: item.description,
-      date: item.date,
-    };
-  });
+    // Omdanner Firebase-objektet til et array med [key, value]-par.
+    // Hvis data er null, bruges et tomt objekt i stedet.
+    const entries = Object.entries(data ?? {});
 
-  // Opdaterer det reaktive array med nyheder fra Firebase.
-  // Vue opdaterer automatisk visningen via v-for.
-  news.value = newsArray;
+    console.log("Firebase som array:", entries);
+
+    // Gennemgår hvert par og opretter et nyt nyhedsobjekt.
+    // id er nyhedens nøgle, og item indeholder nyhedens oplysninger.
+    const newsArray = entries.map(([id, item]) => {
+      return {
+        id: id,
+        title: item.title,
+        description: item.description,
+        date: item.date,
+      };
+    });
+
+    // Opdaterer det reaktive array med nyheder fra Firebase.
+    // Vue opdaterer automatisk visningen via v-for.
+    news.value = newsArray;
+  } catch (error) {
+    console.error("Fejl ved hentning af nyheder:", error);
+    loadError.value = "Nyhederne kunne ikke hentes. Prøv igen.";
+  }
 });
 </script>
 
 <template>
   <main class="news-page">
     <h1>Nyheder fra Armbrydning Odense</h1>
+    <p v-if="loadError" role="alert">{{ loadError }}</p>
 
     <!-- Gennemgår news og opretter et article for hver nyhed. -->
     <!-- :key hjælper Vue med at identificere de enkelte elementer. -->
