@@ -30,10 +30,10 @@ const errorMessage = ref("");
 // giver adgang til popup-feedback-dialogen i vores template
 const feedbackDialog = ref(null);
 
-// URL til den specifikke nyhed i Firebase
+// URL til den specifikke nyhed i Firebase via nyhedens ID
 const url = `https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase.app/news/${newsId}.json`;
 
-//Henter den eksisterende nyhed fra Firebase via nyhedens ID
+// Venter på at komponenten bliver monteret, før vi henter nyheden fra Firebase
 onMounted(async () => {
   try {
     // Henter den valgte nyhed fra Firebase
@@ -71,9 +71,15 @@ async function updateNews() {
   // Forhindrer flere gemmeforsøg på samme tid
   if (isSaving.value) return;
 
+  if (!title.value.trim() || !description.value.trim()) {
+    errorMessage.value = "Titel og beskrivelse skal indeholde tekst.";
+    feedbackDialog.value.showModal();
+    return;
+  }
+
   const updatedNews = {
-    title: title.value,
-    description: description.value,
+    title: title.value.trim(),
+    description: description.value.trim(),
   };
 
   const url = `https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase.app/news/${newsId}.json`;
@@ -143,7 +149,9 @@ function closefeedbackDialog() {
 
     <form v-else class="news-form" @submit.prevent="updateNews">
       <fieldset>
-        <legend id="title-label">Nyhedens titel</legend>
+        <legend id="title-label">
+          Nyhedens titel <small>- max 100 tegn</small>
+        </legend>
 
         <input
           id="news-title"
@@ -151,17 +159,21 @@ function closefeedbackDialog() {
           v-model="title"
           aria-labelledby="title-label"
           required
+          maxlength="100"
         />
       </fieldset>
 
       <fieldset>
-        <legend id="description-label">Nyhedens tekst</legend>
+        <legend id="description-label">
+          Nyhedens tekst <small>- max 2000 tegn</small>
+        </legend>
 
         <textarea
           id="news-description"
           v-model="description"
           aria-labelledby="description-label"
           required
+          maxlength="2000"
         ></textarea>
       </fieldset>
 

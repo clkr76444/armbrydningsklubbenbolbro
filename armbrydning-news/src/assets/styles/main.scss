@@ -93,6 +93,14 @@ p {
   }
 }
 
+// OPRET NYHED - KNAP PÅ FORSIDEN
+#create-news-link {
+  display: block;
+  width: fit-content;
+  margin: 0 0 2rem auto;
+  text-decoration: none;
+}
+
 // SLET KNAP
 .btn-delete {
   padding: 0.75rem 2rem;
@@ -268,6 +276,11 @@ p {
       font-weight: v.$font-medium;
       color: v.$color-lime;
       margin-bottom: 0.5rem;
+
+      small {
+        font-weight: v.$font-regular;
+        color: rgba(v.$color-off-white, 0.75);
+      }
     }
 
     input,
@@ -388,6 +401,38 @@ p {
 
 // NEWS SLUT -------------------------------------------------------------------
 
+// 404-SIDE
+.not-found-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3rem 1rem 4rem;
+  text-align: center;
+
+  h1 {
+    color: v.$color-lime;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin-bottom: 2rem;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+
+  // TABLET OG DESKTOP
+  @media (min-width: v.$breakpoint-tablet) {
+    padding: 5rem 2rem;
+  }
+}
 
 // FOOTER
 .site-footer {

@@ -9,6 +9,8 @@ const news = ref([]);
 
 const loadError = ref("");
 
+const isLoading = ref(true); // Holder styr på om nyhederne er ved at blive hentet
+
 // midlertidig variabel til at holde styr på om brugeren er admin
 const isAdmin = ref(true);
 
@@ -61,12 +63,18 @@ onMounted(async () => {
       };
     });
 
+    // Sorterer nyhederne efter dato, så de nyeste vises først.
+    // localeCompare sammenligner datoer som strings.
+    // ?? "" beskytter sorteringen hvis en dato mangler.
+    newsArray.sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));
     // Opdaterer det reaktive array med nyheder fra Firebase.
     // Vue opdaterer automatisk visningen via v-for.
     news.value = newsArray;
   } catch (error) {
     console.error("Fejl ved hentning af nyheder:", error);
     loadError.value = "Nyhederne kunne ikke hentes. Prøv igen.";
+  } finally {
+    isLoading.value = false; // Sætter isLoading til false, når hentningen er færdig
   }
 });
 
@@ -120,7 +128,25 @@ async function deleteNews() {
 <template>
   <main class="news-page">
     <h1>Nyheder fra Armbrydning Odense</h1>
+
+    <!--RouterLink bruges til at navigerer mellem sider uden at genindlæse hele hjemmesiden-->
+    <RouterLink
+      v-if="isAdmin"
+      to="/opret"
+      id="create-news-link"
+      class="btn-primary"
+    >
+      Opret nyhed
+    </RouterLink>
+
     <p v-if="loadError" role="alert">{{ loadError }}</p>
+    <!-- Viser Indlæsningsstatus indtil finally sætter isLoading til false -->
+    <p v-if="isLoading" role="status">Indlæser nyheder...</p>
+
+    <!-- Empty state: Hvis indlæsningen er færdig, og der ikke er opstået en fejl og nyhedslisten er tom -->
+    <p v-if="!isLoading && !loadError && news.length === 0">
+      Ingen nyheder at vise.
+    </p>
 
     <!-- Gennemgår nyhederne og sender hver nyhed til NewsCard via props -->
     <NewsCard v-for="item in news" :key="item.id" :news-item="item">

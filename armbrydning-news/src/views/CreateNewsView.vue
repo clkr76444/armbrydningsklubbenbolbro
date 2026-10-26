@@ -21,9 +21,18 @@ const url =
 async function createNews() {
   if (isSaving.value) return;
 
+  // tjekker om titel og beskrivelse er tomme, hvis ja vises en fejlbesked og dialogen åbnes.
+  //reqired felter skal udfyldes før nyheden kan oprettes. reqired er browserens indbyggede validering, som giver hurtigt svar, men sikre ikke f.eks. at gemme kun et mellemrum, derfor bruger vi trim() og tjekker manuelt.
+  if (!title.value.trim() || !description.value.trim()) {
+    errorMessage.value = "Titel og beskrivelse må ikke være tomme.";
+    feedbackDialog.value.showModal();
+    return;
+  }
+
+  // opretter et nyt nyhedsobjekt med titel, beskrivelse og dato. Fjerner eventuelle førende og efterfølgende mellemrum fra titel og beskrivelse.
   const newNews = {
-    title: title.value,
-    description: description.value,
+    title: title.value.trim(),
+    description: description.value.trim(),
 
     // new Date () opretter en dato med det aktuelle tidspunkt
     // .toISOString() omdanner datoen til ISO-format, som er standard dato og tidsformat i UTC (coordinated Universaal Time)
@@ -72,7 +81,9 @@ function closefeedbackDialog() {
     <h1>Opret nyhed</h1>
     <form class="news-form" @submit.prevent="createNews">
       <fieldset>
-        <legend id="title-label">Nyhedens titel</legend>
+        <legend id="title-label">
+          Nyhedens titel <small>- max 100 tegn</small>
+        </legend>
         <!-- v-model binder input-feltet til title-variablen, så ændringer i input synkroniseres med variablen -->
         <input
           id="news-title"
@@ -80,17 +91,21 @@ function closefeedbackDialog() {
           v-model="title"
           placeholder="Indtast nyhedens titel"
           required
+          maxlength="100"
           aria-labelledby="title-label"
         />
       </fieldset>
       <fieldset>
-        <legend id="description-label">Nyhedens tekst</legend>
+        <legend id="description-label">
+          Nyhedens tekst <small>- max 2000 tegn</small>
+        </legend>
         <!-- v-model binder textarea-feltet til description-variablen, så ændringer i input synkroniseres med variablen -->
         <textarea
           id="news-description"
           v-model="description"
           placeholder="Indtast nyhedens beskrivelse"
           required
+          maxlength="2000"
           aria-labelledby="description-label"
         ></textarea>
       </fieldset>
