@@ -1,0 +1,33 @@
+@use 'variables' as v;
+
+// GLOBAL STYLING ------------------------------------
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: v.$bg-primary;
+  color: v.$color-off-white;
+  font-family: v.$font-body;
+}
+
+#app {
+  min-height: 100dvh;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
