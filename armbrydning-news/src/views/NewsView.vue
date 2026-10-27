@@ -127,7 +127,7 @@ async function deleteNews() {
 
 <template>
   <main class="news-page">
-    <h1>Nyheder fra Armbrydning Odense</h1>
+    <h1>Nyheder</h1>
 
     <!--RouterLink bruges til at navigerer mellem sider uden at genindlæse hele hjemmesiden-->
     <RouterLink
@@ -218,8 +218,13 @@ async function deleteNews() {
 @use "../assets/styles/variables" as v;
 
 .news-page {
-  max-width: 900px;
+  max-width: 720px;
   margin: 0 auto;
   padding: 2rem 1rem;
+
+  h1 {
+    text-align: center;
+    text-wrap: balance;
+  }
 }
 </style>

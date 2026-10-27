@@ -82,8 +82,6 @@ async function updateNews() {
     description: description.value.trim(),
   };
 
-  const url = `https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase.app/news/${newsId}.json`;
-
   // Starter gemmeprocessen
   isSaving.value = true;
   errorMessage.value = "";

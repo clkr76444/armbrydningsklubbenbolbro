@@ -78,6 +78,16 @@ function closefeedbackDialog() {
 
 <template>
   <main class="news-editor-page">
+    <!-- Navigation tilbage til nyhedsoversigten -->
+    <nav class="breadcrumb-nav" aria-label="Brødkrummesti">
+      <ol class="breadcrumbs">
+        <li>
+          <RouterLink to="/">Oversigt over nyheder</RouterLink>
+        </li>
+        <li aria-current="page">Opret nyhed</li>
+      </ol>
+    </nav>
+
     <h1>Opret nyhed</h1>
     <form class="news-form" @submit.prevent="createNews">
       <fieldset>

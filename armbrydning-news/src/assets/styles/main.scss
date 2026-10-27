@@ -16,7 +16,7 @@ body {
 h1 {
   font-family: v.$font-heading;
   font-weight: v.$font-regular;
-  font-size: 38px;
+  font-size: clamp(28px, 9vw, 38px);
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: v.$color-off-white;
@@ -25,7 +25,7 @@ h1 {
 h2 {
   font-family: v.$font-heading;
   font-weight: v.$font-regular;
-  font-size: 22px;
+  font-size: clamp(20px, 6vw, 22px);
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: v.$color-off-white;
@@ -34,21 +34,21 @@ h2 {
 h3 {
   font-family: v.$font-body;
   font-weight: v.$font-medium;
-  font-size: 18px;
+  font-size: clamp(16px, 5vw, 18px);
   text-transform: none;
 }
 
 h4 {
   font-family: v.$font-body;
   font-weight: v.$font-medium;
-  font-size: 16px;
+  font-size: clamp(14px, 4vw, 16px);
   text-transform: uppercase;
 }
 
 p {
   font-family: v.$font-body;
   font-weight: v.$font-regular;
-  font-size: 16px;
+  font-size: clamp(14px, 4vw, 16px);
   line-height: normal;
 }
 
@@ -95,7 +95,8 @@ p {
 
 // OPRET NYHED - KNAP PÅ FORSIDEN
 #create-news-link {
-  display: block;
+  display: flex;
+  justify-content: center;
   width: fit-content;
   margin: 0 0 2rem auto;
   text-decoration: none;
@@ -152,6 +153,11 @@ p {
 
   p {
     line-height: 1.6;
+    overflow-wrap: anywhere; 
+  }
+
+  p:not(.news-date) {
+    white-space: pre-line;
   }
 }
 
@@ -174,12 +180,12 @@ p {
   }
 
   @media (min-width: v.$breakpoint-tablet) {
-    flex-direction: row-reverse;
-    justify-content: flex-end;
+    flex-direction: row;
+    justify-content: space-between;
 
     .btn-primary,
     .btn-delete {
-      width: 160px;
+    width: calc(50% - 0.5rem);
     }
   }
 }
@@ -302,7 +308,7 @@ p {
   }
 
   > .btn-primary {
-  width: 100%;
+  width: calc(100% - 2rem - 2px);
   align-self: center;
 
     @media (min-width: v.$breakpoint-tablet) {

@@ -1,7 +1,7 @@
 // Omdanner dato fra YYYY-MM-DD til DD/MM-YYYY
 // export betyder at funktionen er tilgængelig for andre JavaScript-filer.
 
-// opretter en funktion til at formatere datoer fra YYYY-MM-DD til DD-MM-YYYY
+// opretter en funktion til at formatere datoer fra YYYY-MM-DD til DD/MM-YYYY
 export function formatDate(date) {
   // Tjekker om input er en gyldig streng, ellers returneres "Dato ukendt"
   if (typeof date !== "string" || !date.trim()) {
