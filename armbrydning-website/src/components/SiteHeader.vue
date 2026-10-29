@@ -152,9 +152,10 @@ onUnmounted(() => {
 
   &__label {
     font-size: 0.875rem;
-    font-weight: v.$font-medium;
+    font-weight: v.$font-regular;
     text-transform: uppercase;
     letter-spacing: 0.08em;
+    font-family: v.$font-body;
   }
 
   &__icon {
