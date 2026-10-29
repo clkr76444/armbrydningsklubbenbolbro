@@ -97,6 +97,7 @@ import instagramIcon from '../assets/icons/instagram.svg'
   width: 100%;
   max-width: 1200px;
   margin-inline: auto;
+  padding-inline: 1.5rem;
 }
 
 // FOOTER MAIN - MOBILE FIRST
@@ -248,6 +249,48 @@ import instagramIcon from '../assets/icons/instagram.svg'
     &:hover,
     &:focus-visible {
       text-decoration: underline;
+    }
+  }
+}
+
+@media (min-width: v.$breakpoint-tablet) {
+  .site-footer__main {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    justify-items: center;
+    gap: 1.8rem;
+    margin-top: 1.8rem;
+  }
+
+  .site-footer__logo {
+    order: 1;
+    grid-column: 1 / -1;
+    justify-self: center;
+    margin-bottom: 0;
+
+    img {
+      width: 200px;
+    }
+  }
+}
+
+@media (min-width: v.$breakpoint-desktop) {
+  .site-footer__main {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    justify-items: start;
+    gap: 3rem;
+    padding-top: 3rem;
+  }
+
+  .site-footer__logo {
+    order: 0;
+    grid-column: auto;
+    justify-self: center;
+    align-self: center;
+    transform: translateY(-70px);
+
+    img {
+      width: 180px;
+      margin-top: 0;
     }
   }
 }
