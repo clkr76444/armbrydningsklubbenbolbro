@@ -22,6 +22,7 @@ import ImageTextSection from '../components/ImageTextSection.vue'
       button-text="Læs mere om klubben"
       button-to="/om-klubben"
       button-variant="secondary"
+      background-variant="secondary"
     >
       <template #heading> Mere end <span class="highlight">bare</span> styrke </template>
       <p>
