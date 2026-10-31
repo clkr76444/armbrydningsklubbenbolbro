@@ -15,14 +15,12 @@ import ImageTextSection from '../components/ImageTextSection.vue'
 
     <ImageTextSection
       title="Mere end bare styrke"
-      image="/images/1.png"
+      image="/images/1.webp"
       image-alt="Medlemmer af Armbrydning Odense"
       image-right
       image-format="portrait"
       button-text="Læs mere om klubben"
       button-to="/om-klubben"
-      button-variant="secondary"
-      background-variant="secondary"
     >
       <template #heading> Mere end <span class="highlight">bare</span> styrke </template>
       <p>
