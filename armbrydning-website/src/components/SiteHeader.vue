@@ -68,7 +68,6 @@ onUnmounted(() => {
       </nav>
 
       <!-- Burgermenu til mobil og tablet -->
-
       <button
         type="button"
         class="menu-toggle"

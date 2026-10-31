@@ -90,7 +90,6 @@ import { resetMapConsent } from '../composables/mapConsent'
 
 // FOOTER
 .site-footer {
-  //background-color: v.$color-lime;
   background: linear-gradient(to bottom, v.$bg-primary 0%, v.$color-lime 30px, v.$color-lime 100%);
 
   color: v.$color-off-black;
