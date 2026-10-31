@@ -87,31 +87,33 @@ onUnmounted(() => {
       class="image-text-section__inner"
       :class="{ 'image-text-section__inner--reversed': imageRight }"
     >
-      <img
-        class="image-text-section__image"
-        :class="{ 'image-text-section__image--portrait': imageFormat === 'portrait' }"
-        :src="image"
-        :alt="imageAlt"
-      />
-
       <div class="image-text-section__content">
         <h2>
           <slot name="heading">{{ title }}</slot>
         </h2>
 
         <div class="image-text-section__text">
-          <slot />
+          <slot></slot>
         </div>
 
         <RouterLink
           v-if="buttonText && buttonTo"
           :to="buttonTo"
-          class="image-text-section__button"
-          :class="`image-text-section__button--${buttonVariant}`"
+          class="btn btn--full-mobile image-text-section__button"
+          :class="`btn--${buttonVariant}`"
         >
           {{ buttonText }}
         </RouterLink>
       </div>
+
+      <img
+        class="image-text-section__image"
+        :class="{ 'image-text-section__image--portrait': imageFormat === 'portrait' }"
+        :src="image"
+        :alt="imageAlt"
+        loading="lazy"
+        decoding="async"
+      />
     </div>
   </section>
 </template>
@@ -189,28 +191,7 @@ onUnmounted(() => {
 }
 
 .image-text-section__button {
-  display: inline-block;
   margin-top: 1rem;
-  padding: 0.75rem 1.25rem;
-  border: 2px solid v.$color-lime;
-  border-radius: 0.25rem;
-  font-weight: v.$font-bold;
-  text-decoration: none;
-
-  &--primary {
-    background: v.$color-lime;
-    color: v.$color-off-black;
-  }
-
-  &--secondary {
-    background: transparent;
-    color: v.$color-lime;
-  }
-
-  &:focus-visible {
-    outline: 2px solid v.$color-off-white;
-    outline-offset: 4px;
-  }
 }
 
 // Når sektionen bliver synlig, tilføjes 'is-visible' klassen
@@ -230,12 +211,35 @@ onUnmounted(() => {
 @media (min-width: v.$breakpoint-tablet) {
   .image-text-section__inner {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    padding-block: 3rem;
   }
 
+  // Billede til venstre
+  .image-text-section__image {
+    order: -1;
+    justify-self: start;
+    max-width: 300px;
+    margin-right: 1.5rem;
+  }
+
+  // Billede til højre
   .image-text-section__inner--reversed {
     .image-text-section__image {
-      order: 2;
+      order: 0;
+      justify-self: end;
     }
+  }
+}
+
+@media (min-width: v.$breakpoint-desktop) {
+  .image-text-section__inner {
+    gap: 3rem;
+    padding-block: 4rem;
+  }
+
+  .image-text-section__image {
+    max-width: 360px;
   }
 }
 </style>

@@ -64,7 +64,7 @@ onUnmounted(() => {
         <RouterLink to="/kontakt">Kontakt</RouterLink>
         <RouterLink to="/nyheder">Nyheder</RouterLink>
         <RouterLink to="/praktisk-info">Praktiske oplysninger</RouterLink>
-        <RouterLink to="/bliv-armbryder" class="nav-cta"> Bliv armbryder </RouterLink>
+        <RouterLink to="/bliv-armbryder" class="btn btn--primary"> Bliv armbryder </RouterLink>
       </nav>
 
       <!-- Burgermenu til mobil og tablet -->
@@ -95,7 +95,7 @@ onUnmounted(() => {
       <RouterLink to="/kontakt" @click="closeMenu"> Kontakt </RouterLink>
       <RouterLink to="/nyheder" @click="closeMenu"> Nyheder </RouterLink>
       <RouterLink to="/praktisk-info" @click="closeMenu"> Praktiske oplysninger </RouterLink>
-      <RouterLink to="/bliv-armbryder" class="nav-cta" @click="closeMenu">
+      <RouterLink to="/bliv-armbryder" class="btn btn--primary" @click="closeMenu">
         Bliv armbryder
       </RouterLink>
     </nav>
@@ -283,12 +283,11 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
 
-  a {
+  a:not(.btn) {
     display: flex;
     align-items: center;
     min-height: 64px;
     padding: 0.75rem 0;
-
     color: v.$color-off-white;
     font-size: 1.35rem;
     font-weight: v.$font-medium;
@@ -300,16 +299,11 @@ onUnmounted(() => {
     }
   }
 
-  .nav-cta {
-    justify-content: center;
+  // Kun placering af CTA i mobilmenuen
+  .btn {
+    width: 100%;
     min-height: 52px;
     margin-top: 2.5rem;
-    padding: 0.75rem 1.5rem;
-    border: none;
-
-    background-color: v.$color-lime;
-    color: v.$color-off-black;
-    font-size: 1rem;
   }
 }
 
@@ -343,17 +337,6 @@ onUnmounted(() => {
   }
 }
 
-// CTA-KNAP
-.nav-cta {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  background-color: v.$color-lime;
-  color: v.$color-off-black !important;
-  font-weight: v.$font-medium;
-  text-align: center;
-}
-
 // DESKTOP - FRA 1280PX
 @media (min-width: v.$breakpoint-desktop) {
   .menu-toggle {
@@ -365,7 +348,7 @@ onUnmounted(() => {
     align-items: center;
     gap: 2rem;
 
-    a {
+    a:not(.btn) {
       color: v.$color-off-white;
       text-decoration: none;
       white-space: nowrap;

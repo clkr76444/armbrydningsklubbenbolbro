@@ -21,6 +21,7 @@ import ImageTextSection from '../components/ImageTextSection.vue'
       image-format="portrait"
       button-text="Læs mere om klubben"
       button-to="/om-klubben"
+      button-variant="secondary"
     >
       <template #heading> Mere end <span class="highlight">bare</span> styrke </template>
       <p>
@@ -29,6 +30,29 @@ import ImageTextSection from '../components/ImageTextSection.vue'
       </p>
 
       <p>Hos Armbrydning Odense er der plads til både nybegyndere og erfarne armbrydere.</p>
+    </ImageTextSection>
+
+    <ImageTextSection
+      title="Ny ved bordet? Vi hjælper dig i gang!"
+      image="/images/3.webp"
+      image-alt="En mand, som armbryder med en pige"
+      image-format="portrait"
+      background-variant="secondary"
+      button-text="Fortæl os at du kommer"
+      button-to="/praktisk-info"
+    >
+      <template #heading>
+        <span class="highlight">Ny</span> ved bordet? <br />Vi hjælper
+        <span class="highlight">dig</span> i gang!
+      </template>
+      <p>
+        <strong>Du behøver hverken erfaring eller store overarme for at være med hos os!</strong>
+        <br />Vi ved godt, at det kan være lidt grænseoverskridende at møde op et nyt sted. Derfor
+        sørger vi for, at du bliver taget godt imod og får hjælp til at komme godt i gang i dit eget
+        tempo. <br /><br />Du er altid velkommen til at møde op, men du må også gerne give os besked
+        på forhånd.<br />
+        <br />Vi står klar til at tage imod dig!
+      </p>
     </ImageTextSection>
   </main>
 </template>
