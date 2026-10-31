@@ -80,7 +80,7 @@ onUnmounted(() => {
     class="image-text-section"
     :class="{
       'is-visible': isVisible,
-      'image-text-section--secondary': backgroundVariant === 'secondary',
+      'section-bg--secondary': backgroundVariant === 'secondary',
     }"
   >
     <div
@@ -122,27 +122,17 @@ onUnmounted(() => {
 @use '../assets/styles/variables' as v;
 
 .image-text-section {
-  background: v.$bg-primary;
   color: v.$color-off-white;
-}
-
-.image-text-section--secondary {
-  background: linear-gradient(
-    to bottom,
-    v.$bg-primary,
-    v.$bg-secondary 10%,
-    v.$bg-secondary 90%,
-    v.$bg-primary
-  );
 }
 
 .image-text-section__inner {
   display: grid;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
   max-width: 1200px;
   margin-inline: auto;
-  padding: 4rem 1.5rem;
+  padding: 3rem 1.5rem 1.5rem;
+  padding-inline: var(--container-padding);
 
   // Sektionens initiale tilstand før den bliver synlig
   opacity: 0;

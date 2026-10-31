@@ -2,6 +2,7 @@
 import logo from '../assets/images/logo.svg'
 import facebookIcon from '../assets/icons/facebook.svg'
 import instagramIcon from '../assets/icons/instagram.svg'
+import { resetMapConsent } from '../composables/mapConsent'
 </script>
 
 <template>
@@ -74,6 +75,9 @@ import instagramIcon from '../assets/icons/instagram.svg'
         <nav class="site-footer__bottom-nav" aria-label="Footer-navigation">
           <RouterLink to="/privatlivspolitik">Privatlivspolitik</RouterLink>
           <RouterLink to="/bliv-sponsor">Bliv sponsor</RouterLink>
+          <button type="button" class="cookie-settings" @click="resetMapConsent">
+            Cookieindstillinger
+          </button>
         </nav>
         <p>© Armbrydning Odense 2026</p>
       </div>
@@ -235,10 +239,32 @@ import instagramIcon from '../assets/icons/instagram.svg'
   }
 }
 
+// COOKIE SETTINGS BUTTON
+.cookie-settings {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: v.$color-off-black;
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  font-weight: v.$font-medium;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid v.$color-off-black;
+    outline-offset: 4px;
+  }
+}
+
 .site-footer__bottom-nav {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
 
   a {
     color: v.$color-off-black;
@@ -270,6 +296,11 @@ import instagramIcon from '../assets/icons/instagram.svg'
     img {
       width: 200px;
     }
+  }
+
+  .site-footer__bottom-nav {
+    flex-direction: row;
+    gap: 1.5rem;
   }
 }
 

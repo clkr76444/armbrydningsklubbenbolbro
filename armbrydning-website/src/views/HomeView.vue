@@ -1,5 +1,6 @@
 <script setup>
 import ImageTextSection from '../components/ImageTextSection.vue'
+import LocationSection from '../components/LocationSection.vue'
 </script>
 
 <template>
@@ -47,13 +48,24 @@ import ImageTextSection from '../components/ImageTextSection.vue'
       </template>
       <p>
         <strong>Du behøver hverken erfaring eller store overarme for at være med hos os!</strong>
-        <br />Vi ved godt, at det kan være lidt grænseoverskridende at møde op et nyt sted. Derfor
-        sørger vi for, at du bliver taget godt imod og får hjælp til at komme godt i gang i dit eget
-        tempo. <br /><br />Du er altid velkommen til at møde op, men du må også gerne give os besked
-        på forhånd.<br />
+        <br />Vi ved godt, at det kan være lidt grænseoverskridende at møde op et nyt sted.
+        <br /><br />Derfor sørger vi for, at du bliver taget godt imod og får hjælp til at komme
+        godt i gang i dit eget tempo. <br />
         <br />Vi står klar til at tage imod dig!
       </p>
     </ImageTextSection>
+    <ImageTextSection
+      title="Her skal karusellen være"
+      image="/images/2.webp"
+      image-alt="En gruppe mennesker, der armbryder"
+      image-right
+      button-text="Se træningstider"
+      button-to="/praktisk-info"
+    >
+      <template #heading> Her skal <span class="highlight">karusellen</span> være </template>
+      <p>.</p>
+    </ImageTextSection>
+    <LocationSection />
   </main>
 </template>
 

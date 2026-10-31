@@ -37,6 +37,23 @@ strong {
   color: v.$color-lime;
 }
 
+h2 {
+  font-family: v.$font-heading;
+  font-size: 1.25rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+:root {
+  --container-padding: 1.5rem;
+}
+
+@media (min-width: v.$breakpoint-tablet) and (max-width: 1279px) {
+  :root {
+    --container-padding: 2.5rem;
+  }
+}
+
 
 // GENERELLE CTA-KNAPPER ------------------------------------
 .btn {
@@ -94,7 +111,23 @@ strong {
   }
 }
 
-// Fuld bredde på mobil, når det ønskes
+// SEKTIONERNES BAGGRUNDE ------------------------------------
+.section-bg {
+  background: v.$bg-primary;
+}
+
+.section-bg--secondary {
+  background: linear-gradient(
+    to bottom,
+    v.$bg-primary,
+    v.$bg-secondary 10%,
+    v.$bg-secondary 90%,
+    v.$bg-primary
+  );
+}
+
+
+// Fuld knap-bredde på mobil, når det ønskes -------------------
 @media (max-width: 799px) {
   .btn--full-mobile {
     display: flex;
