@@ -4,7 +4,7 @@ import { mapConsent, setMapConsent } from '../composables/mapConsent'
 
 <template>
   <section v-if="mapConsent === null" class="map-consent" aria-labelledby="map-consent-title">
-    <h2 id="map-consent-title">Cookieindstillinger</h2>
+    <h2 id="map-consent-title"><span class="highlight">Cookie</span>indstillinger</h2>
 
     <p>
       Google Maps kan anvende cookies og behandle tekniske oplysninger, hvis du accepterer.
@@ -50,6 +50,7 @@ import { mapConsent, setMapConsent } from '../composables/mapConsent'
     font-family: v.$font-heading;
     font-size: 1rem;
     text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
   p {
@@ -82,8 +83,9 @@ import { mapConsent, setMapConsent } from '../composables/mapConsent'
     color: v.$color-lime;
     font: inherit;
     font-size: 0.875rem;
-    font-weight: v.$font-medium;
+    font-weight: v.$font-light;
     cursor: pointer;
+    text-transform: uppercase;
 
     &:hover {
       background: v.$color-lime;

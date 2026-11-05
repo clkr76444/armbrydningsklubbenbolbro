@@ -5,7 +5,7 @@ import { mapConsent } from '../composables/mapConsent'
 <template>
   <section class="location-section section-bg section-bg--secondary">
     <div class="location-section__inner">
-      <h2>Kom forbi i <span>Bolbro!</span></h2>
+      <h2>Kom forbi i <span>Bolbro</span>!</h2>
 
       <p>
         Du finder os på Middelfartvej 114 i Bolbro, Odense.
@@ -51,9 +51,9 @@ import { mapConsent } from '../composables/mapConsent'
 
 h2 {
   font-size: clamp(1.5rem, 3vw, 2rem);
-  letter-spacing: 0.02em;
   text-transform: uppercase;
   text-wrap: balance;
+  letter-spacing: 0.05em;
 
   span {
     color: v.$color-lime;

@@ -161,13 +161,9 @@ onUnmounted(() => {
     font-family: v.$font-heading;
     font-size: clamp(1.5rem, 3vw, 2rem);
     margin-bottom: 1rem;
-    letter-spacing: 0.2rem;
     text-transform: uppercase;
     text-wrap: balance;
-
-    :slotted(.highlight) {
-      color: v.$color-lime;
-    }
+    letter-spacing: 0.05em;
   }
 }
 

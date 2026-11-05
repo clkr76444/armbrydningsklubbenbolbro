@@ -290,7 +290,8 @@ onUnmounted(() => {
     padding: 0.75rem 0;
     color: v.$color-off-white;
     font-size: 1.35rem;
-    font-weight: v.$font-medium;
+    font-weight: v.$font-light;
+    text-transform: uppercase;
     text-decoration: none;
     border-bottom: 1px solid rgba(v.$color-off-white, 0.15);
 
@@ -305,6 +306,11 @@ onUnmounted(() => {
     min-height: 52px;
     margin-top: 2.5rem;
   }
+}
+
+// Marker det aktive menupunkt i mobilmenuen
+.mobile-nav a.router-link-active:not(.btn) {
+  color: v.$color-lime;
 }
 
 // ANIMATIONER
@@ -335,6 +341,10 @@ onUnmounted(() => {
     animation: none; // keyframes fjernes for brugere med reduceret bevægelse
     transition: none; // Fjern bløde overgange for brugere med reduceret bevægelse
   }
+
+  .desktop-nav a:not(.btn)::after {
+    transition: none;
+  }
 }
 
 // DESKTOP - FRA 1280PX
@@ -347,13 +357,41 @@ onUnmounted(() => {
     display: flex;
     align-items: center;
     gap: 2rem;
+    font-weight: v.$font-extralight;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 
     a:not(.btn) {
+      position: relative;
       color: v.$color-off-white;
       text-decoration: none;
       white-space: nowrap;
+      padding: 0.5rem 0;
 
-      &:hover {
+      // Limegrøn streg under linket
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: v.$color-lime;
+
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+      }
+
+      // Vis stregen ved hover, fokus og aktiv side
+      &:hover::after,
+      &:focus-visible::after,
+      &.router-link-active::after {
+        transform: scaleX(1);
+      }
+
+      &:hover,
+      &.router-link-active {
         color: v.$color-lime;
       }
     }

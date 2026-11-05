@@ -40,8 +40,19 @@ strong {
 h2 {
   font-family: v.$font-heading;
   font-size: 1.25rem;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
+}
+
+h3 {
+  font-family: v.$font-body;
+  font-size: 1.2rem;
+  font-weight: v.$font-bold;
+  color: v.$color-lime;
+}
+
+.highlight {
+  color: v.$color-lime;
 }
 
 :root {
@@ -67,6 +78,8 @@ h2 {
   font-weight: v.$font-bold;
   text-decoration: none;
   cursor: pointer;
+  text-transform: uppercase;
+  font-weight: v.$font-light;
 
   transition:
     background-color 0.2s ease,
