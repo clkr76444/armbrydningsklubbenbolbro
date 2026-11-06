@@ -76,5 +76,59 @@ import ImageTextSection from '../components/ImageTextSection.vue'
         øjenhøjde og giver plads til forskellige mennesker, niveauer og ambitioner.
       </p>
     </ImageTextSection>
+
+    <ImageTextSection
+      title="Klubbens historie"
+      image="/images/4.webp"
+      image-alt="Medlemmer fra Armbrydning Odense"
+      image-right
+      image-format="landscape"
+    >
+      <template #heading> Klubbens <span class="highlight">historie</span> </template>
+
+      <p>Det hele startede med en lidt skør idé på Fyns MC Festival for mange år siden.</p>
+      <p>
+        Her blev der afholdt et amatørmesterskab i armbrydning, og det viste sig hurtigt, at vi var
+        flere, der syntes, sporten var ret sjov!
+      </p>
+      <p>
+        Idéen om at starte en klub begyndte at vokse, men dengang var der ikke rigtig nogen
+        muligheder for at gå til armbrydning i Odense.
+      </p>
+      <p><strong>Derfor besluttede vi os for at gøre noget ved det.</strong></p>
+      <p>
+        I 2022 fik vi lov til at låne lokaler hos judoklubben Kodokan, og i vinteren 2022/23 kom
+        klubben for alvor i gang. Siden har vi været vidt omkring med armbrydningen - fra
+        Sportslørdag og SKØNFEST til DM-ugen og undervisning af skoleklasser. I dag holder vi til
+        sammen med Phoenix Judo i hjertet af Bolbro, hvor vi arbejder på at gøre sporten tilgængelig
+        for endnu flere.
+      </p>
+    </ImageTextSection>
+
+    <ImageTextSection
+      title="Lyst til at være med?"
+      image="/images/3.webp"
+      image-alt="To personer, der træner armbrydning"
+      image-format="portrait"
+      background-variant="secondary"
+      button-text="Fortæl os at du kommer"
+      button-to="/bliv-armbryder"
+      button-variant="primary"
+    >
+      <template #heading> Lyst til at <span class="highlight">være med?</span> </template>
+
+      <h3>Kom forbi til en træning og se, om armbrydning er noget for dig!</h3>
+      <p>
+        Du behøver hverken erfaring eller store overarme for at starte.<br />
+        Vi hjælper dig med at lære sporten at kende, viser dig de grundlæggende teknikker og giver
+        dig mulighed for at udvikle dig i dit eget tempo.
+      </p>
+      <p>
+        Hos os er der plads til både dig, der bare er nysgerrig og gerne vil prøve noget nyt, og
+        dig, der har ambitioner om at blive bedre og måske deltage i konkurrencer.
+      </p>
+      <p><strong>Vil du gerne have, at vi ved, du kommer?</strong></p>
+      <p>Så kan du give os besked på forhånd, så vi står klar til at tage imod dig.</p>
+    </ImageTextSection>
   </main>
 </template>
