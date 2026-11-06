@@ -49,11 +49,22 @@ h3 {
   font-size: 1.2rem;
   font-weight: v.$font-bold;
   color: v.$color-lime;
+  margin-bottom: 0% !important;
+  margin-top: 0% !important;
 }
 
 .highlight {
   color: v.$color-lime;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
 
 :root {
   --container-padding: 1.5rem;
@@ -175,5 +186,9 @@ h3 {
   .btn,
   .btn::after {
     transition: none;
+  }
+
+  html {
+    scroll-behavior: auto;
   }
 }

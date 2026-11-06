@@ -1,10 +1,16 @@
 <script setup>
+import ScrollIndicator from './ScrollIndicator.vue'
+
 defineProps({
   title: {
     type: String,
     required: true,
   },
   description: {
+    type: String,
+    default: '',
+  },
+  scrollTarget: {
     type: String,
     default: '',
   },
@@ -17,6 +23,7 @@ defineProps({
       <h1>{{ title }}</h1>
       <p v-if="description">{{ description }}</p>
     </div>
+    <ScrollIndicator v-if="scrollTarget" :target="scrollTarget" />
   </header>
 </template>
 
@@ -24,9 +31,18 @@ defineProps({
 @use '../assets/styles/variables' as v;
 
 .page-hero {
+  position: relative;
+  min-height: clamp(32rem, 80svh, 50rem);
+  box-sizing: border-box;
+
+  display: grid;
+  place-items: center;
+
   background-color: v.$bg-primary;
-  padding: 4rem 1.5rem;
+  padding: 4rem 1.5rem 7rem;
   text-align: center;
+
+  --scroll-indicator-bottom: 0.75rem;
 }
 
 .page-hero__content {

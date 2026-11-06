@@ -1,6 +1,7 @@
 <script setup>
 import ImageTextSection from '../components/ImageTextSection.vue'
 import LocationSection from '../components/LocationSection.vue'
+import ScrollIndicator from '../components/ScrollIndicator.vue'
 </script>
 
 <template>
@@ -12,9 +13,11 @@ import LocationSection from '../components/LocationSection.vue'
         <h1>Armbrydning Odense</h1>
         <p>Hver tirsdag og torsdag <br />kl. 18.30 - 20.00</p>
       </div>
+      <ScrollIndicator target="about-intro" />
     </section>
 
     <ImageTextSection
+      id="about-intro"
       title="Mere end bare styrke"
       image="/images/1.webp"
       image-alt="Medlemmer af Armbrydning Odense"
@@ -79,6 +82,7 @@ import LocationSection from '../components/LocationSection.vue'
   min-height: 600px;
   overflow: hidden;
   background: v.$bg-primary;
+  --scroll-indicator-bottom: 3.5rem;
 
   &::after {
     content: '';
