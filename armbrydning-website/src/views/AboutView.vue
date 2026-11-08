@@ -1,6 +1,24 @@
 <script setup>
 import PageHero from '../components/PageHero.vue'
 import ImageTextSection from '../components/ImageTextSection.vue'
+import BoardMemberCard from '../components/BoardMemberCard.vue'
+
+const boardMembers = [
+  {
+    id: 1,
+    name: 'Christel',
+    description:
+      'Christel har styr på alt det praktiske. Hun sørger for, at nye medlemmer bliver skrevet op i klubben, hjælper med de praktiske spørgsmål og er med til at skabe en hyggelig og imødekommende stemning.',
+    image: '/images/portraitChristel.webp',
+  },
+  {
+    id: 2,
+    name: 'Thomas',
+    description:
+      'Thomas har styr på både teknikkerne og historien bag armbrydning. Han er altid klar til at vise dig nye teknikker, dele ud af sin viden og hjælpe dig med at blive bedre ved bordet.',
+    image: '/images/portraitThomas.webp',
+  },
+]
 </script>
 
 <template>
@@ -130,5 +148,74 @@ import ImageTextSection from '../components/ImageTextSection.vue'
       <p><strong>Vil du gerne have, at vi ved, du kommer?</strong></p>
       <p>Så kan du give os besked på forhånd, så vi står klar til at tage imod dig.</p>
     </ImageTextSection>
+
+    <!-- Section: Bestyrelse -->
+
+    <section class="board-section">
+      <div class="board-section__inner">
+        <h2>Mød klubbens <span class="highlight">bestyrelse</span></h2>
+
+        <!--v-for = gennemgå hvert objekt i boardMembers og opret et BoardMemberCard for hvert medlem-->
+        <div class="board-section__grid">
+          <BoardMemberCard
+            v-for="member in boardMembers"
+            :key="member.id"
+            :name="member.name"
+            :description="member.description"
+            :image="member.image"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="sponsors-section">
+      <div class="sponsors-section__inner">
+        <h2>Vores <span class="highlight">samarbejdspartnere</span></h2>
+
+        <p>Information om vores samarbejdspartnere kommer snart.</p>
+      </div>
+    </section>
   </main>
 </template>
+
+<style scoped lang="scss">
+@use '../assets/styles/variables' as v;
+
+.board-section {
+  padding: 4rem 1.5rem;
+  background-color: v.$bg-primary;
+}
+
+.board-section__inner {
+  max-width: 1200px;
+  margin-inline: auto;
+
+  h2 {
+    margin-bottom: 2rem;
+    font-family: v.$font-heading;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    text-align: center;
+    text-transform: uppercase;
+  }
+}
+
+.board-section__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 640px;
+  margin-inline: auto;
+}
+
+@media (min-width: v.$breakpoint-tablet) {
+  .board-section__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 799px) {
+  .board-section__grid {
+    max-width: 300px;
+  }
+}
+</style>
