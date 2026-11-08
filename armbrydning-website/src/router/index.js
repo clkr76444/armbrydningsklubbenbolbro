@@ -48,6 +48,23 @@ const router = createRouter({
       component: NewsDetailView,
     },
   ],
+
+  // Bestemmer, hvor siden skal scrolle hen ved navigation ud fra to parametre
+  scrollBehavior(to, _from, savedPosition) {
+    // Gendanner seneste scrollposition på siden, hvis brugeren går frem eller tilbage
+    if (savedPosition) {
+      return savedPosition
+    }
+
+    // Dynamisk navigation til specifikke sektioner på siden.
+    // Hvis URL'en indeholder et #id, scroller vi til elementet med det ID.
+    if (to.hash) {
+      return { el: to.hash } // el er en property, som angiver det element, vi scroller til
+    }
+
+    // Ved almindelig navigation starter siden øverst = early returns
+    return { top: 0 }
+  },
 })
 
 export default router

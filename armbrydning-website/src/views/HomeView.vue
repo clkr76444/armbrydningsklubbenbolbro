@@ -18,7 +18,6 @@ import ScrollIndicator from '../components/ScrollIndicator.vue'
 
     <ImageTextSection
       id="about-intro"
-      title="Mere end bare styrke"
       image="/images/1.webp"
       image-alt="Medlemmer af Armbrydning Odense"
       image-right
@@ -37,7 +36,6 @@ import ScrollIndicator from '../components/ScrollIndicator.vue'
     </ImageTextSection>
 
     <ImageTextSection
-      title="Ny ved bordet? Vi hjælper dig i gang!"
       image="/images/3.webp"
       image-alt="En mand, som armbryder med en pige"
       image-format="portrait"
@@ -58,7 +56,6 @@ import ScrollIndicator from '../components/ScrollIndicator.vue'
       </p>
     </ImageTextSection>
     <ImageTextSection
-      title="Her skal karusellen være"
       image="/images/2.webp"
       image-alt="En gruppe mennesker, der armbryder"
       image-right

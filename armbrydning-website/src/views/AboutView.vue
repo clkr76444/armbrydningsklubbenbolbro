@@ -31,7 +31,6 @@ const boardMembers = [
 
     <ImageTextSection
       id="about-intro"
-      title="Armbrydning for alle"
       image="/images/1.webp"
       image-alt="Medlemmer af Armbrydning Odense"
       image-right
@@ -64,7 +63,6 @@ const boardMembers = [
     </ImageTextSection>
 
     <ImageTextSection
-      title="Klubbens værdier"
       image="/images/2.webp"
       image-alt="Armbrydere under træning"
       image-format="portrait"

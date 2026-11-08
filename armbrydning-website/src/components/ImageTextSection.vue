@@ -28,6 +28,11 @@ defineProps({
     type: String,
     default: 'primary',
   },
+
+  buttonHref: {
+    type: String,
+    default: '',
+  },
 })
 
 // Reference til sektionen i DOM'en
@@ -96,8 +101,21 @@ onUnmounted(() => {
           <slot></slot>
         </div>
 
+        <!-- Eksternt link -->
+        <a
+          v-if="buttonText && buttonHref"
+          :href="buttonHref"
+          class="btn btn--full-mobile image-text-section__button"
+          :class="`btn--${buttonVariant}`"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {{ buttonText }}
+        </a>
+
+        <!-- Internt link -->
         <RouterLink
-          v-if="buttonText && buttonTo"
+          v-else-if="buttonText && buttonTo"
           :to="buttonTo"
           class="btn btn--full-mobile image-text-section__button"
           :class="`btn--${buttonVariant}`"

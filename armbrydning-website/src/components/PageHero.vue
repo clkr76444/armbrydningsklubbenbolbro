@@ -21,7 +21,9 @@ defineProps({
   <header class="page-hero">
     <div class="page-hero__content">
       <h1>{{ title }}</h1>
-      <p v-if="description">{{ description }}</p>
+      <p v-if="description || $slots.description">
+        <slot name="description">{{ description }}</slot>
+      </p>
     </div>
     <ScrollIndicator v-if="scrollTarget" :target="scrollTarget" />
   </header>
