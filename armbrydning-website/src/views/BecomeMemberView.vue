@@ -1,10 +1,48 @@
 <script setup>
+import { ref } from 'vue'
 import ImageTextSection from '../components/ImageTextSection.vue'
 import PageHero from '../components/PageHero.vue'
+import TestimonialCard from '../components/TestimonialCard.vue'
+import ScrollReveal from '../components/ScrollReveal.vue'
 
 const clubAddress = 'Middelfartvej 114, 5200 Odense V'
 
 const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(clubAddress)}`
+
+const testimonials = [
+  {
+    name: 'Silas',
+    age: 16,
+    quote:
+      'Inden jeg startede, var jeg bange for at skade min arm. Men jeg blev taget godt imod, og folk var meget imødekommende. Alle snakker med alle, og fællesskabet betyder meget for mig. Det er sjovt at træne, og man får hjælp af gode trænere.',
+    image: 'images/portrait1.webp',
+  },
+  {
+    name: 'Darya',
+    age: 22,
+    quote:
+      'Jeg begyndte egentlig, fordi jeg gerne ville vinde over min kæreste og vise, at jeg også er stærk! Men allerede til min første træning fik jeg en masse gode tips og tricks af Thomas. Det var sjovt, og jeg var overrasket over, hvor stærk jeg var.',
+    image: 'images/portraitDarya.webp',
+  },
+  {
+    name: 'Drake',
+    age: 18,
+    quote:
+      'Jeg fik virkelig mange brugbare informationer og teknikker fra starten af. Det overraskede mig, hvor lidt det egentlig handler om styrke. Jeg troede, styrke spillede en stor rolle, men teknikken er langt vigtigere.',
+    image: 'images/portrait3.webp',
+  },
+]
+
+const activeTestimonial = ref(0)
+
+function nextTestimonial() {
+  activeTestimonial.value = (activeTestimonial.value + 1) % testimonials.length
+}
+
+function previousTestimonial() {
+  activeTestimonial.value =
+    (activeTestimonial.value - 1 + testimonials.length) % testimonials.length
+}
 </script>
 
 <template>
@@ -17,7 +55,7 @@ const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIC
       </template>
     </PageHero>
 
-    <section id="trial-signup" class="trial-signup">
+    <section id="trial-signup" class="trial-signup section-bg--secondary">
       <div class="trial-signup__inner">
         <h2>
           Vi står <span class="highlight">klar</span>
@@ -37,7 +75,6 @@ const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIC
       image-alt="Medlemmer af Armbrydning Odense"
       image-right
       image-format="portrait"
-      background-variant="secondary"
       button-text="Fortæl os at du kommer"
       button-to="#trial-signup"
       button-variant="primary"
@@ -57,6 +94,7 @@ const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIC
       image="/images/2.webp"
       image-alt="Medlemmer, der træner armbrydning"
       image-format="portrait"
+      background-variant="secondary"
       button-text="Find vej til klubben"
       :button-href="mapsUrl"
       button-variant="secondary"
@@ -79,7 +117,6 @@ const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIC
       image-alt="To personer, der træner armbrydning"
       image-right
       image-format="portrait"
-      background-variant="secondary"
       button-text="Læs mere om priser og kontingenter"
       button-to="/praktisk-info"
       button-variant="secondary"
@@ -106,16 +143,62 @@ const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIC
         blive medlem!
       </p>
     </ImageTextSection>
+
+    <section class="testimonials-section section-bg--secondary">
+      <ScrollReveal>
+        <div class="testimonials-section__inner">
+          <h2>
+            Hør det fra <span class="highlight">dem</span>, der er
+            <span class="highlight">med</span>
+          </h2>
+
+          <p class="testimonials-section__intro">
+            Hvordan er det egentlig at starte til armbrydning? Hør, hvad vores medlemmer siger.
+          </p>
+
+          <div class="testimonials-section__carousel">
+            <div aria-live="polite" aria-atomic="true">
+              <Transition name="testimonial" mode="out-in">
+                <TestimonialCard
+                  :key="activeTestimonial"
+                  v-bind="testimonials[activeTestimonial]"
+                />
+              </Transition>
+            </div>
+
+            <div class="testimonials-section__controls">
+              <button type="button" aria-label="Forrige udtalelse" @click="previousTestimonial">
+                ‹
+              </button>
+
+              <div class="testimonials-section__dots">
+                <button
+                  v-for="(testimonial, index) in testimonials"
+                  :key="testimonial.name"
+                  type="button"
+                  :aria-label="`Vis udtalelse fra ${testimonial.name}`"
+                  :aria-pressed="activeTestimonial === index"
+                  :class="{ 'is-active': activeTestimonial === index }"
+                  @click="activeTestimonial = index"
+                ></button>
+              </div>
+
+              <button type="button" aria-label="Næste udtalelse" @click="nextTestimonial">›</button>
+            </div>
+          </div>
+        </div>
+      </ScrollReveal>
+    </section>
   </main>
 </template>
 
 <style scoped lang="scss">
 @use '../assets/styles/variables' as v;
 
+// Trial signup section styles
 .trial-signup {
   padding: 4rem 1.5rem;
   text-align: center;
-  background-color: v.$bg-primary;
 }
 
 .trial-signup__inner {
@@ -132,6 +215,84 @@ const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIC
   p {
     line-height: 1.6;
     margin-bottom: 1rem;
+  }
+}
+
+// Testimonials section styles
+.testimonials-section {
+  padding: 5rem 1.5rem;
+}
+
+.testimonials-section__inner {
+  max-width: 740px;
+  margin-inline: auto;
+  text-align: center;
+
+  h2 {
+    margin-bottom: 1rem;
+    font-family: v.$font-heading;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    text-transform: uppercase;
+  }
+}
+
+.testimonials-section__intro {
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+
+.testimonials-section__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1.5rem;
+
+  > button {
+    border: 0;
+    background: none;
+    color: v.$color-lime;
+    font-size: 2.5rem;
+    cursor: pointer;
+  }
+}
+
+.testimonials-section__dots {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  button {
+    width: 12px;
+    height: 12px;
+    min-width: 12px;
+    padding: 0;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 50%;
+    background-color: v.$color-dark-gray;
+    cursor: pointer;
+
+    &.is-active {
+      background-color: v.$color-lime;
+    }
+  }
+}
+
+.testimonial-enter-active,
+.testimonial-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.testimonial-enter-from,
+.testimonial-leave-to {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-enter-active,
+  .testimonial-leave-active {
+    transition: none;
   }
 }
 </style>

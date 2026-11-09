@@ -2,6 +2,7 @@
 import PageHero from '../components/PageHero.vue'
 import ImageTextSection from '../components/ImageTextSection.vue'
 import BoardMemberCard from '../components/BoardMemberCard.vue'
+import ScrollReveal from '../components/ScrollReveal.vue'
 
 const boardMembers = [
   {
@@ -17,6 +18,21 @@ const boardMembers = [
     description:
       'Thomas har styr på både teknikkerne og historien bag armbrydning. Han er altid klar til at vise dig nye teknikker, dele ud af sin viden og hjælpe dig med at blive bedre ved bordet.',
     image: '/images/portraitThomas.webp',
+  },
+]
+
+const sponsors = [
+  {
+    name: 'Skousen',
+    image: '/images/logoskousensponsor.webp',
+  },
+  {
+    name: 'MC Køreskolen',
+    image: '/images/mcsponsorlogo.webp',
+  },
+  {
+    name: 'Piercer.dk',
+    image: '/images/piercerdksponsorlogo.webp',
   },
 ]
 </script>
@@ -147,8 +163,7 @@ const boardMembers = [
       <p>Så kan du give os besked på forhånd, så vi står klar til at tage imod dig.</p>
     </ImageTextSection>
 
-    <!-- Section: Bestyrelse -->
-
+    <!-- Sektion om bestyrelsen -->
     <section class="board-section">
       <div class="board-section__inner">
         <h2>Mød klubbens <span class="highlight">bestyrelse</span></h2>
@@ -166,12 +181,20 @@ const boardMembers = [
       </div>
     </section>
 
-    <section class="sponsors-section">
-      <div class="sponsors-section__inner">
-        <h2>Vores <span class="highlight">samarbejdspartnere</span></h2>
+    <!-- Sektion om samarbejdspartnere -->
 
-        <p>Information om vores samarbejdspartnere kommer snart.</p>
-      </div>
+    <section class="sponsors-section section-bg--secondary">
+      <ScrollReveal>
+        <div class="sponsors-section__inner">
+          <h2>Vores <span class="highlight">samarbejdspartnere</span></h2>
+
+          <div class="sponsors-section__grid">
+            <div v-for="sponsor in sponsors" :key="sponsor.name" class="sponsors-section__item">
+              <img :src="sponsor.image" :alt="sponsor.name" loading="lazy" decoding="async" />
+            </div>
+          </div>
+        </div>
+      </ScrollReveal>
     </section>
   </main>
 </template>
@@ -205,9 +228,57 @@ const boardMembers = [
   margin-inline: auto;
 }
 
+/* SPONSORER ------------------------------------ */
+
+.sponsors-section {
+  padding: 4rem 1.5rem;
+  text-align: center;
+}
+
+.sponsors-section__inner {
+  max-width: 1200px;
+  margin-inline: auto;
+
+  h2 {
+    margin-bottom: 2rem;
+    font-family: v.$font-heading;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    text-transform: uppercase;
+  }
+}
+
+.sponsors-section__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 900px;
+  margin-inline: auto;
+}
+
+.sponsors-section__item {
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  aspect-ratio: 4 / 3;
+  background-color: #fff;
+  border-radius: 8px;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+// Desktop og tablet
 @media (min-width: v.$breakpoint-tablet) {
   .board-section__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sponsors-section__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
