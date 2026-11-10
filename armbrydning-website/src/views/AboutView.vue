@@ -47,7 +47,7 @@ const sponsors = [
 
     <ImageTextSection
       id="about-intro"
-      image="/images/1.webp"
+      image="/images/6.webp"
       image-alt="Medlemmer af Armbrydning Odense"
       image-right
       image-format="portrait"
@@ -79,7 +79,7 @@ const sponsors = [
     </ImageTextSection>
 
     <ImageTextSection
-      image="/images/2.webp"
+      image="/images/11.webp"
       image-alt="Armbrydere under træning"
       image-format="portrait"
     >
@@ -111,7 +111,7 @@ const sponsors = [
 
     <ImageTextSection
       title="Klubbens historie"
-      image="/images/4.webp"
+      image="/images/5.webp"
       image-alt="Medlemmer fra Armbrydning Odense"
       image-right
       image-format="landscape"
@@ -139,7 +139,7 @@ const sponsors = [
 
     <ImageTextSection
       title="Lyst til at være med?"
-      image="/images/3.webp"
+      image="/images/12.webp"
       image-alt="To personer, der træner armbrydning"
       image-format="portrait"
       background-variant="secondary"

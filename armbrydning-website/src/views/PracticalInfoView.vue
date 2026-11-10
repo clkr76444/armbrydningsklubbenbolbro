@@ -112,7 +112,7 @@ const faqs = [
       </ImageTextSection>
 
       <ImageTextSection
-        image="/images/1.webp"
+        image="/images/4.webp"
         image-alt="Medlemmer af Armbrydning Odense"
         image-format="portrait"
         button-text="Bliv armbryder"

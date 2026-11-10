@@ -71,7 +71,7 @@ function previousTestimonial() {
     </section>
 
     <ImageTextSection
-      image="/images/1.webp"
+      image="/images/2.webp"
       image-alt="Medlemmer af Armbrydning Odense"
       image-right
       image-format="portrait"
@@ -91,7 +91,7 @@ function previousTestimonial() {
     </ImageTextSection>
 
     <ImageTextSection
-      image="/images/2.webp"
+      image="/images/8.webp"
       image-alt="Medlemmer, der træner armbrydning"
       image-format="portrait"
       background-variant="secondary"
@@ -113,7 +113,7 @@ function previousTestimonial() {
     </ImageTextSection>
 
     <ImageTextSection
-      image="/images/3.webp"
+      image="/images/12.webp"
       image-alt="To personer, der træner armbrydning"
       image-right
       image-format="portrait"
