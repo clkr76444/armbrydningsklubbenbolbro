@@ -4,6 +4,7 @@ import ImageTextSection from '../components/ImageTextSection.vue'
 import PageHero from '../components/PageHero.vue'
 import TestimonialCard from '../components/TestimonialCard.vue'
 import ScrollReveal from '../components/ScrollReveal.vue'
+import TrialForm from '../components/TrialForm.vue'
 
 const clubAddress = 'Middelfartvej 114, 5200 Odense V'
 
@@ -63,10 +64,18 @@ function previousTestimonial() {
         </h2>
 
         <p>
-          Din første træning skal være en god oplevelse! <br />Fortæl os, at du kommer, så sørger vi
-          for at være klar til at tage imod dig.
+          Din første træning skal være en god oplevelse!
+          <br />
+          Fortæl os, at du kommer, så sørger vi for at være klar til at tage imod dig.
         </p>
-        <p>Tilmelding er <strong>ikke</strong> nødvendig - du kan også bare møde op!</p>
+        <p class="trial-signup__notice">
+          Tilmelding er <strong>ikke</strong> nødvendig – du kan også bare møde op!
+        </p>
+
+        <!-- Prøvetræningsformular -->
+        <div class="trial-signup__form">
+          <TrialForm />
+        </div>
       </div>
     </section>
 
@@ -287,6 +296,17 @@ function previousTestimonial() {
 .testimonial-enter-from,
 .testimonial-leave-to {
   opacity: 0;
+}
+
+// PRØVETRÆNINGSFORMULAR
+.trial-signup__form {
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.trial-signup__notice {
+  margin-top: 1.5rem;
+  text-align: center;
 }
 
 @media (prefers-reduced-motion: reduce) {
