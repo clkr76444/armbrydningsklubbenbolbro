@@ -204,6 +204,11 @@ onUnmounted(() => {
   transform: translateY(0);
 }
 
+.image-text-section__image:not(.image-text-section__image--portrait) {
+  max-width: none;
+  margin-right: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .image-text-section__inner {
     opacity: 1;
@@ -233,6 +238,11 @@ onUnmounted(() => {
       order: 0;
       justify-self: end;
     }
+  }
+
+  .image-text-section__image:not(.image-text-section__image--portrait) {
+    width: calc(100% - 2rem);
+    margin-inline: -1rem;
   }
 }
 

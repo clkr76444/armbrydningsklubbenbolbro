@@ -40,7 +40,7 @@ import { resetMapConsent } from '../composables/mapConsent'
             <p>
               Middelfartvej 114
               <br />
-              5000 Odense
+              5200 Odense V
             </p>
           </address>
         </section>

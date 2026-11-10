@@ -48,7 +48,7 @@ defineProps({
     padding: 1.5rem;
     background-color: v.$color-lime;
     color: v.$color-off-black;
-    font-weight: v.$font-bold;
+    font-weight: v.$font-regular;
     text-transform: uppercase;
     cursor: pointer;
     list-style: none;

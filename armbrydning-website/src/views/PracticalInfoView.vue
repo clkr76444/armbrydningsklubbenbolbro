@@ -83,9 +83,9 @@ const faqs = [
 
     <div id="training-info">
       <ImageTextSection
-        image="/images/2.webp"
+        image="/images/klubfront.webp"
         image-alt="En gruppe medlemmer, der træner armbrydning"
-        image-format="portrait"
+        image-format="landscape"
         image-right
         background-variant="secondary"
         button-text="Find vej til klubben"
@@ -93,9 +93,15 @@ const faqs = [
         button-variant="secondary"
       >
         <template #heading> Her finder <span class="highlight">du os</span> </template>
-
-        <h3>Træningstider</h3>
-        <p>Vi træner hver tirsdag og torsdag fra kl. 18.30 til 20.00.</p>
+        <p>
+          Vi holder til i Bolbro i Odense V sammen med Phoenix judoklub.<br />Her mødes vi to gange
+          om ugen for at dyrke armbrydning. Uanset om du er erfaren eller helt ny, er du altid
+          velkommen til at kigge forbi!
+        </p>
+        <p>
+          Vi træner hver <strong>tirsdag</strong> og <strong>torsdag</strong> fra
+          <strong>kl. 18.30 til 20.00.</strong>
+        </p>
 
         <h3>Adresse</h3>
         <p>
@@ -178,8 +184,8 @@ const faqs = [
             <p>Bare rolig! Vi hjælper dig gerne.</p>
 
             <p>
-              Hvis du stadig sidder med spørgsmål om medlemskab, træning eller noget helt tredje, er
-              du altid velkommen til at tage fat i os.
+              Hvis du stadig sidder med spørgsmål om medlemskab, træning eller noget helt tredje, så
+              er du altid velkommen til at tage fat i os.
             </p>
 
             <p>Send os en besked, eller giv os et kald, så hjælper vi dig videre.</p>
