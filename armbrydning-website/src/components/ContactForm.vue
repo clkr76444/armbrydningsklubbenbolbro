@@ -1,14 +1,55 @@
 <script setup>
 import { ref } from 'vue'
+import { ref as dbRef, push, set, serverTimestamp } from 'firebase/database'
+import { database } from '../firebase'
 
 const name = ref('')
 const phone = ref('')
 const subject = ref('')
 const message = ref('')
+
+const isSending = ref(false)
+const successMessage = ref('')
+const errorMessage = ref('')
+
+async function sendMessage() {
+  if (isSending.value) return
+
+  isSending.value = true
+  successMessage.value = ''
+  errorMessage.value = ''
+
+  try {
+    const messagesRef = dbRef(database, 'contactMessages')
+    const newMessageRef = push(messagesRef)
+
+    const newMessage = {
+      name: name.value.trim(),
+      phone: phone.value.trim(),
+      subject: subject.value,
+      message: message.value.trim(),
+      createdAt: serverTimestamp(),
+    }
+
+    await set(newMessageRef, newMessage)
+
+    successMessage.value = 'Din besked er sendt!'
+
+    name.value = ''
+    phone.value = ''
+    subject.value = ''
+    message.value = ''
+  } catch (error) {
+    console.error('Fejl ved indsendelse:', error)
+    errorMessage.value = 'Beskeden kunne ikke sendes. Prøv igen.'
+  } finally {
+    isSending.value = false
+  }
+}
 </script>
 
 <template>
-  <form class="contact-form" @submit.prevent>
+  <form class="contact-form" @submit.prevent="sendMessage">
     <!-- Navn -->
     <fieldset class="contact-form__field">
       <legend id="contact-name-label">Dit navn</legend>
@@ -20,6 +61,8 @@ const message = ref('')
         autocomplete="name"
         placeholder="Indtast dit navn"
         aria-labelledby="contact-name-label"
+        minlength="2"
+        maxlength="100"
         required
       />
     </fieldset>
@@ -35,6 +78,8 @@ const message = ref('')
         autocomplete="tel"
         placeholder="Indtast dit telefonnummer"
         aria-labelledby="contact-phone-label"
+        minlength="8"
+        maxlength="20"
         required
       />
     </fieldset>
@@ -67,12 +112,21 @@ const message = ref('')
         placeholder="Skriv din besked her..."
         aria-labelledby="contact-message-label"
         rows="6"
+        minlength="10"
+        maxlength="2000"
         required
       ></textarea>
     </fieldset>
 
     <!-- Aktiveres når Firebase er implementeret -->
     <button type="submit" class="btn btn--primary" disabled>Send besked</button>
+    <p v-if="successMessage" role="status">
+      {{ successMessage }}
+    </p>
+
+    <p v-if="errorMessage" role="alert">
+      {{ errorMessage }}
+    </p>
   </form>
 </template>
 

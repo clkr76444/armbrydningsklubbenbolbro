@@ -1,6 +1,7 @@
 <script setup>
 import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
+import { auth } from "../firebase";
 
 //Henter information om den aktuelle URL
 const route = useRoute();
@@ -87,8 +88,17 @@ async function updateNews() {
   errorMessage.value = "";
 
   try {
-    // Sender ændringerne til Firebase
-    const response = await fetch(url, {
+    const user = auth.currentUser;
+
+    if (!user) {
+      throw new Error("Ingen bruger er logget ind");
+    }
+
+    // Henter brugerens Firebase ID-token
+    const idToken = await user.getIdToken();
+
+    // Sender ændringerne og tokenet til Firebase
+    const response = await fetch(`${url}?auth=${encodeURIComponent(idToken)}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

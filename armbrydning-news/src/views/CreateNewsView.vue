@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+import { auth } from "../firebase";
 
 // opretter en variabel til nyhedens titel
 const title = ref("");
@@ -45,7 +46,17 @@ async function createNews() {
   errorMessage.value = "";
 
   try {
-    const response = await fetch(url, {
+    const user = auth.currentUser;
+
+    if (!user) {
+      throw new Error("Ingen bruger er logget ind");
+    }
+
+    // Hent Firebase ID-token for den indloggede bruger
+    const idToken = await user.getIdToken();
+
+    // Send token med til Realtime Database
+    const response = await fetch(`${url}?auth=${encodeURIComponent(idToken)}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

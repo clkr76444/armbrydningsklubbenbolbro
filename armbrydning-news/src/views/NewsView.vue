@@ -2,7 +2,13 @@
 // ref() gør variabler reaktive.
 // onMounted() kører kode, når komponenten er monteret i DOM'en.
 import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import NewsCard from "../components/NewsCard.vue";
+import { auth } from "../firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { onUnmounted } from "vue";
+
+const router = useRouter();
 
 // Opretter en reaktiv variabel med et tomt array.
 const news = ref([]);
@@ -11,8 +17,8 @@ const loadError = ref("");
 
 const isLoading = ref(true); // Holder styr på om nyhederne er ved at blive hentet
 
-// midlertidig variabel til at holde styr på om brugeren er admin
-const isAdmin = ref(true);
+// Variabel til at holde styr på om brugeren er admin
+const isAdmin = ref(false);
 
 // Holder styr på hvilken nyhed brugeren vil slette
 const selectedNews = ref(null);
@@ -29,6 +35,14 @@ const deleteError = ref("");
 // URL til Firebase Realtime Database.
 const url =
   "https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase.app/news.json";
+
+const ADMIN_UID = "OT3NVoOeWMe2AROEUqaquMXTUnJ3";
+
+const unsubscribe = onAuthStateChanged(auth, (user) => {
+  isAdmin.value = user?.uid === ADMIN_UID;
+});
+
+onUnmounted(unsubscribe);
 
 // Kører, når komponenten er monteret.
 onMounted(async () => {
@@ -78,11 +92,21 @@ onMounted(async () => {
   }
 });
 
-// Åbner slet-dialogen for den valgte nyhed
-function openDeleteDialog(item) {
-  selectedNews.value = item; // Gemmer den valgte nyhed
-  deleteError.value = ""; // Nulstiller eventuelle tidligere fejlbeskeder
-  deleteDialog.value.showModal(); // Åbner bekræftelsesdialogen
+// Åbner slet-dialogen for den valgte nyhed hvis admin er logget ind
+async function openDeleteDialog(item) {
+  // Venter på, at Firebase har afklaret loginstatus
+  await auth.authStateReady();
+
+  // Hvis brugeren ikke er logget ind, send til login
+  if (!auth.currentUser) {
+    router.push({ name: "login" });
+    return;
+  }
+
+  // Hvis brugeren er logget ind, åbnes dialogen
+  selectedNews.value = item;
+  deleteError.value = "";
+  deleteDialog.value.showModal();
 }
 
 // Sletter den valgte nyhed fra Firebase
@@ -99,10 +123,23 @@ async function deleteNews() {
   isDeleting.value = true;
 
   try {
-    // Sender DELETE-kaldet til Firebase
-    const response = await fetch(deleteUrl, {
-      method: "DELETE",
-    });
+    // Finder den indloggede bruger
+    const user = auth.currentUser;
+
+    if (!user) {
+      throw new Error("Ingen bruger er logget ind");
+    }
+
+    // Henter brugerens Firebase ID-token
+    const idToken = await user.getIdToken();
+
+    // Sender DELETE-kaldet med brugerens ID-token
+    const response = await fetch(
+      `${deleteUrl}?auth=${encodeURIComponent(idToken)}`,
+      {
+        method: "DELETE",
+      },
+    );
 
     if (!response.ok) {
       throw new Error("Databasefejl ved sletning af nyhed");
