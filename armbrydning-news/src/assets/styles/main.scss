@@ -93,15 +93,6 @@ p {
   }
 }
 
-// OPRET NYHED - KNAP PÅ FORSIDEN
-#create-news-link {
-  display: flex;
-  justify-content: center;
-  width: fit-content;
-  margin: 0 0 2rem auto;
-  text-decoration: none;
-}
-
 // SLET KNAP
 .btn-delete {
   padding: 0.75rem 2rem;
@@ -163,7 +154,8 @@ p {
 
 
  // KNAPPER PÅ NYHEDSKORT
-.news-card-actions {
+.news-card-actions,
+.admin-card-actions {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -188,6 +180,93 @@ p {
     width: calc(50% - 0.5rem);
     }
   }
+}
+
+
+/* ADMINISTRATION - KONTAKTBESKEDER OG TILMELDINGER */
+
+// Sidernes layout
+
+.admin-overview-page {
+  width: 100%;
+  max-width: 720px;
+  margin-inline: auto;
+  padding: 2rem 1rem 4rem;
+
+  h1 {
+    text-align: center;
+    text-wrap: balance;
+    margin-bottom: 2rem;
+  }
+
+  > p {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+}
+
+// Liste med administrationskort
+.admin-card-list {
+  display: grid;
+  gap: 1rem;
+}
+
+// Kort til henvendelser og tilmeldinger
+.admin-card {
+  padding: 1.5rem;
+  background-color: v.$bg-secondary;
+  border: 1px solid v.$color-dark-gray;
+  border-radius: 8px;
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+    white-space: pre-line;
+  }
+
+  a {
+  color: v.$color-lime;
+  text-underline-offset: 3px;
+
+  &:hover {
+    color: v.$color-off-white;
+  }
+ }
+}
+
+ // FREMHÆV ØNSKE OM SMS-BEKRÆFTELSE
+ .admin-card .sms-requested {
+  color: v.$color-lime;
+  font-weight: v.$font-medium;
+ }
+
+// OVERLAY PÅ FÆRDIGBEHANDLEDE HENVENDELSER
+.admin-card {
+  position: relative;
+}
+
+.admin-card--completed {
+  // Nedtoner kortets indhold
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(v.$color-off-black, 0.55);
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  // Holder statusknappen tydelig og klikbar
+> .admin-card-actions {
+  position: relative;
+  z-index: 2;
+}
 }
 
 

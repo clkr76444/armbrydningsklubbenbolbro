@@ -180,16 +180,6 @@ async function deleteNews() {
   <main class="news-page">
     <h1>Nyheder</h1>
 
-    <!--RouterLink bruges til at navigerer mellem sider uden at genindlæse hele hjemmesiden-->
-    <RouterLink
-      v-if="isAdmin"
-      to="/opret"
-      id="create-news-link"
-      class="btn-primary"
-    >
-      Opret nyhed
-    </RouterLink>
-
     <p v-if="loadError" role="alert">{{ loadError }}</p>
     <!-- Viser Indlæsningsstatus indtil finally sætter isLoading til false -->
     <p v-if="isLoading" role="status">Indlæser nyheder...</p>
