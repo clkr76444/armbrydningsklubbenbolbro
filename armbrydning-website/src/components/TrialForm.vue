@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from 'vue'
+import { ref as dbRef, push, set, serverTimestamp } from 'firebase/database'
+import { database } from '../firebase'
 
 const name = ref('')
 const phone = ref('')
@@ -7,6 +9,11 @@ const wantsSmsConfirmation = ref(false)
 
 const nameError = ref('')
 const phoneError = ref('')
+
+// Status på indsendelsen
+const isSending = ref(false)
+const successMessage = ref('')
+const errorMessage = ref('')
 
 // Validerer navnet
 function validateName() {
@@ -58,10 +65,56 @@ for (let i = 1; trainingDates.length < 4; i++) {
     })
   }
 }
+
+async function sendSignup() {
+  // Forhindre dobbeltindsendelse
+  if (isSending.value) return
+
+  //Valider inputfelterne
+  validateName()
+  validatePhone()
+
+  if (nameError.value || phoneError.value || !trainingDate.value) return
+
+  isSending.value = true
+  successMessage.value = ''
+  errorMessage.value = ''
+
+  try {
+    //Finder placeringen i Firebase
+    const signupsRef = dbRef(database, 'trialSignups')
+    const newSignupRef = push(signupsRef)
+
+    // Oplysningerne vi vil gemme i firebase
+    const newSignup = {
+      name: name.value.trim(),
+      phone: phone.value.replace(/[\s()-]/g, ''),
+      trainingDate: trainingDate.value,
+      wantsSmsConfirmation: wantsSmsConfirmation.value,
+      createdAt: serverTimestamp(),
+    }
+
+    // Gemmer tilmeldingen i Firebase
+    await set(newSignupRef, newSignup)
+
+    successMessage.value = 'Tilmeldingen er sendt!'
+
+    // Nulstil formularfelterne
+    name.value = ''
+    phone.value = ''
+    trainingDate.value = ''
+    wantsSmsConfirmation.value = false
+  } catch (error) {
+    console.error('Fejl ved tilmelding:', error)
+    errorMessage.value = 'Tilmeldingen kunne ikke sendes. Prøv igen.'
+  } finally {
+    isSending.value = false
+  }
+}
 </script>
 
 <template>
-  <form class="trial-form" @submit.prevent>
+  <form class="trial-form" @submit.prevent="sendSignup">
     <!-- Navn -->
     <fieldset class="trial-form__field">
       <legend id="trial-name-label">Dit navn</legend>
@@ -126,7 +179,16 @@ for (let i = 1; trainingDates.length < 4; i++) {
     </label>
 
     <!-- Aktiveres når sikker indsendelse er implementeret -->
-    <button type="submit" class="btn btn--primary" disabled>Send tilmelding</button>
+    <button type="submit" class="btn btn--primary" :disabled="isSending">
+      {{ isSending ? 'Sender...' : 'Send tilmelding' }}
+    </button>
+    <p v-if="successMessage" role="status">
+      {{ successMessage }}
+    </p>
+
+    <p v-if="errorMessage" role="alert">
+      {{ errorMessage }}
+    </p>
   </form>
 </template>
 

@@ -79,6 +79,7 @@ async function logOut() {
         <RouterLink to="/">Nyheder</RouterLink>
         <RouterLink to="/opret">Opret nyhed</RouterLink>
         <RouterLink to="/henvendelser">Kontaktbeskeder</RouterLink>
+        <RouterLink to="/tilmeldinger"> Prøvetræningstilmeldinger </RouterLink>
         <button type="button" class="logout-button" @click="logOut">
           Log ud
         </button>
@@ -126,6 +127,10 @@ async function logOut() {
 
       <RouterLink to="/henvendelser" @click="closeMenu">
         Kontaktbeskeder
+      </RouterLink>
+
+      <RouterLink to="/tilmeldinger" @click="closeMenu">
+        Prøvetræningstilmeldinger
       </RouterLink>
 
       <button type="button" class="logout-button" @click="logOut">

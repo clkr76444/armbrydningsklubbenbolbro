@@ -28,6 +28,12 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
+      path: "/tilmeldinger",
+      name: "trial-signups",
+      component: () => import("../views/TrialSignupView.vue"),
+      meta: { requiresAuth: true },
+    },
+    {
       path: "/rediger/:id",
       name: "edit-news",
       component: () => import("../views/EditNewsView.vue"),
