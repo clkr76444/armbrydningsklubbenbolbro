@@ -1,7 +1,8 @@
 <script setup>
 import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
-import { auth } from "../firebase";
+import { auth, appCheck } from "../firebase";
+import { getToken } from "firebase/app-check";
 
 //Henter information om den aktuelle URL
 const route = useRoute();
@@ -37,9 +38,15 @@ const url = `https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase
 // Venter på at komponenten bliver monteret, før vi henter nyheden fra Firebase
 onMounted(async () => {
   try {
-    // Henter den valgte nyhed fra Firebase
+    // Henter et gyldigt Firebase App Check-token
+    const { token } = await getToken(appCheck);
+
+    // Henter den valgte nyhed fra Firebase med App Check-token
     const response = await fetch(url, {
       method: "GET",
+      headers: {
+        "X-Firebase-AppCheck": token,
+      },
     });
 
     // Kontrollerer om Firebase har svaret korrekt
@@ -96,12 +103,14 @@ async function updateNews() {
 
     // Henter brugerens Firebase ID-token
     const idToken = await user.getIdToken();
+    const { token } = await getToken(appCheck);
 
     // Sender ændringerne og tokenet til Firebase
     const response = await fetch(`${url}?auth=${encodeURIComponent(idToken)}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
+        "X-Firebase-AppCheck": token,
       },
       body: JSON.stringify(updatedNews),
     });

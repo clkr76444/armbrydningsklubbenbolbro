@@ -2,6 +2,9 @@
 import { ref } from "vue";
 import { auth } from "../firebase";
 
+import { getToken } from "firebase/app-check";
+import { appCheck } from "../firebase";
+
 // opretter en variabel til nyhedens titel
 const title = ref("");
 // opretter en variabel til nyhedens beskrivelse
@@ -54,12 +57,14 @@ async function createNews() {
 
     // Hent Firebase ID-token for den indloggede bruger
     const idToken = await user.getIdToken();
+    const { token } = await getToken(appCheck);
 
     // Send token med til Realtime Database
     const response = await fetch(`${url}?auth=${encodeURIComponent(idToken)}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "X-Firebase-AppCheck": token,
       },
       body: JSON.stringify(newNews),
     });

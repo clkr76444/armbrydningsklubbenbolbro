@@ -119,7 +119,9 @@ async function sendMessage() {
     </fieldset>
 
     <!-- Aktiveres når Firebase er implementeret -->
-    <button type="submit" class="btn btn--primary" disabled>Send besked</button>
+    <button type="submit" class="btn btn--primary" :disabled="isSending">
+      {{ isSending ? 'Sender...' : 'Send besked' }}
+    </button>
     <p v-if="successMessage" role="status">
       {{ successMessage }}
     </p>

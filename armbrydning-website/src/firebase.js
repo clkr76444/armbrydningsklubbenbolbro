@@ -1,6 +1,7 @@
 import { getDatabase } from 'firebase/database'
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app'
+import { initializeAppCheck, ReCaptchaEnterpriseProvider } from 'firebase/app-check'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -17,4 +18,13 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
+if (import.meta.env.DEV) {
+  self.FIREBASE_APPCHECK_DEBUG_TOKEN = true
+}
+
+initializeAppCheck(app, {
+  provider: new ReCaptchaEnterpriseProvider('6LcYhR4uAAAAAMAklT25xgermrIUhm3fw3czqfSs'),
+  isTokenAutoRefreshEnabled: true,
+})
+
 export const database = getDatabase(app)

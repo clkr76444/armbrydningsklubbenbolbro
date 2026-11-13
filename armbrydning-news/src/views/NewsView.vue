@@ -8,6 +8,9 @@ import { auth } from "../firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { onUnmounted } from "vue";
 
+import { getToken } from "firebase/app-check";
+import { appCheck } from "../firebase";
+
 const router = useRouter();
 
 // Opretter en reaktiv variabel med et tomt array.
@@ -47,9 +50,15 @@ onUnmounted(unsubscribe);
 // Kører, når komponenten er monteret.
 onMounted(async () => {
   try {
-    // Henter nyheder fra Firebase.
+    // Henter et gyldigt Firebase App Check-token
+    const { token } = await getToken(appCheck);
+
+    // Henter nyheder fra Firebase med App Check-tokenet
     const response = await fetch(url, {
       method: "GET",
+      headers: {
+        "X-Firebase-AppCheck": token,
+      },
     });
 
     if (!response.ok) {
@@ -133,11 +142,16 @@ async function deleteNews() {
     // Henter brugerens Firebase ID-token
     const idToken = await user.getIdToken();
 
+    const { token } = await getToken(appCheck);
+
     // Sender DELETE-kaldet med brugerens ID-token
     const response = await fetch(
       `${deleteUrl}?auth=${encodeURIComponent(idToken)}`,
       {
         method: "DELETE",
+        headers: {
+          "X-Firebase-AppCheck": token,
+        },
       },
     );
 
