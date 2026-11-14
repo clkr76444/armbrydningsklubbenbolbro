@@ -134,24 +134,39 @@ p {
 // FÆLLES STYLING TIL NYHEDSKORT
 .news-card {
   padding: 1.5rem;
-  margin-bottom: 1rem;
+  overflow: hidden;
   border: 1px solid v.$color-off-white;
   border-radius: 8px;
 
+  .news-card__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 0.1rem 0.1rem 0 0.1rem;
+    min-width: 0;
+  }
+
   h2 {
+    margin-top: 0;
     margin-bottom: 0.5rem;
+    overflow-wrap: anywhere;
   }
 
   p {
     line-height: 1.6;
-    overflow-wrap: anywhere; 
+    overflow-wrap: anywhere;
   }
 
   p:not(.news-date) {
     white-space: pre-line;
   }
-}
 
+  // Holder administrationsknapperne nederst i kortet
+  .news-card-actions {
+    margin-top: auto;
+    padding-top: 1.5rem;
+  }
+}
 
  // KNAPPER PÅ NYHEDSKORT
 .news-card-actions,

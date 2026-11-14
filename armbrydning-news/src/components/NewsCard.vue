@@ -23,10 +23,6 @@ const getImageSrc = (url) => {
 
 <template>
   <article class="news-card">
-    <h2>{{ newsItem.title }}</h2>
-
-    <p class="news-date">{{ formatDate(newsItem.date) }}</p>
-
     <!-- Viser kun et billede, hvis nyheden har en billed-URL -->
     <img
       v-if="newsItem.imageUrl"
@@ -36,19 +32,32 @@ const getImageSrc = (url) => {
       loading="lazy"
     />
 
-    <p>{{ newsItem.description }}</p>
+    <!-- Samler tekst og knapper, så billedet kan fylde hele kortets bredde -->
+    <div class="news-card__content">
+      <h2>{{ newsItem.title }}</h2>
 
-    <slot></slot>
+      <p class="news-date">{{ formatDate(newsItem.date) }}</p>
+
+      <p class="news-card-description">{{ newsItem.description }}</p>
+
+      <!-- Her indsættes administrationsknapperne via slot -->
+      <slot></slot>
+    </div>
   </article>
 </template>
 
 <style scoped lang="scss">
+@use "../assets/styles/variables" as v;
+
 .news-card-image {
   display: block;
   width: 100%;
   max-width: 100%;
   height: auto;
-  margin: 1rem 0;
+  max-height: 220px;
+  object-fit: contain;
+  object-position: center;
+  margin-bottom: 1.5rem;
   border-radius: 8px;
 }
 </style>

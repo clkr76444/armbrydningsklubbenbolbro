@@ -178,84 +178,27 @@ async function deleteNews() {
 </script>
 
 <template>
-  <main class="news-page">
-    <h1>Nyheder</h1>
+  <article class="news-card">
+    <div class="news-card__content">
+      <!-- Viser kun et billede, hvis nyheden har en billed-URL -->
+      <img
+        v-if="newsItem.imageUrl"
+        :src="getImageSrc(newsItem.imageUrl)"
+        :alt="`Billede til nyheden: ${newsItem.title}`"
+        class="news-card-image"
+        loading="lazy"
+      />
 
-    <p v-if="loadError" role="alert">{{ loadError }}</p>
-    <!-- Viser Indlæsningsstatus indtil finally sætter isLoading til false -->
-    <p v-if="isLoading" role="status">Indlæser nyheder...</p>
+      <h2>{{ newsItem.title }}</h2>
 
-    <!-- Empty state: Hvis indlæsningen er færdig, og der ikke er opstået en fejl og nyhedslisten er tom -->
-    <p v-if="!isLoading && !loadError && news.length === 0">
-      Ingen nyheder at vise.
-    </p>
+      <p class="news-date">{{ formatDate(newsItem.date) }}</p>
 
-    <!-- Gennemgår nyhederne og sender hver nyhed til NewsCard via props -->
-    <div class="news-grid">
-      <NewsCard v-for="item in news" :key="item.id" :news-item="item">
-        <!-- Viser kun administrationsknapperne, hvis isAdmin er true -->
-        <!-- Knapperne indsættes i NewsCards slot -->
-        <div v-if="isAdmin" class="news-card-actions">
-          <!-- Navigerer til redigeringssiden for den valgte nyhed -->
-          <RouterLink
-            :to="{ name: 'edit-news', params: { id: item.id } }"
-            class="btn-primary"
-          >
-            Rediger
-          </RouterLink>
+      <p class="news-card-description">{{ newsItem.description }}</p>
 
-          <!-- Åbner slette-dialogen for den valgte nyhed -->
-          <button
-            type="button"
-            class="btn-delete"
-            @click="openDeleteDialog(item)"
-          >
-            Slet
-          </button>
-        </div>
-      </NewsCard>
+      <!-- Her indsættes administrationsknapperne via slot -->
+      <slot></slot>
     </div>
-
-    <!--Bekræftelsesdialog for sletning-->
-    <dialog
-      ref="deleteDialog"
-      class="feedback-dialog feedback-dialog--error"
-      aria-labelledby="delete-title"
-    >
-      <form method="dialog">
-        <button type="submit" class="dialog-close" aria-label="Luk beskeden">
-          ×
-        </button>
-
-        <h2 id="delete-title">Vil du slette dette opslag?</h2>
-
-        <!--Viser titlen på den valgte nyhed. ? Betyder at JavaScript kun viser titlen hvis selectedNews ikke er null eller undefined -->
-        <p>
-          Er du sikker på at du vil slette
-          <strong>{{ selectedNews?.title }}</strong
-          >? Handlingen kan ikke fortrydes.
-        </p>
-
-        <!-- hvis der opstår en fejl ved sletning, vis fejlbeskeden -->
-        <p v-if="deleteError" class="delete-error" role="alert">
-          <strong>FEJL!</strong> {{ deleteError }}
-        </p>
-
-        <!--Knapper i div-container-->
-        <div class="delete-dialog-actions">
-          <button
-            type="button"
-            class="btn-delete"
-            :disabled="isDeleting"
-            @click="deleteNews"
-          >
-            {{ isDeleting ? "Sletter..." : "Ja, slet" }}
-          </button>
-          <button type="submit" class="btn-primary">Annuller handling</button>
-        </div>
-      </form>
-    </dialog>
-  </main>
+  </article>
 </template>
 
 <style scoped lang="scss">
@@ -265,7 +208,7 @@ async function deleteNews() {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 2rem 1.5rem;
 
   h1 {
     text-align: center;
@@ -278,12 +221,15 @@ async function deleteNews() {
   grid-template-columns: minmax(0, 1fr);
   gap: 1.5rem;
 
+  // TABLET - FRA 800PX
   @media (min-width: v.$breakpoint-tablet) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  // DESKTOP - FRA 1280PX
   @media (min-width: v.$breakpoint-desktop) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 340px));
+    justify-content: space-between;
   }
 }
 </style>
