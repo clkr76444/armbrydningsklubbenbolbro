@@ -82,6 +82,7 @@ onMounted(async () => {
         id: id,
         title: item.title,
         description: item.description,
+        imageUrl: item.imageUrl ?? "",
         date: item.date,
       };
     });
@@ -190,28 +191,30 @@ async function deleteNews() {
     </p>
 
     <!-- Gennemgår nyhederne og sender hver nyhed til NewsCard via props -->
-    <NewsCard v-for="item in news" :key="item.id" :news-item="item">
-      <!-- Viser kun administrationsknapperne, hvis isAdmin er true -->
-      <!-- Knapperne indsættes i NewsCards slot -->
-      <div v-if="isAdmin" class="news-card-actions">
-        <!-- Navigerer til redigeringssiden for den valgte nyhed -->
-        <RouterLink
-          :to="{ name: 'edit-news', params: { id: item.id } }"
-          class="btn-primary"
-        >
-          Rediger
-        </RouterLink>
+    <div class="news-grid">
+      <NewsCard v-for="item in news" :key="item.id" :news-item="item">
+        <!-- Viser kun administrationsknapperne, hvis isAdmin er true -->
+        <!-- Knapperne indsættes i NewsCards slot -->
+        <div v-if="isAdmin" class="news-card-actions">
+          <!-- Navigerer til redigeringssiden for den valgte nyhed -->
+          <RouterLink
+            :to="{ name: 'edit-news', params: { id: item.id } }"
+            class="btn-primary"
+          >
+            Rediger
+          </RouterLink>
 
-        <!-- Åbner slette-dialogen for den valgte nyhed -->
-        <button
-          type="button"
-          class="btn-delete"
-          @click="openDeleteDialog(item)"
-        >
-          Slet
-        </button>
-      </div>
-    </NewsCard>
+          <!-- Åbner slette-dialogen for den valgte nyhed -->
+          <button
+            type="button"
+            class="btn-delete"
+            @click="openDeleteDialog(item)"
+          >
+            Slet
+          </button>
+        </div>
+      </NewsCard>
+    </div>
 
     <!--Bekræftelsesdialog for sletning-->
     <dialog
@@ -259,13 +262,28 @@ async function deleteNews() {
 @use "../assets/styles/variables" as v;
 
 .news-page {
-  max-width: 720px;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem 1rem;
 
   h1 {
     text-align: center;
     text-wrap: balance;
+  }
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+
+  @media (min-width: v.$breakpoint-tablet) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (min-width: v.$breakpoint-desktop) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 </style>

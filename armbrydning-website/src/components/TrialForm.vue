@@ -76,6 +76,14 @@ async function sendSignup() {
 
   if (nameError.value || phoneError.value || !trainingDate.value) return
 
+  const lastSent = Number(localStorage.getItem('trialLastSent') || 0)
+
+  if (Date.now() - lastSent < 15 * 60 * 1000) {
+    successMessage.value = ''
+    errorMessage.value = 'Vent 15 minutter, før du tilmelder dig igen.'
+    return
+  }
+
   isSending.value = true
   successMessage.value = ''
   errorMessage.value = ''
@@ -96,6 +104,7 @@ async function sendSignup() {
 
     // Gemmer tilmeldingen i Firebase
     await set(newSignupRef, newSignup)
+    localStorage.setItem('trialLastSent', String(Date.now()))
 
     successMessage.value = 'Tilmeldingen er sendt!'
 
@@ -132,7 +141,7 @@ async function sendSignup() {
         :aria-invalid="!!nameError"
         required
       />
-      <p v-if="nameError" class="trial-form__error" role="alert">
+      <p v-if="nameError" class="form-field-error" role="alert">
         {{ nameError }}
       </p>
     </fieldset>
@@ -154,7 +163,7 @@ async function sendSignup() {
         :aria-invalid="!!phoneError"
         required
       />
-      <p v-if="phoneError" class="trial-form__error" role="alert">
+      <p v-if="phoneError" class="form-field-error" role="alert">
         {{ phoneError }}
       </p>
     </fieldset>
@@ -182,11 +191,12 @@ async function sendSignup() {
     <button type="submit" class="btn btn--primary" :disabled="isSending">
       {{ isSending ? 'Sender...' : 'Send tilmelding' }}
     </button>
-    <p v-if="successMessage" role="status">
+
+    <p v-if="successMessage" class="form-message form-message--success" role="status">
       {{ successMessage }}
     </p>
 
-    <p v-if="errorMessage" role="alert">
+    <p v-if="errorMessage" class="form-message form-message--error" role="alert">
       {{ errorMessage }}
     </p>
   </form>
@@ -283,13 +293,6 @@ async function sendSignup() {
 }
 
 // FEJLTEKSTER IFBM. VALIDERING AF NAVN OG TELEFONNUMMER
-.trial-form__error {
-  margin: 0;
-  color: v.$color-red;
-  font-size: 0.875rem;
-  text-align: left;
-}
-
 .trial-form__field input[aria-invalid='true'] {
   border-color: v.$color-red;
 }

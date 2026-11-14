@@ -15,6 +15,16 @@ const errorMessage = ref('')
 async function sendMessage() {
   if (isSending.value) return
 
+  // Finder tidspunktet for sidste indsendelse
+  const lastSent = Number(localStorage.getItem('contactLastSent') || 0)
+
+  // Kontrollerer om der er gået 15 minutter
+  if (Date.now() - lastSent < 15 * 60 * 1000) {
+    successMessage.value = ''
+    errorMessage.value = 'Vent 15 minutter, før du sender igen.'
+    return
+  }
+
   isSending.value = true
   successMessage.value = ''
   errorMessage.value = ''
@@ -25,13 +35,14 @@ async function sendMessage() {
 
     const newMessage = {
       name: name.value.trim(),
-      phone: phone.value.trim(),
+      phone: phone.value.replace(/[\s()-]/g, ''),
       subject: subject.value,
       message: message.value.trim(),
       createdAt: serverTimestamp(),
     }
 
     await set(newMessageRef, newMessage)
+    localStorage.setItem('contactLastSent', String(Date.now()))
 
     successMessage.value = 'Din besked er sendt!'
 
@@ -122,11 +133,12 @@ async function sendMessage() {
     <button type="submit" class="btn btn--primary" :disabled="isSending">
       {{ isSending ? 'Sender...' : 'Send besked' }}
     </button>
-    <p v-if="successMessage" role="status">
+
+    <p v-if="successMessage" class="form-message form-message--success" role="status">
       {{ successMessage }}
     </p>
 
-    <p v-if="errorMessage" role="alert">
+    <p v-if="errorMessage" class="form-message form-message--error" role="alert">
       {{ errorMessage }}
     </p>
   </form>

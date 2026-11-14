@@ -150,6 +150,43 @@ section[id] {
   );
 }
 
+// FÆLLES FORMULARBESKEDER -----------------------
+
+.form-message {
+  width: 100%;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  background-color: lighten(v.$bg-secondary, 5%);
+  color: v.$color-off-white;
+  border-left: 3px solid;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-align: left;
+
+  // Fejlbesked
+  &--error {
+    border-color: v.$color-red;
+  }
+
+  // Succesbesked
+  &--success {
+    border-color: v.$color-lime;
+  }
+}
+
+// VALIDERINGSFEJL UNDER INPUTFELTER
+.form-field-error {
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  background-color: lighten(v.$bg-secondary, 5%);
+  color: v.$color-red;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
 
 // Fuld knap-bredde på mobil, når det ønskes -------------------
 @media (max-width: 799px) {

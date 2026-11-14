@@ -16,6 +16,8 @@ const feedbackDialog = ref(null);
 // opretter en variabel til at holde styr på, om nyhedens gemmeprocess er afsluttet (false fordi vi ikke er igang med at gemme endnu)
 const isSaving = ref(false);
 
+const imageUrl = ref("");
+
 const url =
   "https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase.app/news.json";
 
@@ -37,6 +39,7 @@ async function createNews() {
   const newNews = {
     title: title.value.trim(),
     description: description.value.trim(),
+    imageUrl: imageUrl.value.trim(),
 
     // new Date () opretter en dato med det aktuelle tidspunkt
     // .toISOString() omdanner datoen til ISO-format, som er standard dato og tidsformat i UTC (coordinated Universaal Time)
@@ -75,6 +78,7 @@ async function createNews() {
 
     title.value = "";
     description.value = "";
+    imageUrl.value = "";
 
     feedbackDialog.value.showModal();
   } catch (error) {
@@ -121,6 +125,18 @@ function closefeedbackDialog() {
           aria-labelledby="title-label"
         />
       </fieldset>
+
+      <fieldset>
+        <legend id="image-label">Billedets URL</legend>
+        <input
+          id="news-image"
+          type="text"
+          v-model="imageUrl"
+          placeholder="/images/test-news.webp"
+          aria-labelledby="image-label"
+        />
+      </fieldset>
+
       <fieldset>
         <legend id="description-label">
           Nyhedens tekst <small>- max 2000 tegn</small>
