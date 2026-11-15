@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 import { ref as dbRef, get } from 'firebase/database'
 import { database } from '../firebase'
 import NewsCard from '../components/NewsCard.vue'
+import PageHero from '../components/PageHero.vue'
 
 // Opretter reaktive variabler til nyheder og indlæsningsstatus
 const news = ref([])
@@ -45,24 +46,31 @@ onMounted(async () => {
 
 <template>
   <main class="news-page">
-    <h1>Nyheder</h1>
-    <p>Følg med i, hvad der sker hos Armbrydning Odense.</p>
+    <!-- Genbruger den samme hero som på de øvrige undersider -->
+    <PageHero
+      title="Nyheder"
+      description="Følg med i, hvad der sker hos Armbrydning Odense."
+      scroll-target="news-content"
+    />
 
-    <!-- Viser status, mens nyhederne indlæses -->
-    <p v-if="isLoading" role="status">Indlæser nyheder...</p>
+    <!-- Indholdet, som brugeren kan scrolle ned til -->
+    <section id="news-content" class="news-page__content" aria-label="Nyhedsoversigt">
+      <!-- Viser status, mens nyhederne indlæses -->
+      <p v-if="isLoading" role="status">Indlæser nyheder...</p>
 
-    <!-- Viser fejl, hvis Firebase-kaldet mislykkes -->
-    <p v-else-if="loadError" role="alert">
-      {{ loadError }}
-    </p>
+      <!-- Viser fejl, hvis Firebase-kaldet mislykkes -->
+      <p v-else-if="loadError" role="alert">
+        {{ loadError }}
+      </p>
 
-    <!-- Viser besked, hvis der endnu ikke findes nyheder -->
-    <p v-else-if="news.length === 0">Der er ingen nyheder endnu.</p>
+      <!-- Viser besked, hvis der endnu ikke findes nyheder -->
+      <p v-else-if="news.length === 0">Der er ingen nyheder endnu.</p>
 
-    <!-- Gennemgår nyhederne og sender data til NewsCard via props -->
-    <div v-else class="news-grid">
-      <NewsCard v-for="item in news" :key="item.id" :news-item="item" />
-    </div>
+      <!-- Gennemgår nyhederne og sender data til NewsCard via props -->
+      <div v-else class="news-grid">
+        <NewsCard v-for="item in news" :key="item.id" :news-item="item" />
+      </div>
+    </section>
   </main>
 </template>
 
@@ -72,14 +80,14 @@ onMounted(async () => {
 // NYHEDSSIDE - MOBILE FIRST
 .news-page {
   width: 100%;
+}
+
+// INDHOLD UNDER HEROEN
+.news-page__content {
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem var(--container-padding, 1.5rem) 4rem;
-
-  h1 {
-    text-align: center;
-    text-transform: uppercase;
-  }
 
   > p {
     text-align: center;

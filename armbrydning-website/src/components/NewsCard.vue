@@ -42,7 +42,7 @@ function formatDate(date) {
           {{ newsItem.description }}
         </p>
 
-        <span class="news-card__cta">Læs hele nyheden →</span>
+        <span class="btn btn--secondary news-card__button"> Læs hele nyheden </span>
       </div>
     </RouterLink>
   </article>

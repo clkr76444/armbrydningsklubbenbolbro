@@ -284,6 +284,15 @@ select {
   }
 }
 
+// VENSTRESTILLET TEKST PÅ MOBIL, CENTRERET PÅ DESKTOP
+.responsive-text {
+  text-align: left;
+
+  @media (min-width: 1024px) {
+    text-align: center;
+  }
+}
+
 // Respekter brugerens indstillinger for animationer
 @media (prefers-reduced-motion: reduce) {
   .btn,

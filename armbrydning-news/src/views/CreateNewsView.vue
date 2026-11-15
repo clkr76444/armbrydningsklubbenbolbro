@@ -143,7 +143,7 @@ async function createNews() {
         type="button"
         class="dialog-close"
         aria-label="Luk beskeden"
-        @click="closefeedbackDialog"
+        @click="closeDialog"
       >
         ×
       </button>
@@ -156,9 +156,7 @@ async function createNews() {
       </p>
       <p v-else>Din nyhed er blevet gemt.</p>
 
-      <button type="button" class="btn-primary" @click="closefeedbackDialog">
-        OK
-      </button>
+      <button type="button" class="btn-primary" @click="closeDialog">OK</button>
     </dialog>
   </main>
 </template>

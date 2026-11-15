@@ -26,16 +26,16 @@ onMounted(async () => {
     const data = snapshot.val() ?? {}
 
     //Omdanner firebase-objektet til et array med id
-    const newsArray = Object.entries(data)
-      .map(([id, item]) => ({
-        id,
-        title: item.title,
-        date: item.date,
-        imageUrl: item.imageUrl ?? '',
-        imageAlt: item.imageAlt ?? '',
-      }))
+    const newsArray = Object.entries(data).map(([id, item]) => ({
+      id,
+      title: item.title,
+      date: item.date,
+      imageUrl: item.imageUrl ?? '',
+      imageAlt: item.imageAlt ?? '',
+    }))
 
-      // Filtrerer nyheder uden billeder fra og sorterer de nyeste først
+    // Filtrerer nyheder uden billeder fra og sorterer de nyeste først
+    news.value = newsArray
       .filter((item) => item.imageUrl?.trim())
       .sort((a, b) => (b.date ?? '').localeCompare(a.date ?? ''))
   } catch (error) {

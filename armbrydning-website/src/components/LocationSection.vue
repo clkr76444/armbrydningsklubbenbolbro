@@ -7,9 +7,10 @@ import { mapConsent } from '../composables/mapConsent'
     <div class="location-section__inner">
       <h2>Kom forbi i <span>Bolbro</span>!</h2>
 
-      <p>
-        Du finder os på Middelfartvej 114 i Bolbro, Odense.
-        <br />Vi træner <strong>hver</strong> tirsdag og torsdag kl. 18.30 - 20.00.
+      <p class="responsive-text">
+        Du finder os på Middelfartvej 114 i Bolbro, Odense. Vi træner
+        <span class="highlight">hver</span> tirsdag og torsdag
+        <span class="training-time">kl. 18.30 - 20.00</span>.
       </p>
       <iframe
         v-if="mapConsent === 'accepted'"
@@ -64,6 +65,10 @@ p {
   margin: 1rem auto 2rem;
   line-height: 1.6;
   text-wrap: pretty;
+
+  .training-time {
+    white-space: nowrap;
+  }
 }
 
 iframe {

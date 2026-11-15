@@ -110,10 +110,8 @@ function previousTestimonial() {
     >
       <template #heading> Step 2 - <span class="highlight">Come as you are!</span> </template>
 
-      <p>
-        Du behøver ikke have særligt udstyr eller kende reglerne på forhånd. Tag noget tøj på, du
-        kan bevæge dig i, og medbring gerne en drikkedunk.
-      </p>
+      <h3>Du behøver ikke have særligt udstyr eller kende reglerne på forhånd.</h3>
+      <p>Tag noget tøj på, du kan bevæge dig i, og medbring gerne en drikkedunk.</p>
       <p>
         Når du kommer til klubben, tager vi imod dig og viser dig rundt. Du får mulighed for at møde
         de andre medlemmer, høre lidt om sporten og få en fornemmelse af stemningen.
@@ -132,9 +130,10 @@ function previousTestimonial() {
     >
       <template #heading>Step 3: <span class="highlight">Din første træning</span> </template>
 
+      <h3>Nu skal du selv prøve kræfter med armbrydning!</h3>
       <p>
-        Nu skal du selv prøve kræfter med armbrydning! Vi starter med at vise dig de grundlæggende
-        teknikker, så du kan lære sporten at kende i dit eget tempo.
+        Vi starter med at vise dig de grundlæggende teknikker, så du kan lære sporten at kende i dit
+        eget tempo.
       </p>
 
       <p>
@@ -162,7 +161,7 @@ function previousTestimonial() {
           </h2>
 
           <p class="testimonials-section__intro">
-            Hvordan er det egentlig at starte til armbrydning? Hør, hvad vores medlemmer siger.
+            Hvordan er det at starte til armbrydning? Læs hvad vores medlemmer siger.
           </p>
 
           <div class="testimonials-section__carousel">

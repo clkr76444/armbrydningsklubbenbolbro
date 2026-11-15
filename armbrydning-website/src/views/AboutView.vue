@@ -9,7 +9,7 @@ const boardMembers = [
     id: 1,
     name: 'Christel',
     description:
-      'Christel har styr på alt det praktiske. Hun sørger for, at nye medlemmer bliver skrevet op i klubben, hjælper med de praktiske spørgsmål og er med til at skabe en hyggelig og imødekommende stemning.',
+      'Christel har styr på alt det praktiske. Hun sørger for, at nye medlemmer bliver skrevet op i klubben, hjælper med de praktiske spørgsmål.',
     image: '/images/portraitChristel.webp',
   },
   {
@@ -70,10 +70,9 @@ const sponsors = [
         Vi har allerede været ude og vise sporten frem til blandt andet Sportslørdag og SKØNFEST
         samt undervist skoleklasser.<br />
         Vi elsker at samarbejde med skoler, foreninger og organisationer for mennesker med
-        funktionsnedsættelser, så endnu flere får mulighed for at opleve armbrydning. Uanset om det
-        handler om at introducere unge til sporten eller skabe nye oplevelser gennem fælles
-        aktiviteter, er vi altid åbne for nye idéer og samarbejder.
+        funktionsnedsættelser, så endnu flere får mulighed for at opleve armbrydning.
       </p>
+      <p>Vi er altid åbne for nye idéer og samarbejder.</p>
       <h3>Har du en idé til et samarbejde?</h3>
       <p>Så vil vi gerne høre fra dig!</p>
     </ImageTextSection>
@@ -131,9 +130,11 @@ const sponsors = [
       <p>
         I 2022 fik vi lov til at låne lokaler hos judoklubben Kodokan, og i vinteren 2022/23 kom
         klubben for alvor i gang. Siden har vi været vidt omkring med armbrydningen - fra
-        Sportslørdag og SKØNFEST til DM-ugen og undervisning af skoleklasser. I dag holder vi til
-        sammen med Phoenix Judo i hjertet af Bolbro, hvor vi arbejder på at gøre sporten tilgængelig
-        for endnu flere.
+        Sportslørdag og SKØNFEST til DM-ugen og undervisning af skoleklasser.
+      </p>
+      <p>
+        I dag holder vi til sammen med Phoenix Judo i hjertet af Bolbro, hvor vi arbejder på at gøre
+        sporten tilgængelig for endnu flere.
       </p>
     </ImageTextSection>
 
@@ -151,7 +152,6 @@ const sponsors = [
 
       <h3>Kom forbi til en træning og se, om armbrydning er noget for dig!</h3>
       <p>
-        Du behøver hverken erfaring eller store overarme for at starte.<br />
         Vi hjælper dig med at lære sporten at kende, viser dig de grundlæggende teknikker og giver
         dig mulighed for at udvikle dig i dit eget tempo.
       </p>

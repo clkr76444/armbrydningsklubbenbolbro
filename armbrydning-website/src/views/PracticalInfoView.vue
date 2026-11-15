@@ -94,20 +94,13 @@ const faqs = [
       >
         <template #heading> Her finder <span class="highlight">du os</span> </template>
         <p>
-          Vi holder til i Bolbro i Odense V sammen med Phoenix judoklub.<br />Her mødes vi to gange
+          Vi holder til i Bolbro i Odense V sammen med Phoenix Judoklub.<br />Her mødes vi to gange
           om ugen for at dyrke armbrydning. Uanset om du er erfaren eller helt ny, er du altid
           velkommen til at kigge forbi!
         </p>
         <p>
-          Vi træner hver <strong>tirsdag</strong> og <strong>torsdag</strong> fra
-          <strong>kl. 18.30 til 20.00.</strong>
-        </p>
-
-        <h3>Adresse</h3>
-        <p>
-          Middelfartvej 114
-          <br />
-          5200 Odense V
+          Vi træner <strong>hver</strong> tirsdag og torsdag fra kl. 18.30 til 20.00 på
+          Middelfartvej 114 i Bolbro.
         </p>
       </ImageTextSection>
 
@@ -123,19 +116,18 @@ const faqs = [
           <span class="highlight">Medlem i klubben</span>
         </template>
 
-        <p>
-          Har du fået smag for armbrydning og lyst til at blive en del af fællesskabet? Så er det
-          heldigvis nemt at blive medlem hos os!
-        </p>
+        <h3>Har du fået smag for armbrydning?</h3>
 
         <p>
-          Du behøver ikke have erfaring eller bestemte forudsætninger for at være med. Hos os er der
-          plads til både dig, der gerne vil dyrke armbrydning for hyggens skyld, og dig, der drømmer
-          om at udvikle dig og deltage i konkurrencer.
+          Uanset om du drømmer om at konkurrere eller bare gerne vil være en del af et fedt
+          fællesskab, er der plads til dig hos os.
         </p>
-
         <p>
-          Christel hjælper dig med indmeldelsen og sørger for, at du får styr på alt det praktiske.
+          Du behøver hverken erfaring eller særlige forudsætninger - kun lysten til at være med!
+        </p>
+        <p>
+          Når du er klar til at blive medlem, hjælper Christel dig med indmeldelsen og alt det
+          praktiske.
         </p>
       </ImageTextSection>
 
@@ -145,7 +137,9 @@ const faqs = [
             <h2>Priser og <span class="highlight">kontingenter</span></h2>
 
             <p class="membership-section__intro">
-              Alle nye medlemmer betaler en engangslicens på 200 kr. samt kontingent efter alder.
+              Alle nye medlemmer betaler en engangslicens på 200 kr. samt et kvartals kontingent
+              baseret på din alder.
+              <br />
               <br />
               Henvend dig til Christel for yderligere information.
             </p>
@@ -168,7 +162,8 @@ const faqs = [
 
             <p class="faq-section__intro">
               Vi ved godt, at der kan dukke en masse spørgsmål op, når man overvejer at begynde på
-              en ny sport. Derfor har vi samlet svarene på nogle af de spørgsmål, vi oftest møder.
+              en ny sport. <br />
+              <br />Derfor har vi samlet svarene på nogle af de spørgsmål, vi oftest møder.
             </p>
 
             <FaqAccordion :faqs="faqs" />

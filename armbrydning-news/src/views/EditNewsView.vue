@@ -184,7 +184,7 @@ async function updateNews() {
         type="button"
         class="dialog-close"
         aria-label="Luk besked"
-        @click="closefeedbackDialog"
+        @click="closeDialog"
       >
         ×
       </button>
@@ -198,7 +198,7 @@ async function updateNews() {
 
       <p v-else>Dine ændringer blev gemt.</p>
 
-      <button type="button" class="btn-primary" @click="closefeedbackDialog">
+      <button type="button" class="btn-primary" @click="closeDialog">
         OK
       </button>
     </dialog>

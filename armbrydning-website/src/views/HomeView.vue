@@ -42,14 +42,14 @@ import NewsCarousel from '../components/NewsCarousel.vue'
       image-format="portrait"
       background-variant="secondary"
       button-text="Fortæl os at du kommer"
-      button-to="/praktisk-info"
+      button-to="/bliv-armbryder"
     >
       <template #heading>
         <span class="highlight">Ny</span> ved bordet? <br />Vi hjælper
         <span class="highlight">dig</span> i gang!
       </template>
       <p>
-        <strong>Du behøver hverken erfaring eller store overarme for at være med hos os!</strong>
+        <h3>Du behøver hverken erfaring eller store overarme for at være med!</h3>
         <br />Vi ved godt, at det kan være lidt grænseoverskridende at møde op et nyt sted.
         <br /><br />Derfor sørger vi for, at du bliver taget godt imod og får hjælp til at komme
         godt i gang i dit eget tempo. <br />
