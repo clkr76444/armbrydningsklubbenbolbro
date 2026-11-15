@@ -187,6 +187,72 @@ section[id] {
   text-align: left;
 }
 
+// FÆLLES FORMULARFELT - MOBILE FIRST
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0.5rem 1rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+
+  &:focus-within {
+    border-color: v.$color-lime;
+  }
+
+  legend {
+    margin-bottom: 0.5rem;
+    color: v.$color-lime;
+    font-weight: v.$font-bold;
+  }
+
+  input,
+  select,
+  textarea {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    padding: 0.75rem 1rem;
+    background-color: v.$color-off-white;
+    color: v.$color-off-black;
+    border: 1px solid v.$color-off-black;
+    border-radius: 8px;
+    font: inherit;
+  }
+
+  textarea {
+    min-height: 180px;
+    resize: vertical;
+  }
+
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid v.$color-lime;
+    outline-offset: 2px;
+  }
+
+  // Rød kant på ugyldige formularfelter
+  input[aria-invalid='true'],
+  select[aria-invalid='true'],
+  textarea[aria-invalid='true'] {
+    border-color: v.$color-red;
+  }
+}
+
+// SELECT - CUSTOM STYLING
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%231B1E1D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 18px;
+  background-position: right 1rem center;
+  padding-right: 3rem;
+  cursor: pointer;
+}
+
 
 // Fuld knap-bredde på mobil, når det ønskes -------------------
 @media (max-width: 799px) {

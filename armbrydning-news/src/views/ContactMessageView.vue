@@ -2,29 +2,18 @@
 import { ref, onMounted } from "vue";
 import { getToken } from "firebase/app-check";
 import { auth, appCheck } from "../firebase";
+import { getContactsUrl, getContactCompletedUrl, getContactItemUrl } from "../config/constants";
 
-// Gemmer kontaktbeskederne fra Firebase
 const messages = ref([]);
-
-// Holder styr på indlæsning og fejl
 const isLoading = ref(true);
 const loadError = ref("");
-
-// Holder styr på opdatering af henvendelser
 const updatingId = ref(null);
 const statusError = ref("");
-
-// Holder styr på hvilken besked der skal slettes
 const selectedMessage = ref(null);
-
-// Reference til bekræftelsesdialogen
 const deleteDialog = ref(null);
-
-// Status og fejl ved sletning
 const isDeleting = ref(false);
 const deleteError = ref("");
 
-// Labels til at vise emner på en mere læsevenlig måde
 const subjectLabels = {
   start: "Jeg vil gerne starte til armbrydning",
   general: "Jeg har et generelt spørgsmål",
@@ -32,23 +21,16 @@ const subjectLabels = {
   other: "Andet",
 };
 
-const url =
-  "https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase.app/contactMessages.json";
-
 onMounted(async () => {
   try {
-    // Venter på, at Firebase har afklaret loginstatus
     await auth.authStateReady();
 
     const user = auth.currentUser;
     if (!user) throw new Error("Ingen bruger er logget ind");
 
-    // Henter administratorens ID-token og App Check-token
     const idToken = await user.getIdToken();
     const { token } = await getToken(appCheck);
-
-    // Henter kontaktbeskeder fra Firebase
-    const response = await fetch(`${url}?auth=${encodeURIComponent(idToken)}`, {
+    const response = await fetch(`${getContactsUrl()}?auth=${encodeURIComponent(idToken)}`, {
       method: "GET",
       headers: {
         "X-Firebase-AppCheck": token,
@@ -87,18 +69,13 @@ async function toggleCompleted(item) {
     const user = auth.currentUser;
     if (!user) throw new Error("Ingen bruger er logget ind");
 
-    // Henter administratorens tokens
     const idToken = await user.getIdToken();
     const { token } = await getToken(appCheck);
 
-    // Finder completed-feltet på den valgte besked
-    const completedUrl = `https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase.app/contactMessages/${item.id}/completed.json`;
-
-    // Skifter mellem true og false
     const newStatus = !item.completed;
 
     const response = await fetch(
-      `${completedUrl}?auth=${encodeURIComponent(idToken)}`,
+      `${getContactCompletedUrl(item.id)}?auth=${encodeURIComponent(idToken)}`,
       {
         method: "PUT",
         headers: {
@@ -137,20 +114,14 @@ async function deleteMessage() {
   deleteError.value = "";
 
   try {
-    // Finder den indloggede administrator
     const user = auth.currentUser;
     if (!user) throw new Error("Ingen bruger er logget ind");
 
-    // Henter tokens
     const idToken = await user.getIdToken();
     const { token } = await getToken(appCheck);
 
-    // URL til den specifikke kontaktbesked
-    const deleteUrl = `https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase.app/contactMessages/${messageId}.json`;
-
-    // Sletter beskeden i Firebase
     const response = await fetch(
-      `${deleteUrl}?auth=${encodeURIComponent(idToken)}`,
+      `${getContactItemUrl(messageId)}?auth=${encodeURIComponent(idToken)}`,
       {
         method: "DELETE",
         headers: {
@@ -163,7 +134,6 @@ async function deleteMessage() {
       throw new Error("Kunne ikke slette kontaktbeskeden");
     }
 
-    // Fjerner beskeden fra visningen
     messages.value = messages.value.filter((item) => item.id !== messageId);
 
     deleteDialog.value.close();
@@ -267,7 +237,7 @@ async function deleteMessage() {
           >? Handlingen kan ikke fortrydes.
         </p>
 
-        <p v-if="deleteError" class="delete-error" role="alert">
+        <p v-if="deleteError" class="form-error" role="alert">
           {{ deleteError }}
         </p>
 

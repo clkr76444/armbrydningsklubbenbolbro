@@ -130,7 +130,7 @@ async function sendMessage() {
 <template>
   <form class="contact-form" @submit.prevent="sendMessage" novalidate>
     <!-- Navn -->
-    <fieldset class="contact-form__field">
+    <fieldset class="form-field">
       <legend id="contact-name-label">Dit navn</legend>
 
       <input
@@ -155,7 +155,7 @@ async function sendMessage() {
     </fieldset>
 
     <!-- Telefonnummer -->
-    <fieldset class="contact-form__field">
+    <fieldset class="form-field">
       <legend id="contact-phone-label">Telefonnummer</legend>
 
       <input
@@ -180,7 +180,7 @@ async function sendMessage() {
     </fieldset>
 
     <!-- Emne -->
-    <fieldset class="contact-form__field">
+    <fieldset class="form-field">
       <legend id="contact-subject-label">Emne</legend>
 
       <select
@@ -206,7 +206,7 @@ async function sendMessage() {
     </fieldset>
 
     <!-- Besked -->
-    <fieldset class="contact-form__field">
+    <fieldset class="form-field">
       <legend id="contact-message-label">Din besked</legend>
 
       <textarea
@@ -255,62 +255,6 @@ async function sendMessage() {
   gap: 1.5rem;
   width: 100%;
   max-width: 600px;
-}
-
-// FORMULARFELTER
-.contact-form__field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  min-width: 0;
-  margin: 0;
-  padding: 0.5rem 1rem 1rem;
-  border: 1px solid transparent;
-  border-radius: 8px;
-
-  // Fremhæver feltet, når brugeren arbejder i det
-  &:focus-within {
-    border-color: v.$color-lime;
-  }
-
-  legend {
-    margin-bottom: 0.5rem;
-    color: v.$color-lime;
-    font-weight: v.$font-medium;
-  }
-
-  input,
-  select,
-  textarea {
-    display: block;
-    width: 100%;
-    min-width: 0;
-    padding: 0.75rem 1rem;
-    background-color: v.$color-off-white;
-    color: v.$color-off-black;
-    border: 1px solid v.$color-off-black;
-    border-radius: 8px;
-    font: inherit;
-  }
-
-  textarea {
-    min-height: 180px;
-    resize: vertical;
-  }
-
-  input:focus-visible,
-  select:focus-visible,
-  textarea:focus-visible {
-    outline: 2px solid v.$color-lime;
-    outline-offset: 2px;
-  }
-
-  // Rød kant på ugyldige formularfelter
-  input[aria-invalid='true'],
-  select[aria-invalid='true'],
-  textarea[aria-invalid='true'] {
-    border-color: v.$color-red;
-  }
 }
 
 // SEND-KNAP - MOBILE FIRST

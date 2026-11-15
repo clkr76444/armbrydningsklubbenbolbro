@@ -125,7 +125,7 @@ async function sendSignup() {
 <template>
   <form class="trial-form" @submit.prevent="sendSignup">
     <!-- Navn -->
-    <fieldset class="trial-form__field">
+    <fieldset class="form-field">
       <legend id="trial-name-label">Dit navn</legend>
 
       <input
@@ -147,7 +147,7 @@ async function sendSignup() {
     </fieldset>
 
     <!-- Telefonnummer -->
-    <fieldset class="trial-form__field">
+    <fieldset class="form-field">
       <legend id="trial-phone-label">Telefonnummer</legend>
 
       <input
@@ -169,7 +169,7 @@ async function sendSignup() {
     </fieldset>
 
     <!-- Vælg træningsdag -->
-    <fieldset class="trial-form__field">
+    <fieldset class="form-field">
       <legend id="trial-date-label">Hvornår kommer du?</legend>
 
       <select id="trial-date" v-model="trainingDate" aria-labelledby="trial-date-label" required>
@@ -215,59 +215,6 @@ async function sendSignup() {
   margin-inline: auto;
 }
 
-// FORMULARFELTER
-.trial-form__field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  min-width: 0;
-  margin: 0;
-  padding: 0.5rem 1rem 1rem;
-  border: 1px solid transparent;
-  border-radius: 8px;
-
-  &:focus-within {
-    border-color: v.$color-lime;
-  }
-
-  legend {
-    margin-bottom: 0.5rem;
-    color: v.$color-lime;
-    font-weight: v.$font-medium;
-  }
-
-  input,
-  select {
-    width: 100%;
-    min-width: 0;
-    padding: 0.75rem 1rem;
-    background-color: v.$color-off-white;
-    color: v.$color-off-black;
-    border: 1px solid v.$color-off-black;
-    border-radius: 8px;
-    font: inherit;
-
-    &:focus-visible {
-      outline: 2px solid v.$color-lime;
-      outline-offset: 2px;
-    }
-  }
-
-  select {
-    appearance: none; //fjerner standard dropdown-pil
-
-    // Egen dropdown-pil
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%231B1E1D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-
-    background-repeat: no-repeat;
-    background-size: 18px;
-    background-position: right 1rem center;
-
-    padding-right: 3rem;
-    cursor: pointer;
-  }
-}
-
 // SMS-BEKRÆFTELSE
 .trial-form__checkbox {
   display: flex;
@@ -290,11 +237,6 @@ async function sendSignup() {
 .trial-form > button {
   width: calc(100% - 2rem);
   align-self: center;
-}
-
-// FEJLTEKSTER IFBM. VALIDERING AF NAVN OG TELEFONNUMMER
-.trial-form__field input[aria-invalid='true'] {
-  border-color: v.$color-red;
 }
 
 @media (min-width: v.$breakpoint-tablet) {

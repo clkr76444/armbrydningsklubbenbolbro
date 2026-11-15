@@ -1,55 +1,34 @@
 <script setup>
 import { ref } from "vue";
 import { auth } from "../firebase";
-
 import { getToken } from "firebase/app-check";
 import { appCheck } from "../firebase";
+import { useNewsDialog } from "../utils/useNewsDialog";
+import { getNewsUrl } from "../config/constants";
 
-// opretter en variabel til nyhedens titel
 const title = ref("");
-// opretter en variabel til nyhedens beskrivelse
 const description = ref("");
-// opretter en variabel til fejlbeskeder
-const errorMessage = ref("");
-// varibel til at åbne og lukke popup-feedback-dialogen
-const feedbackDialog = ref(null);
-// opretter en variabel til at holde styr på, om nyhedens gemmeprocess er afsluttet (false fordi vi ikke er igang med at gemme endnu)
+const imageUrl = ref("");
 const isSaving = ref(false);
 
-const imageUrl = ref("");
+const { feedbackDialog, errorMessage, openDialog, closeDialog } = useNewsDialog();
 
-const url =
-  "https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase.app/news.json";
-
-// FUNKTIONER -----------------------------------------------------------
-// funktionen opretter et nyt objekt "newNews" med de to key-value-par: titel og beskrivelse
-// async funktionen gør det muligt at bruge await inde i funktionen, så vi kan vente på fetch-kaldet og få svaret fra Firebase
 async function createNews() {
   if (isSaving.value) return;
 
-  // tjekker om titel og beskrivelse er tomme, hvis ja vises en fejlbesked og dialogen åbnes.
-  //reqired felter skal udfyldes før nyheden kan oprettes. reqired er browserens indbyggede validering, som giver hurtigt svar, men sikre ikke f.eks. at gemme kun et mellemrum, derfor bruger vi trim() og tjekker manuelt.
   if (!title.value.trim() || !description.value.trim()) {
-    errorMessage.value = "Titel og beskrivelse må ikke være tomme.";
-    feedbackDialog.value.showModal();
+    openDialog("Titel og beskrivelse må ikke være tomme.");
     return;
   }
 
-  // opretter et nyt nyhedsobjekt med titel, beskrivelse og dato. Fjerner eventuelle førende og efterfølgende mellemrum fra titel og beskrivelse.
   const newNews = {
     title: title.value.trim(),
     description: description.value.trim(),
     imageUrl: imageUrl.value.trim(),
-
-    // new Date () opretter en dato med det aktuelle tidspunkt
-    // .toISOString() omdanner datoen til ISO-format, som er standard dato og tidsformat i UTC (coordinated Universaal Time)
-    // .slice(0, 10) udtrækker kun de 10 første tegn, så vi får datoen i formatet YYYY-MM-DD
     date: new Date().toISOString().slice(0, 10),
   };
 
-  // sætter isSaving til true, da vi nu starter gemmeprocessen
   isSaving.value = true;
-  errorMessage.value = "";
 
   try {
     const user = auth.currentUser;
@@ -58,12 +37,10 @@ async function createNews() {
       throw new Error("Ingen bruger er logget ind");
     }
 
-    // Hent Firebase ID-token for den indloggede bruger
     const idToken = await user.getIdToken();
     const { token } = await getToken(appCheck);
 
-    // Send token med til Realtime Database
-    const response = await fetch(`${url}?auth=${encodeURIComponent(idToken)}`, {
+    const response = await fetch(`${getNewsUrl()}?auth=${encodeURIComponent(idToken)}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -80,19 +57,13 @@ async function createNews() {
     description.value = "";
     imageUrl.value = "";
 
-    feedbackDialog.value.showModal();
+    openDialog();
   } catch (error) {
     console.error("Fejl ved oprettelse af nyhed", error);
-    errorMessage.value = "Nyheden kunne ikke gemmes. Prøv igen.";
-    feedbackDialog.value.showModal();
+    openDialog("Nyheden kunne ikke gemmes. Prøv igen.");
   } finally {
     isSaving.value = false;
   }
-}
-
-// lukker feedback-dialogen
-function closefeedbackDialog() {
-  feedbackDialog.value.close();
 }
 </script>
 
@@ -200,74 +171,5 @@ function closefeedbackDialog() {
   h1 {
     margin-bottom: 2rem;
   }
-}
-
-.feedback-dialog {
-  width: min(90vw, 450px);
-  max-height: calc(100dvh - 2rem);
-  box-sizing: border-box;
-
-  margin: auto;
-  padding: 3rem 2rem 2rem;
-  position: relative;
-  overflow-y: auto;
-
-  background-color: v.$color-off-black;
-  color: v.$color-off-white;
-  border: 1px solid v.$color-lime;
-  border-radius: 8px;
-  text-align: center;
-}
-
-.feedback-dialog--error {
-  border-color: v.$color-red;
-
-  h2 {
-    color: v.$color-red;
-  }
-}
-
-@media (max-width: 480px) {
-  .feedback-dialog {
-    padding: 2.5rem 1rem 1.5rem;
-  }
-}
-
-h2 {
-  margin-bottom: 1rem;
-}
-
-p {
-  margin-bottom: 2rem;
-}
-
-.feedback-dialog::backdrop {
-  background-color: rgba(v.$color-off-black, 0.85);
-}
-
-.dialog-close {
-  position: absolute;
-  top: 0.75rem;
-  right: 1rem;
-  padding: 0.25rem;
-
-  background: transparent;
-  border: none;
-  color: v.$color-off-white;
-  font-size: 1.75rem;
-  cursor: pointer;
-}
-
-.dialog-confirm {
-  padding: 0.75rem 2rem;
-  background-color: v.$color-lime;
-  border: none;
-  border-radius: 8px;
-  color: v.$color-off-black;
-  cursor: pointer;
-}
-
-.dialog-confirm:hover {
-  filter: brightness(0.9);
 }
 </style>

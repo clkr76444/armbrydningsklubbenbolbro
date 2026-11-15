@@ -1,45 +1,23 @@
 <script setup>
-// ref() gør variabler reaktive.
-// onMounted() kører kode, når komponenten er monteret i DOM'en.
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import { useRouter } from "vue-router";
 import NewsCard from "../components/NewsCard.vue";
 import { auth } from "../firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { onUnmounted } from "vue";
-
 import { getToken } from "firebase/app-check";
 import { appCheck } from "../firebase";
+import { ADMIN_UID, getNewsUrl, getNewsItemUrl } from "../config/constants";
 
 const router = useRouter();
 
-// Opretter en reaktiv variabel med et tomt array.
 const news = ref([]);
-
 const loadError = ref("");
-
-const isLoading = ref(true); // Holder styr på om nyhederne er ved at blive hentet
-
-// Variabel til at holde styr på om brugeren er admin
+const isLoading = ref(true);
 const isAdmin = ref(false);
-
-// Holder styr på hvilken nyhed brugeren vil slette
 const selectedNews = ref(null);
-
-// Giver adgang til bekræftelsesdialogen
 const deleteDialog = ref(null);
-
-// Holder styr på om sletningen er i gang
 const isDeleting = ref(false);
-
-// Gemmer en fejlbesked ved mislykket sletning
 const deleteError = ref("");
-
-// URL til Firebase Realtime Database.
-const url =
-  "https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase.app/news.json";
-
-const ADMIN_UID = "OT3NVoOeWMe2AROEUqaquMXTUnJ3";
 
 const unsubscribe = onAuthStateChanged(auth, (user) => {
   isAdmin.value = user?.uid === ADMIN_UID;
@@ -47,14 +25,11 @@ const unsubscribe = onAuthStateChanged(auth, (user) => {
 
 onUnmounted(unsubscribe);
 
-// Kører, når komponenten er monteret.
 onMounted(async () => {
   try {
-    // Henter et gyldigt Firebase App Check-token
     const { token } = await getToken(appCheck);
 
-    // Henter nyheder fra Firebase med App Check-tokenet
-    const response = await fetch(url, {
+    const response = await fetch(getNewsUrl(), {
       method: "GET",
       headers: {
         "X-Firebase-AppCheck": token,
@@ -69,14 +44,10 @@ onMounted(async () => {
 
     console.log("Nyheder fra Firebase:", data);
 
-    // Omdanner Firebase-objektet til et array med [key, value]-par.
-    // Hvis data er null, bruges et tomt objekt i stedet.
     const entries = Object.entries(data ?? {});
 
     console.log("Firebase som array:", entries);
 
-    // Gennemgår hvert par og opretter et nyt nyhedsobjekt.
-    // id er nyhedens nøgle, og item indeholder nyhedens oplysninger.
     const newsArray = entries.map(([id, item]) => {
       return {
         id: id,
@@ -87,18 +58,13 @@ onMounted(async () => {
       };
     });
 
-    // Sorterer nyhederne efter dato, så de nyeste vises først.
-    // localeCompare sammenligner datoer som strings.
-    // ?? "" beskytter sorteringen hvis en dato mangler.
     newsArray.sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));
-    // Opdaterer det reaktive array med nyheder fra Firebase.
-    // Vue opdaterer automatisk visningen via v-for.
     news.value = newsArray;
   } catch (error) {
     console.error("Fejl ved hentning af nyheder:", error);
     loadError.value = "Nyhederne kunne ikke hentes. Prøv igen.";
   } finally {
-    isLoading.value = false; // Sætter isLoading til false, når hentningen er færdig
+    isLoading.value = false;
   }
 });
 
@@ -121,33 +87,24 @@ async function openDeleteDialog(item) {
 
 // Sletter den valgte nyhed fra Firebase
 async function deleteNews() {
-  // Stopper funktionen, hvis en sletning allerede er i gang,
-  // eller hvis der ikke er valgt en nyhed
   if (isDeleting.value || !selectedNews.value) return;
 
   const newsId = selectedNews.value.id;
 
-  // URL til den specifikke nyhed, der skal slettes
-  const deleteUrl = `https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase.app/news/${newsId}.json`;
-
   isDeleting.value = true;
 
   try {
-    // Finder den indloggede bruger
     const user = auth.currentUser;
 
     if (!user) {
       throw new Error("Ingen bruger er logget ind");
     }
 
-    // Henter brugerens Firebase ID-token
     const idToken = await user.getIdToken();
-
     const { token } = await getToken(appCheck);
 
-    // Sender DELETE-kaldet med brugerens ID-token
     const response = await fetch(
-      `${deleteUrl}?auth=${encodeURIComponent(idToken)}`,
+      `${getNewsItemUrl(newsId)}?auth=${encodeURIComponent(idToken)}`,
       {
         method: "DELETE",
         headers: {
@@ -160,10 +117,7 @@ async function deleteNews() {
       throw new Error("Databasefejl ved sletning af nyhed");
     }
 
-    // Fjerner den slettede nyhed fra vores lokale array
     news.value = news.value.filter((item) => item.id !== newsId);
-
-    // Lukker dialogen og nulstiller den valgte nyhed
     deleteDialog.value.close();
     selectedNews.value = null;
 
@@ -238,7 +192,7 @@ async function deleteNews() {
         </p>
 
         <!-- Viser fejlbesked, hvis sletningen mislykkes -->
-        <p v-if="deleteError" class="delete-error" role="alert">
+        <p v-if="deleteError" class="form-error" role="alert">
           <strong>FEJL!</strong> {{ deleteError }}
         </p>
 

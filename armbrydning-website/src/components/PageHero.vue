@@ -41,7 +41,7 @@ defineProps({
   place-items: center;
 
   background-color: v.$bg-primary;
-  padding: 4rem 1.5rem 7rem;
+  padding: 4rem var(--container-padding) 7rem;
   text-align: center;
 
   --scroll-indicator-bottom: 0.75rem;

@@ -2,28 +2,18 @@
 import { ref, onMounted } from "vue";
 import { getToken } from "firebase/app-check";
 import { auth, appCheck } from "../firebase";
+import { getTrialSignupsUrl, getTrialSignupItemUrl, getTrialSignupCompletedUrl } from "../config/constants";
 
-// Gemmer tilmeldingerne fra Firebase
 const signups = ref([]);
-
-// Holder styr på indlæsning og fejl
 const isLoading = ref(true);
 const loadError = ref("");
-
 const updatingId = ref(null);
 const statusError = ref("");
-
-// Holder styr på den valgte tilmelding
 const selectedSignup = ref(null);
-
-// Reference til bekræftelsesdialogen
 const deleteDialog = ref(null);
-
-// Status og fejl ved sletning
 const isDeleting = ref(false);
 const deleteError = ref("");
 
-// Labels til at vise emner på en mere læsevenlig måde
 const subjectLabels = {
   start: "Jeg vil gerne starte til armbrydning",
   general: "Jeg har et generelt spørgsmål",
@@ -31,23 +21,17 @@ const subjectLabels = {
   other: "Andet",
 };
 
-const url =
-  "https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase.app/trialSignups.json";
-
 onMounted(async () => {
   try {
-    // Venter på, at Firebase har afklaret loginstatus
     await auth.authStateReady();
 
     const user = auth.currentUser;
     if (!user) throw new Error("Ingen bruger er logget ind");
 
-    // Henter administratorens ID-token og App Check-token
     const idToken = await user.getIdToken();
     const { token } = await getToken(appCheck);
 
-    // Henter tilmeldinger fra Firebase
-    const response = await fetch(`${url}?auth=${encodeURIComponent(idToken)}`, {
+    const response = await fetch(`${getTrialSignupsUrl()}?auth=${encodeURIComponent(idToken)}`, {
       method: "GET",
       headers: {
         "X-Firebase-AppCheck": token,
@@ -97,13 +81,10 @@ async function toggleCompleted(item) {
     const idToken = await user.getIdToken();
     const { token } = await getToken(appCheck);
 
-    // Finder completed-feltet på den valgte tilmelding
-    const completedUrl = `https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase.app/trialSignups/${item.id}/completed.json`;
-
     const newStatus = !item.completed;
 
     const response = await fetch(
-      `${completedUrl}?auth=${encodeURIComponent(idToken)}`,
+      `${getTrialSignupCompletedUrl(item.id)}?auth=${encodeURIComponent(idToken)}`,
       {
         method: "PUT",
         headers: {
@@ -144,16 +125,11 @@ async function deleteSignup() {
     const user = auth.currentUser;
     if (!user) throw new Error("Ingen bruger er logget ind");
 
-    // Henter administratorens tokens
     const idToken = await user.getIdToken();
     const { token } = await getToken(appCheck);
 
-    // Finder den specifikke tilmelding
-    const deleteUrl = `https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase.app/trialSignups/${signupId}.json`;
-
-    // Sletter tilmeldingen i Firebase
     const response = await fetch(
-      `${deleteUrl}?auth=${encodeURIComponent(idToken)}`,
+      `${getTrialSignupItemUrl(signupId)}?auth=${encodeURIComponent(idToken)}`,
       {
         method: "DELETE",
         headers: {
@@ -166,7 +142,6 @@ async function deleteSignup() {
       throw new Error("Kunne ikke slette tilmeldingen");
     }
 
-    // Fjerner tilmeldingen fra visningen
     signups.value = signups.value.filter((item) => item.id !== signupId);
 
     deleteDialog.value.close();
@@ -280,7 +255,7 @@ async function deleteSignup() {
           >? Handlingen kan ikke fortrydes.
         </p>
 
-        <p v-if="deleteError" class="delete-error" role="alert">
+        <p v-if="deleteError" class="form-error" role="alert">
           {{ deleteError }}
         </p>
 

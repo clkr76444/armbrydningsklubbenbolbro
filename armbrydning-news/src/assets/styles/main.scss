@@ -178,11 +178,10 @@ p {
   // Holder administrationsknapperne nederst i kortet
   .news-card-actions {
     margin-top: auto;
-    padding-top: 0;
   }
 }
 
- // KNAPPER PÅ NYHEDSKORT
+// KNAPPER PÅ KORT - STANDARDISERET
 .news-card-actions,
 .admin-card-actions {
   display: flex;
@@ -206,7 +205,7 @@ p {
 
     .btn-primary,
     .btn-delete {
-    width: calc(50% - 0.5rem);
+      width: calc(50% - 0.5rem);
     }
   }
 }
@@ -425,14 +424,14 @@ p {
   }
 }
 
-// FEEDBACK POPUP
+// FEEDBACK POPUP - MOBILE FIRST
 .feedback-dialog {
   width: min(90vw, 450px);
   max-height: calc(100dvh - 2rem);
   box-sizing: border-box;
 
   margin: auto;
-  padding: 3rem 2rem 2rem;
+  padding: 2.5rem 1rem 1.5rem;
   position: relative;
   overflow-y: auto;
 
@@ -448,6 +447,10 @@ p {
 
   p {
     margin-bottom: 2rem;
+  }
+
+  @media (min-width: 481px) {
+    padding: 3rem 2rem 2rem;
   }
 }
 
@@ -479,11 +482,13 @@ p {
   }
 }
 
-// FEJL BESKED VED SLETNING
-.delete-error {
+// FEJL BESKED - STANDARDISERET
+.form-error {
+  color: v.$color-red;
+  font-weight: v.$font-bold;
+
   strong {
     color: v.$color-red;
-    font-weight: v.$font-bold;
   }
 }
 
@@ -504,13 +509,6 @@ p {
   color: v.$color-off-white;
   font-size: 1.75rem;
   cursor: pointer;
-}
-
-// MOBILTILPASNING--------------------------------------------------------------
-@media (max-width: 480px) {
-  .feedback-dialog {
-    padding: 2.5rem 1rem 1.5rem;
-  }
 }
 
 // NEWS SLUT -------------------------------------------------------------------

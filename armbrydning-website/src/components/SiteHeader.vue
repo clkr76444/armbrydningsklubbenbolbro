@@ -118,8 +118,7 @@ onUnmounted(() => {
   width: 100%;
   max-width: 1200px;
   margin-inline: auto;
-  padding: 1rem 1.5rem;
-  padding-inline: var(--container-padding);
+  padding: 1rem var(--container-padding);
 }
 
 .site-logo {

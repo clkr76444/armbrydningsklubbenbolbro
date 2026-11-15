@@ -39,9 +39,8 @@ import { mapConsent } from '../composables/mapConsent'
 
 .location-section {
   color: v.$color-off-white;
-  padding: 4rem 1.5rem;
+  padding: 4rem var(--container-padding);
   text-align: center;
-  padding-inline: var(--container-padding);
 }
 
 .location-section__inner {
@@ -93,12 +92,6 @@ iframe {
 @media (min-width: v.$breakpoint-tablet) {
   iframe {
     height: 350px;
-  }
-}
-
-@media (min-width: v.$breakpoint-desktop) {
-  iframe {
-    height: 450px;
   }
 }
 

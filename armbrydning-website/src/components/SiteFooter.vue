@@ -93,14 +93,14 @@ import { resetMapConsent } from '../composables/mapConsent'
   background: linear-gradient(to bottom, v.$bg-primary 0%, v.$color-lime 30px, v.$color-lime 100%);
 
   color: v.$color-off-black;
-  padding: 50px 1.5rem 3rem;
+  padding: 50px var(--container-padding) 3rem;
 }
 
 .site-footer__inner {
   width: 100%;
   max-width: 1200px;
   margin-inline: auto;
-  padding-inline: 1.5rem;
+  padding-inline: var(--container-padding);
 }
 
 // FOOTER MAIN - MOBILE FIRST
@@ -306,21 +306,20 @@ import { resetMapConsent } from '../composables/mapConsent'
 @media (min-width: v.$breakpoint-desktop) {
   .site-footer__main {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    justify-items: start;
+    align-items: start;
     gap: 3rem;
-    padding-top: 3rem;
+    padding-top: 0;
   }
 
   .site-footer__logo {
     order: 0;
     grid-column: auto;
-    justify-self: center;
+    grid-row: 1 / 3;
+    justify-self: start;
     align-self: center;
-    transform: translateY(-70px);
 
     img {
       width: 180px;
-      margin-top: 0;
     }
   }
 }

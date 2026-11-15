@@ -149,8 +149,7 @@ onUnmounted(() => {
   gap: 1.5rem;
   max-width: 1200px;
   margin-inline: auto;
-  padding: 3rem 1.5rem 1.5rem;
-  padding-inline: var(--container-padding);
+  padding: 3rem var(--container-padding) 1.5rem;
 
   // Sektionens initiale tilstand før den bliver synlig
   opacity: 0;

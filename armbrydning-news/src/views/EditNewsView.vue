@@ -3,71 +3,46 @@ import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
 import { auth, appCheck } from "../firebase";
 import { getToken } from "firebase/app-check";
+import { useNewsDialog } from "../utils/useNewsDialog";
+import { getNewsItemUrl } from "../config/constants";
 
-//Henter information om den aktuelle URL
 const route = useRoute();
-
-// Finder nyhedens ID fra URL'en
 const newsId = route.params.id;
 
-//Gemmer den eksisterende nyheds titel og beskrivelse fra Firebase
 const title = ref("");
 const description = ref("");
-
-// gemmer billedets url, så den kan redigeres
 const imageUrl = ref("");
 
-// Holder styr på om nyheden ikke findes
 const newsNotFound = ref(false);
-
-// Holder styr på om siden er ved at indlæse nyheden fra Firebase
 const isLoading = ref(true);
-
-// Gemmer en fejlbesked, hvis indlæsningen mislykkes
 const loadError = ref("");
-
-// Holder styr på om ændringerne er ved at blive gemt
 const isSaving = ref(false);
 
-//indeholder fejlbesked hvis opdateringen mislykkes
-const errorMessage = ref("");
+const { feedbackDialog, errorMessage, openDialog, closeDialog } = useNewsDialog();
 
-// giver adgang til popup-feedback-dialogen i vores template
-const feedbackDialog = ref(null);
-
-// URL til den specifikke nyhed i Firebase via nyhedens ID
-const url = `https://armbrydning-news-default-rtdb.europe-west1.firebasedatabase.app/news/${newsId}.json`;
-
-// Venter på at komponenten bliver monteret, før vi henter nyheden fra Firebase
 onMounted(async () => {
   try {
-    // Henter et gyldigt Firebase App Check-token
     const { token } = await getToken(appCheck);
 
-    // Henter den valgte nyhed fra Firebase med App Check-token
-    const response = await fetch(url, {
+    const response = await fetch(getNewsItemUrl(newsId), {
       method: "GET",
       headers: {
         "X-Firebase-AppCheck": token,
       },
     });
 
-    // Kontrollerer om Firebase har svaret korrekt
     if (!response.ok) {
       throw new Error("Databasefejl ved hentning af nyhed");
     }
 
-    // Konverterer svaret til JSON
     const data = await response.json();
 
-    // Stopper funktionen, hvis nyheden ikke findes
     if (data === null) {
       console.log("Nyheden findes ikke i Firebase");
       newsNotFound.value = true;
       return;
     }
 
-    // Indsætter nyhedens data i formularen
     title.value = data.title;
     description.value = data.description;
     imageUrl.value = data.imageUrl ?? "";
@@ -80,12 +55,10 @@ onMounted(async () => {
 });
 
 async function updateNews() {
-  // Forhindrer flere gemmeforsøg på samme tid
   if (isSaving.value) return;
 
   if (!title.value.trim() || !description.value.trim()) {
-    errorMessage.value = "Titel og beskrivelse skal indeholde tekst.";
-    feedbackDialog.value.showModal();
+    openDialog("Titel og beskrivelse skal indeholde tekst.");
     return;
   }
 
@@ -95,9 +68,7 @@ async function updateNews() {
     imageUrl: imageUrl.value.trim(),
   };
 
-  // Starter gemmeprocessen
   isSaving.value = true;
-  errorMessage.value = "";
 
   try {
     const user = auth.currentUser;
@@ -106,12 +77,10 @@ async function updateNews() {
       throw new Error("Ingen bruger er logget ind");
     }
 
-    // Henter brugerens Firebase ID-token
     const idToken = await user.getIdToken();
     const { token } = await getToken(appCheck);
 
-    // Sender ændringerne og tokenet til Firebase
-    const response = await fetch(`${url}?auth=${encodeURIComponent(idToken)}`, {
+    const response = await fetch(`${getNewsItemUrl(newsId)}?auth=${encodeURIComponent(idToken)}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -120,29 +89,18 @@ async function updateNews() {
       body: JSON.stringify(updatedNews),
     });
 
-    // Kontrollerer om Firebase accepterede ændringerne
     if (!response.ok) {
       throw new Error("Databasefejl ved opdatering af nyhed");
     }
 
     console.log("Nyheden blev opdateret!");
-
-    // Viser feedback-dialogen når nyheden er opdateret
-    feedbackDialog.value.showModal();
+    openDialog();
   } catch (error) {
     console.error("Fejl ved opdatering af nyhed:", error);
-    errorMessage.value = "Nyheden kunne ikke opdateres. Prøv igen.";
-
-    // Viser feedback-dialogen når der opstod en fejl
-    feedbackDialog.value.showModal();
+    openDialog("Nyheden kunne ikke opdateres. Prøv igen.");
   } finally {
-    // Afslutter gemmeprocessen, uanset resultatet
     isSaving.value = false;
   }
-}
-
-function closefeedbackDialog() {
-  feedbackDialog.value.close();
 }
 </script>
 
