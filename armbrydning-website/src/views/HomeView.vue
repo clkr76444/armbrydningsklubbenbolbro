@@ -2,6 +2,7 @@
 import ImageTextSection from '../components/ImageTextSection.vue'
 import LocationSection from '../components/LocationSection.vue'
 import ScrollIndicator from '../components/ScrollIndicator.vue'
+import NewsCarousel from '../components/NewsCarousel.vue'
 </script>
 
 <template>
@@ -55,17 +56,9 @@ import ScrollIndicator from '../components/ScrollIndicator.vue'
         <br />Vi står klar til at tage imod dig!
       </p>
     </ImageTextSection>
-    <ImageTextSection
-      image="/images/2.webp"
-      image-alt="En gruppe mennesker, der armbryder"
-      image-right
-      button-text="Se træningstider"
-      button-to="/praktisk-info"
-    >
-      <template #heading> Her skal <span class="highlight">karusellen</span> være </template>
-      <p>.</p>
-    </ImageTextSection>
     <LocationSection />
+    <!-- Nyhedskarusellen -->
+    <NewsCarousel />
   </main>
 </template>
 

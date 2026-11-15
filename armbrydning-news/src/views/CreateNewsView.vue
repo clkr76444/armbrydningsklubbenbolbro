@@ -11,7 +11,8 @@ const description = ref("");
 const imageUrl = ref("");
 const isSaving = ref(false);
 
-const { feedbackDialog, errorMessage, openDialog, closeDialog } = useNewsDialog();
+const { feedbackDialog, errorMessage, openDialog, closeDialog } =
+  useNewsDialog();
 
 async function createNews() {
   if (isSaving.value) return;
@@ -40,14 +41,17 @@ async function createNews() {
     const idToken = await user.getIdToken();
     const { token } = await getToken(appCheck);
 
-    const response = await fetch(`${getNewsUrl()}?auth=${encodeURIComponent(idToken)}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Firebase-AppCheck": token,
+    const response = await fetch(
+      `${getNewsUrl()}?auth=${encodeURIComponent(idToken)}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Firebase-AppCheck": token,
+        },
+        body: JSON.stringify(newNews),
       },
-      body: JSON.stringify(newNews),
-    });
+    );
 
     if (!response.ok) {
       throw new Error("Database fejl ved oprettelse af nyhed");

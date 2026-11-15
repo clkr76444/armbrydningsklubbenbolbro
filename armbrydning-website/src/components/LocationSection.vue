@@ -3,7 +3,7 @@ import { mapConsent } from '../composables/mapConsent'
 </script>
 
 <template>
-  <section class="location-section section-bg section-bg--secondary">
+  <section class="location-section">
     <div class="location-section__inner">
       <h2>Kom forbi i <span>Bolbro</span>!</h2>
 
