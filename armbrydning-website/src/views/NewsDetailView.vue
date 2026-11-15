@@ -39,6 +39,17 @@ function formatDate(date) {
   const [year, month, day] = date.split('-')
   return `${day}/${month}/${year}`
 }
+
+// Fremhæver tekst, som er markeret med ** i administrationen
+function formatNewsText(text = '') {
+  return text
+    .split(/(\*\*[\s\S]+?\*\*)/g)
+    .filter(Boolean)
+    .map((part) => ({
+      text: part.startsWith('**') && part.endsWith('**') ? part.slice(2, -2) : part,
+      isHighlighted: part.startsWith('**') && part.endsWith('**'),
+    }))
+}
 </script>
 
 <template>
@@ -67,9 +78,14 @@ function formatDate(date) {
         :alt="article.imageAlt || `Billede til nyheden: ${article.title}`"
       />
 
-      <!-- Viser hele nyhedsteksten -->
+      <!-- Viser hele nyhedsteksten med fremhævede tekststykker -->
       <p class="news-article__description">
-        {{ article.description }}
+        <template v-for="(part, index) in formatNewsText(article.description)" :key="index">
+          <strong v-if="part.isHighlighted" class="news-article__highlight">
+            {{ part.text }}
+          </strong>
+          <template v-else>{{ part.text }}</template>
+        </template>
       </p>
     </article>
   </main>
@@ -104,7 +120,8 @@ function formatDate(date) {
     font-family: v.$font-heading;
     font-size: clamp(1.8rem, 5vw, 3rem);
     overflow-wrap: anywhere;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
   }
 
   time {
@@ -126,5 +143,11 @@ function formatDate(date) {
   line-height: 1.6;
   white-space: pre-line;
   overflow-wrap: anywhere;
+}
+
+// Fremhævet tekst i nyhedsartikler
+.news-article__highlight {
+  color: v.$color-lime;
+  font-weight: 700;
 }
 </style>

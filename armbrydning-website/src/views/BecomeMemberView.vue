@@ -164,35 +164,37 @@ function previousTestimonial() {
             Hvordan er det at starte til armbrydning? Læs hvad vores medlemmer siger.
           </p>
 
-          <div class="testimonials-section__carousel">
-            <div aria-live="polite" aria-atomic="true">
-              <Transition name="testimonial" mode="out-in">
-                <TestimonialCard
-                  :key="activeTestimonial"
-                  v-bind="testimonials[activeTestimonial]"
-                />
-              </Transition>
+          <!-- Alle testimonials beholder deres plads, så højden ikke ændrer sig -->
+          <div class="testimonials-section__slides" aria-live="polite" aria-atomic="true">
+            <div
+              v-for="(testimonial, index) in testimonials"
+              :key="testimonial.name"
+              class="testimonials-section__slide"
+              :class="{ 'is-active': activeTestimonial === index }"
+              :aria-hidden="activeTestimonial !== index"
+            >
+              <TestimonialCard v-bind="testimonial" />
+            </div>
+          </div>
+
+          <div class="testimonials-section__controls">
+            <button type="button" aria-label="Forrige udtalelse" @click="previousTestimonial">
+              ‹
+            </button>
+
+            <div class="testimonials-section__dots">
+              <button
+                v-for="(testimonial, index) in testimonials"
+                :key="testimonial.name"
+                type="button"
+                :aria-label="`Vis udtalelse fra ${testimonial.name}`"
+                :aria-pressed="activeTestimonial === index"
+                :class="{ 'is-active': activeTestimonial === index }"
+                @click="activeTestimonial = index"
+              ></button>
             </div>
 
-            <div class="testimonials-section__controls">
-              <button type="button" aria-label="Forrige udtalelse" @click="previousTestimonial">
-                ‹
-              </button>
-
-              <div class="testimonials-section__dots">
-                <button
-                  v-for="(testimonial, index) in testimonials"
-                  :key="testimonial.name"
-                  type="button"
-                  :aria-label="`Vis udtalelse fra ${testimonial.name}`"
-                  :aria-pressed="activeTestimonial === index"
-                  :class="{ 'is-active': activeTestimonial === index }"
-                  @click="activeTestimonial = index"
-                ></button>
-              </div>
-
-              <button type="button" aria-label="Næste udtalelse" @click="nextTestimonial">›</button>
-            </div>
+            <button type="button" aria-label="Næste udtalelse" @click="nextTestimonial">›</button>
           </div>
         </div>
       </ScrollReveal>
@@ -287,14 +289,29 @@ function previousTestimonial() {
   }
 }
 
-.testimonial-enter-active,
-.testimonial-leave-active {
-  transition: opacity 0.3s ease;
+// Holder karrusellens højde stabil
+.testimonials-section__slides {
+  display: grid;
 }
 
-.testimonial-enter-from,
-.testimonial-leave-to {
+// Alle kort ligger oven på hinanden,
+// men kun det aktive kort er synligt
+.testimonials-section__slide {
+  grid-area: 1 / 1;
+  display: grid;
+  min-width: 0;
   opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+
+  &.is-active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
 }
 
 // PRØVETRÆNINGSFORMULAR
@@ -309,8 +326,7 @@ function previousTestimonial() {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .testimonial-enter-active,
-  .testimonial-leave-active {
+  .testimonials-section__slide {
     transition: none;
   }
 }

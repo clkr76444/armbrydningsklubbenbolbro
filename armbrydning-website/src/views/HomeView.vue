@@ -49,7 +49,7 @@ import NewsCarousel from '../components/NewsCarousel.vue'
         <span class="highlight">dig</span> i gang!
       </template>
       <p>
-        <h3>Du behøver hverken erfaring eller store overarme for at være med!</h3>
+        <h3>Du behøver ikke store overarme for at være med hos os!</h3>
         <br />Vi ved godt, at det kan være lidt grænseoverskridende at møde op et nyt sted.
         <br /><br />Derfor sørger vi for, at du bliver taget godt imod og får hjælp til at komme
         godt i gang i dit eget tempo. <br />

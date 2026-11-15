@@ -37,9 +37,9 @@ function formatDate(date) {
           {{ formatDate(newsItem.date) }}
         </time>
 
-        <!-- Viser kun de første tre linjer -->
+        <!-- Viser kun de første tre linjer og fjern stjerner fra Markdown -->
         <p class="news-card__description">
-          {{ newsItem.description }}
+          {{ newsItem.description?.replace(/\*\*/g, '') }}
         </p>
 
         <span class="btn btn--secondary news-card__button"> Læs hele nyheden </span>
@@ -102,6 +102,7 @@ function formatDate(date) {
   h2 {
     margin: 0;
     overflow-wrap: anywhere;
+    letter-spacing: 0.07em;
   }
 }
 

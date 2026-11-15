@@ -1,6 +1,6 @@
 <script setup>
 import { useRoute } from "vue-router";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, nextTick } from "vue";
 import { auth, appCheck } from "../firebase";
 import { getToken } from "firebase/app-check";
 import { useNewsDialog } from "../utils/useNewsDialog";
@@ -17,8 +17,11 @@ const newsNotFound = ref(false);
 const isLoading = ref(true);
 const loadError = ref("");
 const isSaving = ref(false);
+// Reference til tekstfeltet
+const descriptionTextarea = ref(null);
 
-const { feedbackDialog, errorMessage, openDialog, closeDialog } = useNewsDialog();
+const { feedbackDialog, errorMessage, openDialog, closeDialog } =
+  useNewsDialog();
 
 onMounted(async () => {
   try {
@@ -54,6 +57,30 @@ onMounted(async () => {
   }
 });
 
+// Gør den markerede tekst fed med Markdown
+async function makeBold() {
+  const textarea = descriptionTextarea.value;
+  if (!textarea) return;
+
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+
+  // Gør kun noget, hvis Christel har markeret tekst
+  if (start === end || description.value.length + 4 > 2000) return;
+
+  const selectedText = description.value.slice(start, end);
+
+  description.value =
+    description.value.slice(0, start) +
+    `**${selectedText}**` +
+    description.value.slice(end);
+
+  await nextTick();
+
+  textarea.focus();
+  textarea.setSelectionRange(start + 2, end + 2);
+}
+
 async function updateNews() {
   if (isSaving.value) return;
 
@@ -80,14 +107,17 @@ async function updateNews() {
     const idToken = await user.getIdToken();
     const { token } = await getToken(appCheck);
 
-    const response = await fetch(`${getNewsItemUrl(newsId)}?auth=${encodeURIComponent(idToken)}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Firebase-AppCheck": token,
+    const response = await fetch(
+      `${getNewsItemUrl(newsId)}?auth=${encodeURIComponent(idToken)}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Firebase-AppCheck": token,
+        },
+        body: JSON.stringify(updatedNews),
       },
-      body: JSON.stringify(updatedNews),
-    });
+    );
 
     if (!response.ok) {
       throw new Error("Databasefejl ved opdatering af nyhed");
@@ -160,8 +190,13 @@ async function updateNews() {
           Nyhedens tekst <small>- max 2000 tegn</small>
         </legend>
 
+        <button type="button" class="btn-bold" @click="makeBold">
+          <strong>B</strong> Fed tekst
+        </button>
+
         <textarea
           id="news-description"
+          ref="descriptionTextarea"
           v-model="description"
           aria-labelledby="description-label"
           required
@@ -198,9 +233,7 @@ async function updateNews() {
 
       <p v-else>Dine ændringer blev gemt.</p>
 
-      <button type="button" class="btn-primary" @click="closeDialog">
-        OK
-      </button>
+      <button type="button" class="btn-primary" @click="closeDialog">OK</button>
     </dialog>
   </main>
 </template>
