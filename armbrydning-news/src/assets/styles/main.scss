@@ -125,7 +125,7 @@ p {
 // DATO PÅ NYHEDER
 .news-date {
   font-size: 1.1rem;
-  margin-top: 0.5rem;
+  margin: 0 0 0.5rem;
   font-weight: v.$font-regular;
   letter-spacing: 0.01em;
   color: v.$color-lime;
@@ -137,6 +137,11 @@ p {
   overflow: hidden;
   border: 1px solid v.$color-off-white;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
 
   .news-card__content {
     display: flex;
@@ -147,9 +152,9 @@ p {
   }
 
   h2 {
-    margin-top: 0;
-    margin-bottom: 0.5rem;
+    margin: 0 0 0.5rem;
     overflow-wrap: anywhere;
+    font-size: 1.25rem;
   }
 
   p {
@@ -157,14 +162,23 @@ p {
     overflow-wrap: anywhere;
   }
 
-  p:not(.news-date) {
+  p:not(.news-date):not(.news-card-description) {
     white-space: pre-line;
+  }
+
+  .news-card-description {
+    margin: 0 0 1rem 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: normal;
   }
 
   // Holder administrationsknapperne nederst i kortet
   .news-card-actions {
     margin-top: auto;
-    padding-top: 1.5rem;
+    padding-top: 0;
   }
 }
 

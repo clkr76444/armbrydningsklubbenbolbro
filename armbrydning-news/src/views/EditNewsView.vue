@@ -14,6 +14,9 @@ const newsId = route.params.id;
 const title = ref("");
 const description = ref("");
 
+// gemmer billedets url, så den kan redigeres
+const imageUrl = ref("");
+
 // Holder styr på om nyheden ikke findes
 const newsNotFound = ref(false);
 
@@ -67,6 +70,7 @@ onMounted(async () => {
     // Indsætter nyhedens data i formularen
     title.value = data.title;
     description.value = data.description;
+    imageUrl.value = data.imageUrl ?? "";
   } catch (error) {
     console.error("Fejl ved hentning af nyhed:", error);
     loadError.value = "Nyheden kunne ikke hentes. Prøv igen senere.";
@@ -88,6 +92,7 @@ async function updateNews() {
   const updatedNews = {
     title: title.value.trim(),
     description: description.value.trim(),
+    imageUrl: imageUrl.value.trim(),
   };
 
   // Starter gemmeprocessen
@@ -177,6 +182,18 @@ function closefeedbackDialog() {
           aria-labelledby="title-label"
           required
           maxlength="100"
+        />
+      </fieldset>
+
+      <fieldset>
+        <legend id="image-label">Billedets URL</legend>
+
+        <input
+          id="news-image"
+          type="text"
+          v-model="imageUrl"
+          placeholder="/images/klubtraening.webp"
+          aria-labelledby="image-label"
         />
       </fieldset>
 

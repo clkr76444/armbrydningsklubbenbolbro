@@ -8,9 +8,12 @@ defineProps({
   },
 });
 
-// Test: billederne ligger i hjemmesidens public-mappe.
-// Senere erstatter vi localhost med hjemmesidens rigtige adresse.
-const websiteUrl = "http://localhost:5173";
+// Henter adressen til hjemmesiden fra miljøvariablen
+// bruger localhost hvis miljøvariablen ikke er sat
+// replace fjerner eventuelt afsluttende skråstreg fra URL'en
+const websiteUrl = (
+  import.meta.env.VITE_WEBSITE_URL || "http://localhost:5173"
+).replace(/\/$/, "");
 
 const getImageSrc = (url) => {
   if (url.startsWith("/")) {

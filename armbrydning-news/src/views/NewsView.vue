@@ -178,27 +178,85 @@ async function deleteNews() {
 </script>
 
 <template>
-  <article class="news-card">
-    <div class="news-card__content">
-      <!-- Viser kun et billede, hvis nyheden har en billed-URL -->
-      <img
-        v-if="newsItem.imageUrl"
-        :src="getImageSrc(newsItem.imageUrl)"
-        :alt="`Billede til nyheden: ${newsItem.title}`"
-        class="news-card-image"
-        loading="lazy"
-      />
+  <main class="news-page">
+    <h1>Nyheder</h1>
 
-      <h2>{{ newsItem.title }}</h2>
+    <p v-if="loadError" role="alert">{{ loadError }}</p>
 
-      <p class="news-date">{{ formatDate(newsItem.date) }}</p>
+    <!-- Viser indlæsningsstatus indtil finally sætter isLoading til false -->
+    <p v-if="isLoading" role="status">Indlæser nyheder...</p>
 
-      <p class="news-card-description">{{ newsItem.description }}</p>
+    <!-- Viser besked, hvis der ikke er nogen nyheder -->
+    <p v-if="!isLoading && !loadError && news.length === 0">
+      Ingen nyheder at vise.
+    </p>
 
-      <!-- Her indsættes administrationsknapperne via slot -->
-      <slot></slot>
+    <!-- Gennemgår nyhederne og sender hver nyhed til NewsCard via props -->
+    <div class="news-grid">
+      <NewsCard v-for="item in news" :key="item.id" :news-item="item">
+        <!-- Viser kun administrationsknapperne, hvis isAdmin er true -->
+        <!-- Knapperne indsættes i NewsCards slot -->
+        <div v-if="isAdmin" class="news-card-actions">
+          <!-- Navigerer til redigeringssiden for den valgte nyhed -->
+          <RouterLink
+            :to="{ name: 'edit-news', params: { id: item.id } }"
+            class="btn-primary"
+          >
+            Rediger
+          </RouterLink>
+
+          <!-- Åbner slette-dialogen for den valgte nyhed -->
+          <button
+            type="button"
+            class="btn-delete"
+            @click="openDeleteDialog(item)"
+          >
+            Slet
+          </button>
+        </div>
+      </NewsCard>
     </div>
-  </article>
+
+    <!-- Bekræftelsesdialog for sletning -->
+    <dialog
+      ref="deleteDialog"
+      class="feedback-dialog feedback-dialog--error"
+      aria-labelledby="delete-title"
+    >
+      <form method="dialog">
+        <button type="submit" class="dialog-close" aria-label="Luk beskeden">
+          ×
+        </button>
+
+        <h2 id="delete-title">Vil du slette dette opslag?</h2>
+
+        <!-- Viser titlen på den valgte nyhed -->
+        <p>
+          Er du sikker på at du vil slette
+          <strong>{{ selectedNews?.title }}</strong
+          >? Handlingen kan ikke fortrydes.
+        </p>
+
+        <!-- Viser fejlbesked, hvis sletningen mislykkes -->
+        <p v-if="deleteError" class="delete-error" role="alert">
+          <strong>FEJL!</strong> {{ deleteError }}
+        </p>
+
+        <div class="delete-dialog-actions">
+          <button
+            type="button"
+            class="btn-delete"
+            :disabled="isDeleting"
+            @click="deleteNews"
+          >
+            {{ isDeleting ? "Sletter..." : "Ja, slet" }}
+          </button>
+
+          <button type="submit" class="btn-primary">Annuller handling</button>
+        </div>
+      </form>
+    </dialog>
+  </main>
 </template>
 
 <style scoped lang="scss">
@@ -219,7 +277,9 @@ async function deleteNews() {
 .news-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
+  grid-auto-rows: 1fr;
   gap: 1.5rem;
+  align-items: stretch;
 
   // TABLET - FRA 800PX
   @media (min-width: v.$breakpoint-tablet) {
