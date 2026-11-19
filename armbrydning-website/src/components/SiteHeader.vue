@@ -116,7 +116,7 @@ onUnmounted(() => {
   gap: 1rem;
 
   width: 100%;
-  max-width: 1200px;
+  max-width: 1150px;
   margin-inline: auto;
   padding: 1rem var(--container-padding);
 }

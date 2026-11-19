@@ -70,6 +70,8 @@ import NewsCarousel from '../components/NewsCarousel.vue'
   display: grid;
   place-items: center;
   min-height: 600px;
+  box-sizing: border-box;
+  padding-bottom: 8rem;
   overflow: hidden;
   background: v.$bg-primary;
   --scroll-indicator-bottom: 3.5rem;
@@ -92,7 +94,7 @@ import NewsCarousel from '../components/NewsCarousel.vue'
 .hero__content {
   position: relative;
   z-index: 1;
-  max-width: 1200px;
+  max-width: 1150px;
   padding: 3rem 1.5rem;
   text-align: center;
 

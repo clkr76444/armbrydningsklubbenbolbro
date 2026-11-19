@@ -51,12 +51,12 @@ defineProps({
 .page-hero__content {
   width: 100%;
   min-width: 0;
-  max-width: 1200px;
+  max-width: 1150px;
   margin-inline: auto;
 
   h1 {
     font-family: v.$font-heading;
-    font-size: clamp(2.15rem, 5vw, 5rem);
+    font-size: clamp(2rem, 5vw, 5rem);
     color: v.$color-lime;
     text-transform: uppercase;
     letter-spacing: 0.08em;

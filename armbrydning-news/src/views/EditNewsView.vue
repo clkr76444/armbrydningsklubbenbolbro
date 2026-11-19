@@ -158,37 +158,35 @@ async function updateNews() {
     </p>
 
     <form v-else class="news-form" @submit.prevent="updateNews">
-      <fieldset>
-        <legend id="title-label">
+      <div class="form-field">
+        <label for="news-title">
           Nyhedens titel <small>- max 100 tegn</small>
-        </legend>
+        </label>
 
         <input
           id="news-title"
           type="text"
           v-model="title"
-          aria-labelledby="title-label"
           required
           maxlength="100"
         />
-      </fieldset>
+      </div>
 
-      <fieldset>
-        <legend id="image-label">Billedets URL</legend>
+      <div class="form-field">
+        <label for="news-image">Billedets URL</label>
 
         <input
           id="news-image"
           type="text"
           v-model="imageUrl"
           placeholder="/images/klubtraening.webp"
-          aria-labelledby="image-label"
         />
-      </fieldset>
+      </div>
 
-      <fieldset>
-        <legend id="description-label">
+      <div class="form-field">
+        <label for="news-description">
           Nyhedens tekst <small>- max 2000 tegn</small>
-        </legend>
+        </label>
 
         <button type="button" class="btn-bold" @click="makeBold">
           <strong>B</strong> Fed tekst
@@ -198,11 +196,10 @@ async function updateNews() {
           id="news-description"
           ref="descriptionTextarea"
           v-model="description"
-          aria-labelledby="description-label"
           required
           maxlength="2000"
         ></textarea>
-      </fieldset>
+      </div>
 
       <button type="submit" class="btn-primary" :disabled="isSaving">
         {{ isSaving ? "Gemmer..." : "Gem ændringer" }}

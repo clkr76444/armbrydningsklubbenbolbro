@@ -38,7 +38,7 @@ defineProps({
 .board-member-card {
   overflow: hidden;
   border-radius: 8px;
-  background-color: v.$bg-secondary;
+  background-color: v.$bg-primary;
 }
 
 .board-member-card__image {

@@ -159,7 +159,7 @@ function onTouchEnd(event) {
 }
 
 .news-carousel__container {
-  max-width: 1200px;
+  max-width: 1150px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;

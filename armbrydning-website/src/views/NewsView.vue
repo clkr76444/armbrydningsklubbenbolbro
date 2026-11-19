@@ -85,7 +85,7 @@ onMounted(async () => {
 // INDHOLD UNDER HEROEN
 .news-page__content {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1150px;
   margin: 0 auto;
   padding: 2rem var(--container-padding, 1.5rem) 4rem;
 

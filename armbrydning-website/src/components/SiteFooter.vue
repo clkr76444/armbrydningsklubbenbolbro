@@ -98,7 +98,7 @@ import { resetMapConsent } from '../composables/mapConsent'
 
 .site-footer__inner {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1150px;
   margin-inline: auto;
   padding-inline: var(--container-padding);
 }

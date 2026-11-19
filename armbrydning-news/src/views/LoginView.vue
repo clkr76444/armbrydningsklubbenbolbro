@@ -39,31 +39,29 @@ function logIn() {
     <h1>Administratorlogin</h1>
 
     <form class="news-form" @submit.prevent="logIn">
-      <fieldset>
-        <legend id="login-email-label">E-mail</legend>
+      <div class="form-field">
+        <label for="login-email">E-mail</label>
         <input
           id="login-email"
           v-model="email"
           type="email"
           autocomplete="username"
           placeholder="Indtast din e-mail"
-          aria-labelledby="login-email-label"
           required
         />
-      </fieldset>
+      </div>
 
-      <fieldset>
-        <legend id="login-password-label">Adgangskode</legend>
+      <div class="form-field">
+        <label for="login-password">Adgangskode</label>
         <input
           id="login-password"
           v-model="password"
           type="password"
           autocomplete="current-password"
           placeholder="Indtast din adgangskode"
-          aria-labelledby="login-password-label"
           required
         />
-      </fieldset>
+      </div>
 
       <p v-if="errorMessage" role="alert">{{ errorMessage }}</p>
       <p v-if="successMessage" role="status">{{ successMessage }}</p>

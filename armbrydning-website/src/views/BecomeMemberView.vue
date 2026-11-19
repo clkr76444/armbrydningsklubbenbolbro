@@ -56,28 +56,35 @@ function previousTestimonial() {
       </template>
     </PageHero>
 
-    <section id="trial-signup" class="trial-signup section-bg--secondary">
-      <div class="trial-signup__inner">
-        <h2>
-          Vi står <span class="highlight">klar</span>
-          til at tage imod dig!
-        </h2>
+    <!-- Prøvetilmelding -->
+    <ImageTextSection id="trial-signup" class="trial-signup-layout section-bg--secondary">
+      <template #heading>
+        Vil du tilmelde dig til en <span class="highlight">prøvetræning</span>?
+      </template>
 
-        <p>
-          Din første træning skal være en god oplevelse!
-          <br />
-          Fortæl os, at du kommer, så sørger vi for at være klar til at tage imod dig.
-        </p>
-        <p class="trial-signup__notice">
-          Tilmelding er <strong>ikke</strong> nødvendig – du kan også bare møde op!
-        </p>
+      <h3 class="trial-signup__subheading">
+        Vi står <span class="highlight">klar</span> til at tage imod dig!
+      </h3>
 
-        <!-- Prøvetræningsformular -->
+      <p>
+        Din første træning skal være en god oplevelse!
+        <br />
+        Hvis du gerne vil give os besked om, at du kommer, kan du udfylde formularen. Så ved vi,
+        hvornår vi kan forvente dig, og kan være klar til at tage imod dig.
+      </p>
+
+      <p class="trial-signup__notice">
+        <strong>Tilmelding er dog ikke nødvendig.</strong><br />
+        Hvis du er mere til bare at møde op, er du også velkommen til det!
+      </p>
+
+      <!-- Prøvetræningsformular i stedet for billede -->
+      <template #media>
         <div class="trial-signup__form">
           <TrialForm />
         </div>
-      </div>
-    </section>
+      </template>
+    </ImageTextSection>
 
     <ImageTextSection
       image="/images/2.webp"
@@ -86,7 +93,7 @@ function previousTestimonial() {
       image-format="portrait"
       button-text="Fortæl os at du kommer"
       button-to="#trial-signup"
-      button-variant="primary"
+      button-variant="secondary"
     >
       <template #heading> Step 1 - <span class="highlight">Find en dag</span> </template>
 
@@ -124,7 +131,7 @@ function previousTestimonial() {
       image-alt="To personer, der træner armbrydning"
       image-right
       image-format="portrait"
-      button-text="Læs mere om priser og kontingenter"
+      button-text="Læs mere om praktiske oplysninger"
       button-to="/praktisk-info"
       button-variant="secondary"
     >
@@ -132,20 +139,14 @@ function previousTestimonial() {
 
       <h3>Nu skal du selv prøve kræfter med armbrydning!</h3>
       <p>
-        Vi starter med at vise dig de grundlæggende teknikker, så du kan lære sporten at kende i dit
-        eget tempo.
+        Vi starter med at introducere dig til de grundlæggende teknikker og viser dig, hvordan du
+        kan træne med fokus på teknik og sikkerhed.
       </p>
-
       <p>
-        Du behøver ikke kunne noget på forhånd! Vi hjælper dig undervejs, svarer på dine spørgsmål
-        og sørger for, at du får en god introduktion til sporten.
+        Vi guider dig undervejs, svarer på dine spørgsmål og giver dig mulighed for at lære sporten
+        at kende i dit eget tempo. <br />Det vigtigste er ikke, hvor stærk du er, men at du har lyst
+        til at lære noget nyt og have det sjovt sammen med os.
       </p>
-
-      <p>
-        Det vigtigste er ikke, hvor stærk du er, men at du har lyst til at lære noget nyt og have
-        det sjovt sammen med os.
-      </p>
-
       <p>
         Hvis du finder ud af, at armbrydning er noget for dig, hjælper vi dig selvfølgelig med at
         blive medlem!
@@ -206,25 +207,27 @@ function previousTestimonial() {
 @use '../assets/styles/variables' as v;
 
 // Trial signup section styles
-.trial-signup {
-  padding: 4rem 1.5rem;
-  text-align: center;
+.trial-signup__form {
+  width: 100%;
+  min-width: 0;
+  margin-top: 2rem;
+  text-align: left;
 }
 
-.trial-signup__inner {
-  max-width: 600px;
-  margin-inline: auto;
+.trial-signup__notice {
+  margin-top: 1.5rem;
+  text-align: left;
+}
 
-  h2 {
-    font-family: v.$font-heading;
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    text-transform: uppercase;
-    margin-bottom: 1rem;
+@media (min-width: v.$breakpoint-tablet) {
+  .trial-signup__form {
+    margin-top: 0;
   }
 
-  p {
-    line-height: 1.6;
-    margin-bottom: 1rem;
+  .trial-signup-layout {
+    :deep(.image-text-section__inner) {
+      align-items: start;
+    }
   }
 }
 
@@ -312,17 +315,6 @@ function previousTestimonial() {
     visibility: visible;
     pointer-events: auto;
   }
-}
-
-// PRØVETRÆNINGSFORMULAR
-.trial-signup__form {
-  margin-top: 2rem;
-  text-align: left;
-}
-
-.trial-signup__notice {
-  margin-top: 1.5rem;
-  text-align: center;
 }
 
 @media (prefers-reduced-motion: reduce) {

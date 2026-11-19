@@ -114,6 +114,8 @@ const sponsors = [
       image-alt="Medlemmer fra Armbrydning Odense"
       image-right
       image-format="landscape"
+      button-variant="secondary"
+      background-variant="secondary"
     >
       <template #heading> Klubbens <span class="highlight">historie</span> </template>
 
@@ -143,7 +145,6 @@ const sponsors = [
       image="/images/12.webp"
       image-alt="To personer, der træner armbrydning"
       image-format="portrait"
-      background-variant="secondary"
       button-text="Fortæl os at du kommer"
       button-to="/bliv-armbryder"
       button-variant="primary"
@@ -164,7 +165,7 @@ const sponsors = [
     </ImageTextSection>
 
     <!-- Sektion om bestyrelsen -->
-    <section class="board-section">
+    <section class="board-section section-bg--secondary">
       <div class="board-section__inner">
         <h2>Mød klubbens <span class="highlight">bestyrelse</span></h2>
 
@@ -183,7 +184,7 @@ const sponsors = [
 
     <!-- Sektion om samarbejdspartnere -->
 
-    <section class="sponsors-section section-bg--secondary">
+    <section class="sponsors-section">
       <ScrollReveal>
         <div class="sponsors-section__inner">
           <h2>Vores <span class="highlight">samarbejdspartnere</span></h2>
@@ -208,7 +209,7 @@ const sponsors = [
 }
 
 .board-section__inner {
-  max-width: 1200px;
+  max-width: 1150px;
   margin-inline: auto;
 
   h2 {
@@ -236,7 +237,7 @@ const sponsors = [
 }
 
 .sponsors-section__inner {
-  max-width: 1200px;
+  max-width: 1150px;
   margin-inline: auto;
 
   h2 {

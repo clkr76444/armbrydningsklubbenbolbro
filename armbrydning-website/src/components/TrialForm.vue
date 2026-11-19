@@ -125,8 +125,8 @@ async function sendSignup() {
 <template>
   <form class="trial-form" @submit.prevent="sendSignup">
     <!-- Navn -->
-    <fieldset class="form-field">
-      <legend id="trial-name-label">Dit navn</legend>
+    <div class="form-field">
+      <label for="trial-name">Dit navn</label>
 
       <input
         id="trial-name"
@@ -134,7 +134,6 @@ async function sendSignup() {
         type="text"
         autocomplete="name"
         placeholder="Indtast dit navn"
-        aria-labelledby="trial-name-label"
         maxlength="100"
         @blur="validateName"
         @input="nameError = ''"
@@ -144,11 +143,11 @@ async function sendSignup() {
       <p v-if="nameError" class="form-field-error" role="alert">
         {{ nameError }}
       </p>
-    </fieldset>
+    </div>
 
     <!-- Telefonnummer -->
-    <fieldset class="form-field">
-      <legend id="trial-phone-label">Telefonnummer</legend>
+    <div class="form-field">
+      <label for="trial-phone">Telefonnummer</label>
 
       <input
         id="trial-phone"
@@ -156,7 +155,6 @@ async function sendSignup() {
         type="tel"
         autocomplete="tel"
         placeholder="Indtast dit telefonnummer"
-        aria-labelledby="trial-phone-label"
         maxlength="20"
         @blur="validatePhone"
         @input="phoneError = ''"
@@ -166,20 +164,20 @@ async function sendSignup() {
       <p v-if="phoneError" class="form-field-error" role="alert">
         {{ phoneError }}
       </p>
-    </fieldset>
+    </div>
 
     <!-- Vælg træningsdag -->
-    <fieldset class="form-field">
-      <legend id="trial-date-label">Hvornår kommer du?</legend>
+    <div class="form-field">
+      <label for="trial-date">Hvornår kommer du?</label>
 
-      <select id="trial-date" v-model="trainingDate" aria-labelledby="trial-date-label" required>
+      <select id="trial-date" v-model="trainingDate" required>
         <option disabled value="">Vælg en træningsdag</option>
 
         <option v-for="date in trainingDates" :key="date.value" :value="date.value">
           {{ date.label }} - kl. 18.30
         </option>
       </select>
-    </fieldset>
+    </div>
 
     <!-- Valgfri SMS-bekræftelse -->
     <label class="trial-form__checkbox">
@@ -189,7 +187,7 @@ async function sendSignup() {
 
     <!-- Aktiveres når sikker indsendelse er implementeret -->
     <button type="submit" class="btn btn--primary" :disabled="isSending">
-      {{ isSending ? 'Sender...' : 'Send tilmelding' }}
+      {{ isSending ? 'Sender...' : 'Giv klubben besked' }}
     </button>
 
     <p v-if="successMessage" class="form-message form-message--success" role="status">
@@ -209,9 +207,9 @@ async function sendSignup() {
 .trial-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
   width: 100%;
-  max-width: 600px;
+  max-width: 540px;
   margin-inline: auto;
 }
 
@@ -220,7 +218,6 @@ async function sendSignup() {
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
-  margin-inline: 1rem;
   cursor: pointer;
   line-height: 1.5;
 
@@ -235,13 +232,14 @@ async function sendSignup() {
 
 // SEND-KNAP
 .trial-form > button {
-  width: calc(100% - 2rem);
-  align-self: center;
+  width: 100%;
+  align-self: stretch;
 }
 
 @media (min-width: v.$breakpoint-tablet) {
   .trial-form > button {
     width: auto;
+    align-self: center;
   }
 }
 </style>

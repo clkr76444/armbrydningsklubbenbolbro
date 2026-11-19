@@ -91,7 +91,7 @@ import PageHero from '../components/PageHero.vue'
 }
 
 .contact-section__inner {
-  max-width: 1200px;
+  max-width: 1150px;
   margin-inline: auto;
 }
 

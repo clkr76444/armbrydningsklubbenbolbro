@@ -130,8 +130,8 @@ async function sendMessage() {
 <template>
   <form class="contact-form" @submit.prevent="sendMessage" novalidate>
     <!-- Navn -->
-    <fieldset class="form-field">
-      <legend id="contact-name-label">Dit navn</legend>
+    <div class="form-field">
+      <label for="contact-name">Dit navn</label>
 
       <input
         id="contact-name"
@@ -139,7 +139,6 @@ async function sendMessage() {
         type="text"
         autocomplete="name"
         placeholder="Indtast dit navn"
-        aria-labelledby="contact-name-label"
         :aria-invalid="!!nameError"
         :aria-describedby="nameError ? 'contact-name-error' : undefined"
         @blur="validateName"
@@ -152,11 +151,11 @@ async function sendMessage() {
       <p v-if="nameError" id="contact-name-error" class="form-field-error" role="alert">
         {{ nameError }}
       </p>
-    </fieldset>
+    </div>
 
     <!-- Telefonnummer -->
-    <fieldset class="form-field">
-      <legend id="contact-phone-label">Telefonnummer</legend>
+    <div class="form-field">
+      <label for="contact-phone">Telefonnummer</label>
 
       <input
         id="contact-phone"
@@ -164,7 +163,6 @@ async function sendMessage() {
         type="tel"
         autocomplete="tel"
         placeholder="Indtast dit telefonnummer"
-        aria-labelledby="contact-phone-label"
         :aria-invalid="!!phoneError"
         :aria-describedby="phoneError ? 'contact-phone-error' : undefined"
         @blur="validatePhone"
@@ -177,16 +175,15 @@ async function sendMessage() {
       <p v-if="phoneError" id="contact-phone-error" class="form-field-error" role="alert">
         {{ phoneError }}
       </p>
-    </fieldset>
+    </div>
 
     <!-- Emne -->
-    <fieldset class="form-field">
-      <legend id="contact-subject-label">Emne</legend>
+    <div class="form-field">
+      <label for="contact-subject">Emne</label>
 
       <select
         id="contact-subject"
         v-model="subject"
-        aria-labelledby="contact-subject-label"
         :aria-invalid="!!subjectError"
         :aria-describedby="subjectError ? 'contact-subject-error' : undefined"
         @blur="validateSubject"
@@ -203,17 +200,16 @@ async function sendMessage() {
       <p v-if="subjectError" id="contact-subject-error" class="form-field-error" role="alert">
         {{ subjectError }}
       </p>
-    </fieldset>
+    </div>
 
     <!-- Besked -->
-    <fieldset class="form-field">
-      <legend id="contact-message-label">Din besked</legend>
+    <div class="form-field">
+      <label for="contact-message">Din besked</label>
 
       <textarea
         id="contact-message"
         v-model="message"
         placeholder="Skriv din besked her..."
-        aria-labelledby="contact-message-label"
         :aria-invalid="!!messageError"
         :aria-describedby="messageError ? 'contact-message-error' : undefined"
         @blur="validateMessage"
@@ -227,7 +223,7 @@ async function sendMessage() {
       <p v-if="messageError" id="contact-message-error" class="form-field-error" role="alert">
         {{ messageError }}
       </p>
-    </fieldset>
+    </div>
 
     <!-- Send-knap -->
     <button type="submit" class="btn btn--primary" :disabled="isSending">
@@ -252,9 +248,9 @@ async function sendMessage() {
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
   width: 100%;
-  max-width: 600px;
+  max-width: 540px;
 }
 
 // SEND-KNAP - MOBILE FIRST

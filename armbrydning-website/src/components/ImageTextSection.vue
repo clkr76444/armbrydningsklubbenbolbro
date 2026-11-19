@@ -124,14 +124,17 @@ onUnmounted(() => {
         </RouterLink>
       </div>
 
-      <img
-        class="image-text-section__image"
-        :class="{ 'image-text-section__image--portrait': imageFormat === 'portrait' }"
-        :src="image"
-        :alt="imageAlt"
-        loading="lazy"
-        decoding="async"
-      />
+      <!-- Mulighed for at erstatte billedet med andet indhold -->
+      <slot name="media">
+        <img
+          class="image-text-section__image"
+          :class="{ 'image-text-section__image--portrait': imageFormat === 'portrait' }"
+          :src="image"
+          :alt="imageAlt"
+          loading="lazy"
+          decoding="async"
+        />
+      </slot>
     </div>
   </section>
 </template>
@@ -147,7 +150,7 @@ onUnmounted(() => {
   display: grid;
   align-items: center;
   gap: 1.5rem;
-  max-width: 1200px;
+  max-width: 1150px;
   margin-inline: auto;
   padding: 3rem var(--container-padding) 1.5rem;
 
@@ -247,8 +250,8 @@ onUnmounted(() => {
 
 @media (min-width: v.$breakpoint-desktop) {
   .image-text-section__inner {
-    gap: 3rem;
-    padding-block: 4rem;
+    gap: 2rem;
+    padding-block: 3rem;
   }
 
   .image-text-section__image {

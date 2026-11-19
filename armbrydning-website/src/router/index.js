@@ -47,6 +47,11 @@ const router = createRouter({
       name: 'news-detail',
       component: NewsDetailView,
     },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: () => import('../views/NotFoundView.vue'),
+    },
   ],
 
   // Bestemmer, hvor siden skal scrolle hen ved navigation ud fra to parametre

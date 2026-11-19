@@ -112,10 +112,10 @@ async function makeBold() {
 
     <h1>Opret nyhed</h1>
     <form class="news-form" @submit.prevent="createNews">
-      <fieldset>
-        <legend id="title-label">
+      <div class="form-field">
+        <label for="news-title">
           Nyhedens titel <small>- max 100 tegn</small>
-        </legend>
+        </label>
         <!-- v-model binder input-feltet til title-variablen, så ændringer i input synkroniseres med variablen -->
         <input
           id="news-title"
@@ -124,25 +124,23 @@ async function makeBold() {
           placeholder="Indtast nyhedens titel"
           required
           maxlength="100"
-          aria-labelledby="title-label"
         />
-      </fieldset>
+      </div>
 
-      <fieldset>
-        <legend id="image-label">Billedets URL</legend>
+      <div class="form-field">
+        <label for="news-image">Billedets URL</label>
         <input
           id="news-image"
           type="text"
           v-model="imageUrl"
           placeholder="/images/test-news.webp"
-          aria-labelledby="image-label"
         />
-      </fieldset>
+      </div>
 
-      <fieldset>
-        <legend id="description-label">
+      <div class="form-field">
+        <label for="news-description">
           Nyhedens tekst <small>- max 2000 tegn</small>
-        </legend>
+        </label>
         <button type="button" class="btn-bold" @click="makeBold">
           <strong>B</strong> Fed tekst
         </button>
@@ -154,9 +152,8 @@ async function makeBold() {
           placeholder="Indtast nyhedens beskrivelse"
           required
           maxlength="2000"
-          aria-labelledby="description-label"
         ></textarea>
-      </fieldset>
+      </div>
 
       <button type="submit" class="btn-primary" :disabled="isSaving">
         {{ isSaving ? "Gemmer..." : "Opret nyhed" }}

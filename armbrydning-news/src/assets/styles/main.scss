@@ -371,7 +371,7 @@ p {
   width: 100%;
   max-width: 600px;
 
-  fieldset {
+  .form-field {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -385,7 +385,7 @@ p {
       border-color: v.$color-lime;
     }
 
-    legend {
+    label {
       font-weight: v.$font-medium;
       color: v.$color-lime;
       margin-bottom: 0.5rem;
