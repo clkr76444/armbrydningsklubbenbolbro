@@ -142,7 +142,7 @@ async function updateNews() {
     <nav class="breadcrumb-nav" aria-label="Brødkrummesti">
       <ol class="breadcrumbs">
         <li>
-          <RouterLink to="/nyheder">Oversigt over nyheder</RouterLink>
+          <RouterLink to="/">Oversigt over nyheder</RouterLink>
         </li>
         <li aria-current="page">Rediger nyhed</li>
       </ol>

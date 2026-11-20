@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "armbrydning-news"
-  }
+  },
+  "targets": {
+    "armbrydning-news": {
+      "hosting": {
+        "admin": [
+          "armbrydning-news"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
