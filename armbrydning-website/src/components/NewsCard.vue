@@ -96,11 +96,12 @@ function formatDate(date) {
   flex-direction: column;
   flex: 1;
   gap: 0.75rem;
-  padding: 1.5rem;
+  padding: 1.25rem;
   min-width: 0;
 
   h2 {
     margin: 0;
+    font-size: clamp(1.25rem, 2vw, 1.65rem);
     overflow-wrap: anywhere;
     letter-spacing: 0.07em;
   }
@@ -121,7 +122,7 @@ function formatDate(date) {
   line-height: 1.6;
 }
 
-.news-card__cta {
+.news-card__button {
   margin-top: auto;
   padding-top: 1rem;
   color: v.$color-lime;

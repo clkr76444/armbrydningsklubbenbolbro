@@ -10,6 +10,7 @@ const title = ref("");
 const description = ref("");
 const imageUrl = ref("");
 const isSaving = ref(false);
+const imageAlt = ref("");
 
 const { feedbackDialog, errorMessage, openDialog, closeDialog } =
   useNewsDialog();
@@ -26,6 +27,7 @@ async function createNews() {
     title: title.value.trim(),
     description: description.value.trim(),
     imageUrl: imageUrl.value.trim(),
+    imageAlt: imageAlt.value.trim(),
     date: new Date().toISOString().slice(0, 10),
   };
 
@@ -60,6 +62,7 @@ async function createNews() {
     title.value = "";
     description.value = "";
     imageUrl.value = "";
+    imageAlt.value = "";
 
     openDialog();
   } catch (error) {
@@ -104,7 +107,7 @@ async function makeBold() {
     <nav class="breadcrumb-nav" aria-label="Brødkrummesti">
       <ol class="breadcrumbs">
         <li>
-          <RouterLink to="/">Oversigt over nyheder</RouterLink>
+          <RouterLink to="/nyheder">Oversigt over nyheder</RouterLink>
         </li>
         <li aria-current="page">Opret nyhed</li>
       </ol>
@@ -136,14 +139,23 @@ async function makeBold() {
           placeholder="/images/test-news.webp"
         />
       </div>
+      <div class="form-field">
+        <label for="news-image-alt"
+          >Billedets alt-tekst - beskriv billedet for skærmlæsere</label
+        >
+        <input
+          id="news-image-alt"
+          type="text"
+          v-model="imageAlt"
+          placeholder="Beskriv billedet"
+          maxlength="150"
+        />
+      </div>
 
       <div class="form-field">
         <label for="news-description">
           Nyhedens tekst <small>- max 2000 tegn</small>
         </label>
-        <button type="button" class="btn-bold" @click="makeBold">
-          <strong>B</strong> Fed tekst
-        </button>
         <!-- v-model binder textarea-feltet til description-variablen, så ændringer i input synkroniseres med variablen -->
         <textarea
           id="news-description"

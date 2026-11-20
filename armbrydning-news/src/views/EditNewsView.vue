@@ -19,6 +19,7 @@ const loadError = ref("");
 const isSaving = ref(false);
 // Reference til tekstfeltet
 const descriptionTextarea = ref(null);
+const imageAlt = ref("");
 
 const { feedbackDialog, errorMessage, openDialog, closeDialog } =
   useNewsDialog();
@@ -49,6 +50,7 @@ onMounted(async () => {
     title.value = data.title;
     description.value = data.description;
     imageUrl.value = data.imageUrl ?? "";
+    imageAlt.value = data.imageAlt ?? "";
   } catch (error) {
     console.error("Fejl ved hentning af nyhed:", error);
     loadError.value = "Nyheden kunne ikke hentes. Prøv igen senere.";
@@ -93,6 +95,7 @@ async function updateNews() {
     title: title.value.trim(),
     description: description.value.trim(),
     imageUrl: imageUrl.value.trim(),
+    imageAlt: imageAlt.value.trim(),
   };
 
   isSaving.value = true;
@@ -139,7 +142,7 @@ async function updateNews() {
     <nav class="breadcrumb-nav" aria-label="Brødkrummesti">
       <ol class="breadcrumbs">
         <li>
-          <RouterLink to="/">Oversigt over nyheder</RouterLink>
+          <RouterLink to="/nyheder">Oversigt over nyheder</RouterLink>
         </li>
         <li aria-current="page">Rediger nyhed</li>
       </ol>
@@ -184,13 +187,22 @@ async function updateNews() {
       </div>
 
       <div class="form-field">
+        <label for="news-image-alt"
+          >Billedets alt-tekst - beskriv billedet for skærmlæsere</label
+        >
+        <input
+          id="news-image-alt"
+          type="text"
+          v-model="imageAlt"
+          placeholder="Beskriv billedet"
+          maxlength="150"
+        />
+      </div>
+
+      <div class="form-field">
         <label for="news-description">
           Nyhedens tekst <small>- max 2000 tegn</small>
         </label>
-
-        <button type="button" class="btn-bold" @click="makeBold">
-          <strong>B</strong> Fed tekst
-        </button>
 
         <textarea
           id="news-description"

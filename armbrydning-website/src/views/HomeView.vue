@@ -8,7 +8,7 @@ import NewsCarousel from '../components/NewsCarousel.vue'
 <template>
   <main>
     <section class="hero">
-      <img src="/images/hero.jpg" alt="To personer, der dyrker armbrydning" class="hero__image" />
+      <img src="/images/hero.webp" alt="To personer, der dyrker armbrydning" class="hero__image" fetchpriority="high"/>
 
       <div class="hero__content">
         <h1>Armbrydning Odense</h1>

@@ -56,7 +56,7 @@ defineProps({
 
   h1 {
     font-family: v.$font-heading;
-    font-size: clamp(2rem, 5vw, 5rem);
+    font-size: clamp(2.7rem, 5vw, 5rem);
     color: v.$color-lime;
     text-transform: uppercase;
     letter-spacing: 0.08em;

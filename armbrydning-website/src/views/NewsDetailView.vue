@@ -72,11 +72,7 @@ function formatNewsText(text = '') {
       <time v-if="article.date" :datetime="article.date">{{ formatDate(article.date) }}</time>
 
       <!-- Viser billedet, hvis nyheden har et-->
-      <img
-        v-if="article.imageUrl"
-        :src="article.imageUrl"
-        :alt="article.imageAlt || `Billede til nyheden: ${article.title}`"
-      />
+      <img v-if="article.imageUrl" :src="article.imageUrl" :alt="article.imageAlt || ''" />
 
       <!-- Viser hele nyhedsteksten med fremhævede tekststykker -->
       <p class="news-article__description">

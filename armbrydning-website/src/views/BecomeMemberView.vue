@@ -127,7 +127,7 @@ function previousTestimonial() {
     </ImageTextSection>
 
     <ImageTextSection
-      image="/images/12.webp"
+      image="/images/13.webp"
       image-alt="To personer, der træner armbrydning"
       image-right
       image-format="portrait"
@@ -150,6 +150,35 @@ function previousTestimonial() {
       <p>
         Hvis du finder ud af, at armbrydning er noget for dig, hjælper vi dig selvfølgelig med at
         blive medlem!
+      </p>
+    </ImageTextSection>
+
+    <ImageTextSection
+      image="/images/9.webp"
+      image-alt="Medlemmer, der træner armbrydning ved bordet"
+      image-format="portrait"
+      background-variant="secondary"
+      button-text="Læs ofte stillede spørgsmål"
+      button-to="/praktisk-info#faq"
+      button-variant="secondary"
+    >
+      <template #heading> Teknik og <span class="highlight">sikkerhed</span> </template>
+      <h3>Vi passer på hinanden ved bordet!</h3>
+      <p>
+        Armbrydning handler ikke kun om styrke, men i høj grad også om teknik. Derfor er sikkerhed
+        en vigtig del af træningen hos Armbrydning Odense.
+      </p>
+      <p>
+        Vi lærer dig, hvordan du bruger den rigtige teknik, holder en god position ved bordet og
+        undgår unødvendig belastning af armen.
+      </p>
+      <p>
+        Som i alle andre sportsgrene er der en risiko for skader, men med god vejledning og fokus på
+        sikkerhed arbejder vi på at mindske risikoen.
+      </p>
+      <p>
+        Hos os handler det om at udfordre sig selv, lære noget nyt og have det sjovt - samtidig med
+        at vi passer på hinanden!
       </p>
     </ImageTextSection>
 

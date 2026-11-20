@@ -30,7 +30,7 @@ const getImageSrc = (url) => {
     <img
       v-if="newsItem.imageUrl"
       :src="getImageSrc(newsItem.imageUrl)"
-      :alt="`Billede til nyheden: ${newsItem.title}`"
+      :alt="newsItem.imageAlt || ''"
       class="news-card-image"
       loading="lazy"
     />

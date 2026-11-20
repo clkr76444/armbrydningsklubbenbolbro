@@ -27,6 +27,7 @@ onMounted(async () => {
         description: item.description,
         date: item.date,
         imageUrl: item.imageUrl ?? '',
+        imageAlt: item.imageAlt ?? '',
       }
     })
 

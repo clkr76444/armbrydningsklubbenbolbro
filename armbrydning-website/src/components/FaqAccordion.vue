@@ -30,8 +30,8 @@ defineProps({
 .faq-accordion {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  max-width: 670px;
+  gap: 1rem;
+  max-width: 620px;
   margin-inline: auto;
 }
 
@@ -39,13 +39,14 @@ defineProps({
   overflow: hidden;
   border-radius: 8px;
   background-color: v.$color-dark-gray;
+  text-align: left;
 
   summary {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding: 1.5rem;
+    padding: 1rem 1.25rem;
     background-color: v.$color-lime;
     color: v.$color-off-black;
     font-weight: v.$font-regular;
@@ -79,7 +80,7 @@ defineProps({
 }
 
 .faq-accordion__answer {
-  padding: 1.5rem;
+  padding: 1.25rem;
   text-align: left;
 
   p {

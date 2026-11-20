@@ -69,6 +69,30 @@ const faqs = [
       'Er du i tvivl om, hvordan du kommer i gang, hjælper vi dig gerne med det praktiske.',
     ],
   },
+  {
+    question: 'Kan man komme til skade ved armbrydning?',
+    answer: [
+      'Som ved alle andre sportsgrene, er der en risiko for skader ved armbrydning. Derfor er det vigtigt at lære den rigtige teknik og træner med omtanke.',
+      'Når du er ny, hjælper vi dig med at lære de grundlæggende teknikker, så du får en god introduktion til sporten, og ved hvordan du kan passe på dig selv under træningen.',
+    ],
+  },
+  {
+    question: 'Hvordan foregår træningen?',
+    answer: [
+      'Når du kommer til din første træning, står Christel og Thomas klar til at tage imod dig.',
+      'Vi starter med at varme op sammen. Herefter bliver du introduceret til de grundlæggende teknikker, og vi viser dig, hvordan du kan dyrke armbrydning med fokus på sikkerhed.',
+      'Du får selvfølgelig også mulighed for selv at prøve kræfter med sporten, mens vi guider dig undervejs. Under træningen lærer du de andre medlemmer at kende og får en fornemmelse af fællesskabet i klubben, og hvordan en almindelig træning foregår.',
+      'Du vil hurtigt opdage, at der både er plads til spørgsmål, grin og masser af armbrydning!',
+    ],
+  },
+  {
+    question: 'Hvor længe varer en træning?',
+    answer: [
+      'En almindelig træning varer 2 timer, men du bestemmer selv, hvornår du kommer og går. Du behøver altså ikke lægge arm fra start til slut.',
+      'Hos os træner begyndere og erfarne sammen, så vi kan lære af hinanden. Øvelserne kan tilpasses dit niveau, så alle kan få mest muligt ud af træningen.',
+      'Desuden mødes vi tit om fredagen også, hvor der er plads til at få en øl eller sodavand bagefter!',
+    ],
+  },
 ]
 </script>
 
@@ -78,6 +102,7 @@ const faqs = [
       <template #description>
         Her finder du alt det praktiske om træningstider, medlemskab og kontingent.
         <br />
+        I bunden finder du svar på de mest almindelige spørgsmål om armbrydning og vores klub.
       </template>
     </PageHero>
 
@@ -155,13 +180,13 @@ const faqs = [
         </ScrollReveal>
       </section>
 
-      <section class="faq-section">
+      <section id="faq" class="faq-section">
         <ScrollReveal>
           <div class="faq-section__inner">
             <h2>Ofte stillede <span class="highlight">spørgsmål</span></h2>
 
             <p class="faq-section__intro">
-              Vi ved godt, at der kan dukke en masse spørgsmål op, når man overvejer at begynde på
+              Vi ved godt, at der kan dukke en masse spørgsmål op, når man overvejer at starte til
               en ny sport. <br />
               <br />Derfor har vi samlet svarene på nogle af de spørgsmål, vi oftest møder.
             </p>
@@ -175,9 +200,6 @@ const faqs = [
         <ScrollReveal>
           <div class="contact-cta__inner">
             <h2>Fik du ikke <span class="highlight">svar på dit spørgsmål?</span></h2>
-
-            <p>Bare rolig! Vi hjælper dig gerne.</p>
-
             <p>
               Hvis du stadig sidder med spørgsmål om medlemskab, træning eller noget helt tredje, så
               er du altid velkommen til at tage fat i os.

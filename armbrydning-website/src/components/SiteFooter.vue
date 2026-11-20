@@ -12,7 +12,7 @@ import { resetMapConsent } from '../composables/mapConsent'
       <div class="site-footer__main">
         <!-- Logo -->
         <RouterLink to="/" class="site-footer__logo">
-          <img :src="logo" alt="Armbrydning Odense" />
+          <img :src="logo" alt="Armbrydning Odense" width="60" height="auto" />
         </RouterLink>
 
         <!-- Træningstider -->

@@ -18,6 +18,7 @@ const selectedNews = ref(null);
 const deleteDialog = ref(null);
 const isDeleting = ref(false);
 const deleteError = ref("");
+const imageAlt = ref("");
 
 const unsubscribe = onAuthStateChanged(auth, (user) => {
   isAdmin.value = user?.uid === ADMIN_UID;
@@ -55,6 +56,7 @@ onMounted(async () => {
         description: item.description,
         imageUrl: item.imageUrl ?? "",
         date: item.date,
+        imageAlt: item.imageAlt ?? "",
       };
     });
 
