@@ -184,7 +184,7 @@ const sponsors = [
 
     <!-- Sektion om samarbejdspartnere -->
 
-    <section class="sponsors-section">
+    <section class="sponsors-section section-bg--secondary">
       <ScrollReveal>
         <div class="sponsors-section__inner">
           <h2>Vores <span class="highlight">samarbejdspartnere</span></h2>
@@ -203,12 +203,15 @@ const sponsors = [
 <style scoped lang="scss">
 @use '../assets/styles/variables' as v;
 
-.board-section {
+/* FÆLLES STYLING ------------------------------------ */
+
+.board-section,
+.sponsors-section {
   padding: 4rem 1.5rem;
-  background-color: v.$bg-primary;
 }
 
-.board-section__inner {
+.board-section__inner,
+.sponsors-section__inner {
   max-width: 1150px;
   margin-inline: auto;
 
@@ -221,38 +224,31 @@ const sponsors = [
   }
 }
 
+/* BESTYRELSE ------------------------------------ */
+
+.board-section {
+  background-color: v.$bg-primary;
+}
+
 .board-section__grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
-  max-width: 640px;
+  max-width: 300px;
   margin-inline: auto;
 }
 
 /* SPONSORER ------------------------------------ */
 
 .sponsors-section {
-  padding: 4rem 1.5rem;
   text-align: center;
-}
-
-.sponsors-section__inner {
-  max-width: 1150px;
-  margin-inline: auto;
-
-  h2 {
-    margin-bottom: 2rem;
-    font-family: v.$font-heading;
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    text-transform: uppercase;
-  }
 }
 
 .sponsors-section__grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
-  max-width: 900px;
+  max-width: 720px;
   margin-inline: auto;
 }
 
@@ -272,10 +268,13 @@ const sponsors = [
   }
 }
 
-// Desktop og tablet
-@media (min-width: v.$breakpoint-tablet) {
+/* BREAKPOINTS ------------------------------------ */
+
+// Tablet - fra 768px
+@media (min-width: 768px) {
   .board-section__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 640px;
   }
 
   .sponsors-section__grid {
@@ -283,9 +282,10 @@ const sponsors = [
   }
 }
 
-@media (max-width: 799px) {
-  .board-section__grid {
-    max-width: 300px;
+// Desktop - fra 1280px
+@media (min-width: v.$breakpoint-desktop) {
+  .sponsors-section__grid {
+    max-width: 900px;
   }
 }
 </style>

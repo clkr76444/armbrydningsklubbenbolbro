@@ -233,7 +233,7 @@ function onTouchEnd(event) {
   }
 
   // TABLET - Viser de første 2 billeder
-  @media (min-width: v.$breakpoint-tablet) {
+  @media (min-width: 768px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
 
     .news-carousel__link:nth-child(2) {

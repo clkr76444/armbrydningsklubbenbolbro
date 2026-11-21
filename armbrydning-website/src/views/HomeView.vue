@@ -72,17 +72,21 @@ import NewsCarousel from '../components/NewsCarousel.vue'
 <style scoped lang="scss">
 @use '../assets/styles/variables' as v;
 
+/* HERO ------------------------------------ */
+
 .hero {
   position: relative;
   display: grid;
   place-items: center;
-  min-height: 600px;
+  min-height: 100svh;
   box-sizing: border-box;
   padding-bottom: 8rem;
   overflow: hidden;
   background: v.$bg-primary;
+
   --scroll-indicator-bottom: 3.5rem;
 
+  // Mørk overlay på herobilledet
   &::after {
     content: '';
     position: absolute;
@@ -91,12 +95,17 @@ import NewsCarousel from '../components/NewsCarousel.vue'
   }
 }
 
+/* HERO BILLEDE ------------------------------------ */
+
 .hero__image {
   position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+
+/* HERO INDHOLD ------------------------------------ */
 
 .hero__content {
   position: relative;

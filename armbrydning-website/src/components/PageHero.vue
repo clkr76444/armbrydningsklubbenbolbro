@@ -69,4 +69,13 @@ defineProps({
     line-height: 1.6;
   }
 }
+
+
+  // Lidt ekstra højde på tablet
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .page-hero {
+      min-height: calc(clamp(32rem, 80svh, 50rem) + 2.5rem);
+    }
+  }
+  
 </style>

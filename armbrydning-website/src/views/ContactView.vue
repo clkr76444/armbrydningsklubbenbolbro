@@ -118,6 +118,15 @@ import PageHero from '../components/PageHero.vue'
   }
 }
 
+// CENTRERING AF FORMULAR PÅ TABLET
+.contact-section__form {
+  @media (min-width: 768px) and (max-width: 799px) {
+    width: 100%;
+    max-width: 540px;
+    margin-inline: auto;
+  }
+}
+
 // TELEFON OG E-MAIL
 .contact-section__details {
   display: flex;
