@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import NewsView from "../views/NewsView.vue";
 import { auth } from "../firebase";
+import { ADMIN_UID } from "../config/constants";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -48,8 +49,6 @@ const router = createRouter({
 });
 
 // Navigation guard for authentication
-const ADMIN_UID = "OT3NVoOeWMe2AROEUqaquMXTUnJ3";
-
 router.beforeEach(async (to) => {
   if (!to.meta.requiresAuth) return;
 

@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { ADMIN_UID } from "../config/constants";
 import { auth } from "../firebase";
 
 // Formularens værdier
@@ -19,11 +20,21 @@ function logIn() {
   isSigningIn.value = true;
 
   signInWithEmailAndPassword(auth, email.value, password.value)
-    .then((userCredential) => {
+    .then(async (userCredential) => {
       const user = userCredential.user;
+
+      // Kontrollerer om brugeren er administrator
+      if (user.uid !== ADMIN_UID) {
+        await signOut(auth);
+        errorMessage.value = "Du har ikke adgang til administrationen.";
+        password.value = "";
+        return;
+      }
+
       successMessage.value = `Du er logget ind som ${user.email}`;
       password.value = "";
     })
+
     .catch((error) => {
       console.error("Loginfejl:", error.code);
       errorMessage.value = "Login mislykkedes. Kontrollér dine oplysninger.";

@@ -225,6 +225,11 @@ async function sendMessage() {
       </p>
     </div>
 
+    <p class="privacy-note">
+      Vi behandler dine oplysninger i henhold til vores
+      <RouterLink to="/privatlivspolitik"> privatlivspolitik </RouterLink>
+    </p>
+
     <!-- Send-knap -->
     <button type="submit" class="btn btn--primary" :disabled="isSending">
       {{ isSending ? 'Sender...' : 'Send besked' }}

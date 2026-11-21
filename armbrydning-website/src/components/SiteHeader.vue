@@ -55,7 +55,7 @@ onUnmounted(() => {
     <div class="site-header__inner">
       <!-- Logoet leder til forsiden -->
       <RouterLink to="/" class="site-logo">
-        <img :src="logo" alt="Armbrydning Odense logo" width="60" height="auto" />
+        <img :src="logo" alt="Armbrydning Odense logo" width="60" height="60" />
       </RouterLink>
 
       <!-- Desktop-navigation -->

@@ -185,6 +185,11 @@ async function sendSignup() {
       <span> Jeg vil gerne modtage en bekræftelse på SMS </span>
     </label>
 
+    <p class="privacy-note">
+      Vi behandler dine oplysninger i henhold til vores
+      <RouterLink to="/privatlivspolitik"> privatlivspolitik </RouterLink>
+    </p>
+
     <!-- Aktiveres når sikker indsendelse er implementeret -->
     <button type="submit" class="btn btn--primary" :disabled="isSending">
       {{ isSending ? 'Sender...' : 'Giv klubben besked' }}

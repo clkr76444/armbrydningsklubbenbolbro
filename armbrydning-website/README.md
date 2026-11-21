@@ -1,38 +1,45 @@
-# armbrydning-website
+# Armbrydning Odense – Hjemmeside
 
-This template should help get you started developing with Vue 3 in Vite.
+Dette projekt er udviklet som en del af vores eksamensprojekt på 3. semester af multimediedesignuddannelsen på UCL Odense.
 
-## Recommended IDE Setup
+Vi har udviklet en hjemmeside til Armbrydning Odense med fokus på at gøre klubben mere synlig og attraktiv for unge i Odense.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Funktioner
 
-## Recommended Browser Setup
+- Information om klubben, træning og medlemskab.
+- Kontaktformular og tilmelding til gratis prøvetræning.
+- Nyhedsside med nyheder fra Firebase.
+- Google Maps med samtykke.
+- Responsivt design til mobil, tablet og desktop.
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+## Teknologier
 
-## Customize configuration
+Hjemmesiden er udviklet med **Vue 3, JavaScript, SCSS og Vue Router**.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+Vi har arbejdet med genanvendelige komponenter, props og slots for at gøre koden mere overskuelig og nemmere at vedligeholde.
 
-## Project Setup
+Vi bruger **Firebase Realtime Database** til nyheder og formularer, **App Check** til at beskytte databaseanmodninger og **Firebase Hosting** til deployment.
 
-```sh
-npm install
-```
+## Sådan køres projektet
 
-### Compile and Hot-Reload for Development
+Installer projektets pakker:
 
-```sh
-npm run dev
-```
+`npm install`
 
-### Compile and Minify for Production
+Start udviklingsserveren:
 
-```sh
-npm run build
-```
+`npm run dev`
+
+## Deployment
+
+Byg projektet:
+
+`npm run build`
+
+Deploy til Firebase Hosting:
+
+`firebase deploy --only hosting:website --project armbrydning-news`
+
+**Hjemmeside:** https://armbrydning-odense-website.web.app
+
+**Administration:** https://armbrydning-news.web.app

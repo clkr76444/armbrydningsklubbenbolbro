@@ -169,6 +169,7 @@ p {
   .news-card-description {
     margin: 0 0 1rem 0;
     display: -webkit-box;
+    line-clamp: 3;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;

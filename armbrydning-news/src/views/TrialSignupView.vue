@@ -2,7 +2,11 @@
 import { ref, onMounted } from "vue";
 import { getToken } from "firebase/app-check";
 import { auth, appCheck } from "../firebase";
-import { getTrialSignupsUrl, getTrialSignupItemUrl, getTrialSignupCompletedUrl } from "../config/constants";
+import {
+  getTrialSignupsUrl,
+  getTrialSignupItemUrl,
+  getTrialSignupCompletedUrl,
+} from "../config/constants";
 
 const signups = ref([]);
 const isLoading = ref(true);
@@ -14,13 +18,6 @@ const deleteDialog = ref(null);
 const isDeleting = ref(false);
 const deleteError = ref("");
 
-const subjectLabels = {
-  start: "Jeg vil gerne starte til armbrydning",
-  general: "Jeg har et generelt spørgsmål",
-  sponsor: "Jeg er interesseret i at blive sponsor",
-  other: "Andet",
-};
-
 onMounted(async () => {
   try {
     await auth.authStateReady();
@@ -31,12 +28,15 @@ onMounted(async () => {
     const idToken = await user.getIdToken();
     const { token } = await getToken(appCheck);
 
-    const response = await fetch(`${getTrialSignupsUrl()}?auth=${encodeURIComponent(idToken)}`, {
-      method: "GET",
-      headers: {
-        "X-Firebase-AppCheck": token,
+    const response = await fetch(
+      `${getTrialSignupsUrl()}?auth=${encodeURIComponent(idToken)}`,
+      {
+        method: "GET",
+        headers: {
+          "X-Firebase-AppCheck": token,
+        },
       },
-    });
+    );
 
     if (!response.ok) {
       throw new Error("Kunne ikke hente tilmeldinger");

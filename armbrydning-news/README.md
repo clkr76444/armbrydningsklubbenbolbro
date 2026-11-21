@@ -1,38 +1,53 @@
-# armbrydning-news
+# Armbrydning Odense – Administration
 
-This template should help get you started developing with Vue 3 in Vite.
+Dette er administrationssiden til Armbrydning Odenses hjemmeside. Her kan klubbens administrator oprette, redigere og slette nyheder samt se og håndtere beskeder fra hjemmesiden.
 
-## Recommended IDE Setup
+Projektet er udviklet i forbindelse med vores eksamensprojekt på 3. semester af multimediedesignuddannelsen på UCL Odense.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Funktioner
 
-## Recommended Browser Setup
+- Login med Firebase Authentication.
+- Oprette, redigere og slette nyheder.
+- Tilføje billeder og alternativ billedtekst til nyheder.
+- Se og håndtere kontaktbeskeder og tilmeldinger til prøvetræning.
+- Markere henvendelser som færdigbehandlede.
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+## Teknologier
 
-## Customize configuration
+Vi har brugt **Vue 3, JavaScript, SCSS og Vue Router** til at bygge administrationssiden.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+**Firebase** bruges til database, login, sikkerhed og hosting.
 
-## Project Setup
+## Sådan køres projektet
 
-```sh
-npm install
-```
+Installer først projektets pakker:
 
-### Compile and Hot-Reload for Development
+`npm install`
 
-```sh
-npm run dev
-```
+Start derefter udviklingsserveren:
 
-### Compile and Minify for Production
+`npm run dev`
 
-```sh
-npm run build
-```
+Projektet bruger en `.env`-fil med følgende variabel:
+
+`VITE_WEBSITE_URL=https://armbrydning-odense-website.web.app`
+
+Den bruges til at hente billeder fra den offentlige hjemmeside.
+
+## Deployment
+
+Byg projektet med:
+
+`npm run build`
+
+Deploy derefter til Firebase Hosting:
+
+`firebase deploy --only hosting:admin --project armbrydning-news`
+
+**Admin:** https://armbrydning-news.web.app
+
+**Hjemmeside:** https://armbrydning-odense-website.web.app
+
+## Sikkerhed
+
+Kun den godkendte administrator har adgang til de beskyttede sider. Vi bruger Firebase Authentication, App Check og sikkerhedsregler i Realtime Database til at beskytte løsningen.

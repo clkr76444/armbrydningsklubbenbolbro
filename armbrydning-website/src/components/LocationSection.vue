@@ -14,7 +14,7 @@ import { mapConsent } from '../composables/mapConsent'
       </p>
       <iframe
         v-if="mapConsent === 'accepted'"
-        src="https://maps.google.com/maps?q=Middelfartvej%20114%2C%205000%20Odense&output=embed"
+        src="https://maps.google.com/maps?q=Middelfartvej%20114%2C%205200%20Odense%20V&output=embed"
         title="Kort over Armbrydning Odenses adresse"
         loading="lazy"
         referrerpolicy="no-referrer"
@@ -24,7 +24,7 @@ import { mapConsent } from '../composables/mapConsent'
         <p>Google Maps er ikke aktiveret. Du kan acceptere Google Maps i cookieindstillingerne.</p>
 
         <a
-          href="https://www.google.com/maps/search/?api=1&query=Middelfartvej%20114%2C%205000%20Odense"
+          href="https://www.google.com/maps/search/?api=1&query=Middelfartvej%20114%2C%205200%20Odense%20V"
           target="_blank"
           rel="noopener noreferrer"
         >

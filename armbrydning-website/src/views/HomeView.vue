@@ -8,7 +8,12 @@ import NewsCarousel from '../components/NewsCarousel.vue'
 <template>
   <main>
     <section class="hero">
-      <img src="/images/hero.webp" alt="To personer, der dyrker armbrydning" class="hero__image" fetchpriority="high"/>
+      <img
+        src="/images/hero.webp"
+        alt="To personer, der dyrker armbrydning"
+        class="hero__image"
+        fetchpriority="high"
+      />
 
       <div class="hero__content">
         <h1>Armbrydning Odense</h1>
@@ -48,13 +53,15 @@ import NewsCarousel from '../components/NewsCarousel.vue'
         <span class="highlight">Ny</span> ved bordet? <br />Vi hjælper
         <span class="highlight">dig</span> i gang!
       </template>
+      <h3>Du behøver ikke store overarme for at være med hos os!</h3>
+      <p>Vi ved godt, at det kan være lidt grænseoverskridende at møde op et nyt sted.</p>
+
       <p>
-        <h3>Du behøver ikke store overarme for at være med hos os!</h3>
-        <br />Vi ved godt, at det kan være lidt grænseoverskridende at møde op et nyt sted.
-        <br /><br />Derfor sørger vi for, at du bliver taget godt imod og får hjælp til at komme
-        godt i gang i dit eget tempo. <br />
-        <br />Vi står klar til at tage imod dig!
+        Derfor sørger vi for, at du bliver taget godt imod og får hjælp til at komme godt i gang i
+        dit eget tempo.
       </p>
+
+      <p>Vi står klar til at tage imod dig!</p>
     </ImageTextSection>
     <LocationSection />
     <!-- Nyhedskarusellen -->

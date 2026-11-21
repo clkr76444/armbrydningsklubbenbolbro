@@ -6,6 +6,7 @@ import { database } from '../firebase'
 //reaktive variabler til nyheder og indlæsning
 const news = ref([])
 const activeIndex = ref(0)
+const slideDirection = ref('slide-next')
 const isLoading = ref(true)
 const loadError = ref('')
 
@@ -48,12 +49,23 @@ onMounted(async () => {
 
 // Skifter til næste nyhed
 function nextSlide() {
+  if (news.value.length < 2) return
+  slideDirection.value = 'slide-next'
   activeIndex.value = (activeIndex.value + 1) % news.value.length
 }
 
 // Skifter til forrige nyhed
 function previousSlide() {
+  if (news.value.length < 2) return
+  slideDirection.value = 'slide-prev'
   activeIndex.value = (activeIndex.value - 1 + news.value.length) % news.value.length
+}
+
+// Skifter til en bestemt nyhed via prikkerne
+function goToSlide(index) {
+  if (index === activeIndex.value) return
+  slideDirection.value = index > activeIndex.value ? 'slide-next' : 'slide-prev'
+  activeIndex.value = index
 }
 
 // Gemmer startpositionen ved swipe på mobil
@@ -97,29 +109,32 @@ function onTouchEnd(event) {
       <p v-else-if="news.length === 0">Der er ingen nyheder med billeder endnu</p>
 
       <div v-else class="news-carousel__content">
-        <!--Viser den aktive nyhed-->
-
-        <!-- Viser op til tre nyhedsbilleder -->
-        <div
-          class="news-carousel__grid"
-          @touchstart.passive="onTouchStart"
-          @touchend.passive="onTouchEnd"
-        >
-          <!-- Gennemgår de synlige nyheder -->
-          <RouterLink
-            v-for="item in visibleNews"
-            :key="item.id"
-            :to="{ name: 'news-detail', params: { id: item.id } }"
-            :aria-label="`Læs nyheden: ${item.title}`"
-            class="news-carousel__link"
-          >
-            <img
-              :src="item.imageUrl"
-              :alt="item.imageAlt || ''"
-              class="news-carousel__image"
-              loading="lazy"
-            />
-          </RouterLink>
+        <!-- Animerer skiftet mellem de synlige nyheder -->
+        <div class="news-carousel__viewport">
+          <Transition :name="slideDirection" mode="out-in">
+            <div
+              :key="activeIndex"
+              class="news-carousel__grid"
+              @touchstart.passive="onTouchStart"
+              @touchend.passive="onTouchEnd"
+            >
+              <!-- Viser op til tre nyhedsbilleder -->
+              <RouterLink
+                v-for="item in visibleNews"
+                :key="item.id"
+                :to="{ name: 'news-detail', params: { id: item.id } }"
+                :aria-label="`Læs nyheden: ${item.title}`"
+                class="news-carousel__link"
+              >
+                <img
+                  :src="item.imageUrl"
+                  :alt="item.imageAlt || ''"
+                  class="news-carousel__image"
+                  loading="lazy"
+                />
+              </RouterLink>
+            </div>
+          </Transition>
         </div>
 
         <!-- Navigation mellem nyhederne -->
@@ -135,7 +150,7 @@ function onTouchEnd(event) {
               :aria-label="`Vis nyhed: ${item.title}`"
               :aria-pressed="activeIndex === index"
               :class="{ 'is-active': activeIndex === index }"
-              @click="activeIndex = index"
+              @click="goToSlide(index)"
             ></button>
           </div>
 
@@ -176,6 +191,34 @@ function onTouchEnd(event) {
 .news-carousel__content {
   width: 100%;
   max-width: 1000px;
+}
+
+// Skjuler kortene, mens de glider ind og ud
+.news-carousel__viewport {
+  overflow: hidden;
+  padding: 4px; // Plads til fokusmarkering rundt om billederne
+}
+
+// Animerer hele rækken i den valgte retning
+.slide-next-enter-active,
+.slide-next-leave-active,
+.slide-prev-enter-active,
+.slide-prev-leave-active {
+  transition:
+    transform 0.2s ease-in-out,
+    opacity 0.2s ease-in-out;
+}
+
+.slide-next-enter-from,
+.slide-prev-leave-to {
+  opacity: 0;
+  transform: translateX(64px);
+}
+
+.slide-next-leave-to,
+.slide-prev-enter-from {
+  opacity: 0;
+  transform: translateX(-64px);
 }
 
 // BILLEDGRID - MOBILE FIRST
@@ -282,6 +325,13 @@ function onTouchEnd(event) {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .slide-next-enter-active,
+  .slide-next-leave-active,
+  .slide-prev-enter-active,
+  .slide-prev-leave-active {
+    transition: none;
+  }
+
   .news-carousel__controls button {
     transition: none;
   }

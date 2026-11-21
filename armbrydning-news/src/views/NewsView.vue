@@ -43,11 +43,7 @@ onMounted(async () => {
 
     const data = await response.json();
 
-    console.log("Nyheder fra Firebase:", data);
-
     const entries = Object.entries(data ?? {});
-
-    console.log("Firebase som array:", entries);
 
     const newsArray = entries.map(([id, item]) => {
       return {
@@ -122,8 +118,6 @@ async function deleteNews() {
     news.value = news.value.filter((item) => item.id !== newsId);
     deleteDialog.value.close();
     selectedNews.value = null;
-
-    console.log("Nyhed slettet:", newsId);
   } catch (error) {
     console.error("Fejl ved sletning af opslag:", error);
     deleteError.value = "Nyheden kunne ikke slettes. Prøv igen.";

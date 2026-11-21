@@ -1,4 +1,5 @@
 @use 'variables' as v;
+@use 'sass:color';
 
 // GLOBAL STYLING ------------------------------------
 *,
@@ -156,7 +157,7 @@ section[id] {
   width: 100%;
   margin: 0;
   padding: 0.75rem 1rem;
-  background-color: lighten(v.$bg-secondary, 5%);
+  background-color: color.adjust(v.$bg-secondary, $lightness: 5%);  
   color: v.$color-off-white;
   border-left: 3px solid;
   border-radius: 4px;
@@ -179,7 +180,7 @@ section[id] {
 .form-field-error {
   margin: 0;
   padding: 0.5rem 0.75rem;
-  background-color: lighten(v.$bg-secondary, 5%);
+  background-color: color.adjust(v.$bg-secondary, $lightness: 5%);
   color: v.$color-red;
   border-radius: 4px;
   font-size: 0.875rem;
@@ -250,6 +251,25 @@ select {
   cursor: pointer;
 }
 
+// PRIVACY NOTE ----------------------------------
+.privacy-note {
+  margin-top: 0.2rem;
+  font-size: 0.875rem;
+  color: #a8aaaa;
+  line-height: 1.5;
+  text-align: left;
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+
+    &:hover,
+    &:focus-visible {
+      color: v.$color-lime;
+    }
+  }
+}
 
 // Fuld knap-bredde på mobil, når det ønskes -------------------
 @media (max-width: 799px) {

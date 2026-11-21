@@ -7,6 +7,8 @@ import PracticalInfoView from '../views/PracticalInfoView.vue'
 import ContactView from '../views/ContactView.vue'
 import NewsView from '../views/NewsView.vue'
 import NewsDetailView from '../views/NewsDetailView.vue'
+import PrivacyPolicyView from '../views/PrivacyPolicyView.vue'
+import SponsorView from '../views/SponsorView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -46,6 +48,16 @@ const router = createRouter({
       path: '/nyheder/:id',
       name: 'news-detail',
       component: NewsDetailView,
+    },
+    {
+      path: '/privatlivspolitik',
+      name: 'privacy-policy',
+      component: PrivacyPolicyView,
+    },
+    {
+      path: '/bliv-sponsor',
+      name: 'sponsor',
+      component: SponsorView,
     },
     {
       path: '/:pathMatch(.*)*',
