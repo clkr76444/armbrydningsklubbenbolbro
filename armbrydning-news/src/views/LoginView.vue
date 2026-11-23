@@ -47,7 +47,7 @@ function logIn() {
 
 <template>
   <main class="news-editor-page">
-    <h1>Administratorlogin</h1>
+    <h1>Admin login</h1>
 
     <form class="news-form" @submit.prevent="logIn">
       <div class="form-field">

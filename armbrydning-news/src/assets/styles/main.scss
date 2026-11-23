@@ -20,6 +20,8 @@ h1 {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: v.$color-off-white;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 h2 {
@@ -305,10 +307,15 @@ p {
   flex-direction: column;
   align-items: center;
   padding: 2rem 1rem;
+  width: 100%;
+  box-sizing: border-box;
 
   h1 {
     margin-bottom: 2rem;
     text-align: center;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 }
 

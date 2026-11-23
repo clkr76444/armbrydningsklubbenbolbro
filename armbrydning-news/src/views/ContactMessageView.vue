@@ -2,7 +2,11 @@
 import { ref, onMounted } from "vue";
 import { getToken } from "firebase/app-check";
 import { auth, appCheck } from "../firebase";
-import { getContactsUrl, getContactCompletedUrl, getContactItemUrl } from "../config/constants";
+import {
+  getContactsUrl,
+  getContactCompletedUrl,
+  getContactItemUrl,
+} from "../config/constants";
 
 const messages = ref([]);
 const isLoading = ref(true);
@@ -30,12 +34,15 @@ onMounted(async () => {
 
     const idToken = await user.getIdToken();
     const { token } = await getToken(appCheck);
-    const response = await fetch(`${getContactsUrl()}?auth=${encodeURIComponent(idToken)}`, {
-      method: "GET",
-      headers: {
-        "X-Firebase-AppCheck": token,
+    const response = await fetch(
+      `${getContactsUrl()}?auth=${encodeURIComponent(idToken)}`,
+      {
+        method: "GET",
+        headers: {
+          "X-Firebase-AppCheck": token,
+        },
       },
-    });
+    );
 
     if (!response.ok) {
       throw new Error("Kunne ikke hente kontaktbeskeder");
@@ -149,7 +156,7 @@ async function deleteMessage() {
 
 <template>
   <main class="messages-page admin-overview-page">
-    <h1>Kontaktbeskeder</h1>
+    <h1>Kontakt beskeder</h1>
     <p>Her kan du se henvendelser fra hjemmesidens kontaktformular.</p>
     <p v-if="statusError" role="alert">{{ statusError }}</p>
 
